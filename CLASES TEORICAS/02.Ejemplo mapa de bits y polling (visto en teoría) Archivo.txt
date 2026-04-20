@@ -1,0 +1,31 @@
+typedef union {
+    struct {
+        unsigned Char:8;
+        unsigned :5;
+        unsigned P1:1;
+        unsigned P2:1;
+        unsigned Led:1;
+    };
+    unsigned valor;
+} ENTSAL_t;
+
+ENTSAL_t entsal;
+int continuar = 1;
+
+int main(void) {
+    
+    TRISD = 0xE0FF;
+    while(continuar) {
+        entsal.valor = PORTD;
+        if(entsal.Char == 'S')
+            continuar = 0;
+        if(entsal.P1 && entsal.P2)
+            entsal.Led = 1;
+        else
+            entsal.Led = 0;
+        PORTDbits.RD15 = entsal.Led;
+    }
+    
+    while(1);
+    return 0;
+}

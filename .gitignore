@@ -1,0 +1,16 @@
+# Ignorar la carpeta pesada de audios
+audios/
+
+# Ignorar los archivos originales pesados (PDF y Word)
+*.pdf
+*.doc
+*.docx
+
+# Ignorar el entorno virtual de Python
+.venv/
+__pycache__/
+*.pyc
+
+# Ignorar archivos de sistema
+.DS_Store
+Thumbs.db
