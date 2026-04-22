@@ -1,10 +1,14 @@
 # Ignorar la carpeta pesada de audios
 audios/
 
-# Ignorar los archivos originales pesados (PDF y Word)
+# Ignorar los archivos originales pesados (Documentos e Imágenes)
 *.pdf
 *.doc
 *.docx
+*.png
+*.jpg
+*.jpeg
+*.gif
 
 # Ignorar el entorno virtual de Python
 .venv/

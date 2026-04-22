@@ -22,7 +22,7 @@ disponible en el Aula Virtual.
 en el Aula Virtual. 
  
  
-### Ejercicio 1: Productor/Consumidor 
+### ### Ejercicio 1: Productor/Consumidor 
  
 El objetivo es implementar una rutina de interrupción para gestionar un buffer circular que almacene 
 datos recibidos por el Puerto B (PORTB). El sistema debe operar bajo el paradigma 
@@ -63,7 +63,7 @@ Página 1 de 2
  
 ARQUITECTURA DE COMPUTADORAS 
  
-### Ejercicio 2: Multitask 
+### ### Ejercicio 2: Multitask 
  
 Escribir un programa que simule la ejecución de tres procesos independientes (procesoA, procesoB y 
 procesoC) y concurrentes. El programa debe constar de los tres procesos, una rutina de atención 
@@ -101,5 +101,4 @@ direccion = main;
  
  
 Año 2026 
-UNPSJB – Facultad de Ingeniería 
-Página 2 de 2
+UNPSJB – Facultad de Ingeniería

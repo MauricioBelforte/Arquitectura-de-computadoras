@@ -1,17 +1,11 @@
 # Traducción de d:\Escritorio\INFORMATICA\ARQUITECTURA DE COMPUTADORAS\dsPic33FJ256GP710-70286C (Datasheet).pdf
 
-
-## Página 1
-
 © 2009 Microchip Technology Inc.
 DS70286C
 dsPIC33FJXXXGPX06/X08/X10
 Hoja de datos
 alto rendimiento,
 Controladores de señal digitales de 16 bits
-
-
-## Página 2
 
 DS70286C-página ii 
 © 2009 Microchip Technology Inc. 
@@ -108,10 +102,6 @@ dispositivos, EEPROM seriales, microperiféricos, memoria no volátil y
 productos analógicos. Además, el sistema de calidad de Microchip para el diseño 
 y la fabricación de sistemas de desarrollo cuenta con la certificación ISO 9001:2000. 
 
-
-
-## Página 3
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 1
 dsPIC33FJXXXGPX06/X08/X10
@@ -193,9 +183,6 @@ Oscilador de 32,768 kHz
 - Modo PWM sin fallos de 16 bits
 Controladores de señal digital de 16 bits de alto rendimiento
 
-
-## Página 4
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 2
 © 2009 Microchip Technology Inc.
@@ -263,9 +250,6 @@ Embalaje:
 Nota:
 Consulte las tablas de variantes del dispositivo para obtener información exacta.
 características periféricas por dispositivo.
-
-
-## Página 5
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 3
@@ -553,9 +537,6 @@ El tamaño de la RAM incluye 2 Kbytes de RAM DMA.
 2:
 El número máximo de pines de E/S incluye pines compartidos por las funciones periféricas.
 
-
-## Página 6
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 4
 © 2009 Microchip Technology Inc.
@@ -692,9 +673,6 @@ OC5/IC5/CN13/RD4
 dsPIC33FJ64GP206
 dsPIC33FJ128GP206
 = Los pines son tolerantes hasta 5V
-
-
-## Página 7
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 5
@@ -833,9 +811,6 @@ dsPIC33FJ64GP306
 dsPIC33FJ128GP306
 = Los pines son tolerantes hasta 5V
 
-
-## Página 8
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 6
 © 2009 Microchip Technology Inc.
@@ -971,9 +946,6 @@ OC6/IC6/CN14/RD5
 OC5/IC5/CN13/RD4
 dsPIC33FJ256GP506
 = Los pines son tolerantes hasta 5V
-
-
-## Página 9
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 7
@@ -1111,9 +1083,6 @@ OC5/IC5/CN13/RD4
 dsPIC33FJ64GP706
 dsPIC33FJ128GP706
 = Los pines son tolerantes hasta 5V
-
-
-## Página 10
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 8
@@ -1283,9 +1252,6 @@ SDA2/INT4/RA3
 SCL2/INT3/RA2
 dsPIC33FJ128GP708
 = Los pines son tolerantes hasta 5V
-
-
-## Página 11
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 9
@@ -1496,9 +1462,6 @@ dsPIC33FJ128GP310
 100
 = Los pines son tolerantes hasta 5V
 
-
-## Página 12
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 10
 © 2009 Microchip Technology Inc.
@@ -1706,9 +1669,6 @@ TCK/RA1
 dsPIC33FJ256GP510
 100
 = Los pines son tolerantes hasta 5V
-
-
-## Página 13
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 11
@@ -1920,9 +1880,6 @@ dsPIC33FJ256GP710
 dsPIC33FJ64GP710
 = Los pines son tolerantes hasta 5V
 
-
-## Página 14
-
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 12 
 © 2009 Microchip Technology Inc. 
@@ -1993,10 +1950,6 @@ Cuando se comunique con una oficina de ventas, especifique qué dispositivo, rev
 usando. 
 Sistema de notificación al cliente 
 Regístrese en nuestro sitio web en www.microchip.com para recibir la información más actualizada sobre todos nuestros productos. 
-
-
-
-## Página 15
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 13
@@ -2092,9 +2045,6 @@ secciones de referencia del archivo “dsPIC33F
 Manual de referencia familiar”, que es
 disponible en el sitio web de Microchip
 (www.microchip.com).
-
-
-## Página 16
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 14
@@ -2216,9 +2166,6 @@ PORTAF
 PUERTO
 Unidades generadoras de direcciones
 1-9
-
-
-## Página 17
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 15
@@ -2407,9 +2354,6 @@ P = potencia
 ST = Entrada Schmitt Trigger con niveles CMOS;
 O = Salida;
 Yo = entrada
-
-
-## Página 18
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 16
@@ -2600,9 +2544,6 @@ ST = Entrada Schmitt Trigger con niveles CMOS;
 O = Salida;
 Yo = entrada
 
-
-## Página 19
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 17
 dsPIC33FJXXXGPX06/X08/X10
@@ -2698,9 +2639,6 @@ Nota:
 Los pines AVDD y AVSS deben estar
 conectado independientemente del ADC
 fuente de referencia de voltaje.
-
-
-## Página 20
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 18
@@ -2816,9 +2754,6 @@ MCLR
 dsPIC33F
 J.P.
 
-
-## Página 21
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 19
 dsPIC33FJXXXGPX06/X08/X10
@@ -2899,9 +2834,6 @@ Oscilador
 19
 20
 
-
-## Página 22
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 20
 © 2009 Microchip Technology Inc.
@@ -2956,9 +2888,6 @@ Los pines de E/S no utilizados deben configurarse como salidas y
 llevado a un estado de lógica baja.
 Alternativamente, conecte una resistencia de 1k a 10k al VSS en
 pines no utilizados y llevar la salida a lógica baja.
-
-
-## Página 23
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 21 
@@ -3086,10 +3015,6 @@ web
 sitio 
 (www.microchip.com). 
 
-
-
-## Página 24
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 22
 © 2009 Microchip Technology Inc.
@@ -3162,9 +3087,6 @@ Bloque de control
 Memoria de programa
 Bloqueo de datos
 Pestillo de dirección
-
-
-## Página 25
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 23
@@ -3255,9 +3177,6 @@ Dirección final del bucle DO
 FINALIZAR
    22
 c
-
-
-## Página 26
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 24
@@ -3350,9 +3269,6 @@ Nivel. El valor entre paréntesis indica la IPL si IPL<3> = 1. Las interrupcione
 IPL<3> = 1.
 3: Los bits de estado de IPL<2:0> se leen solo cuando NSTDIS = 1 (INTCON1<15>).
 
-
-## Página 27
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 25
 dsPIC33FJXXXGPX06/X08/X10
@@ -3402,9 +3318,6 @@ Nota 1: Este bit puede leerse o borrarse (no establecerse).
 Nivel. El valor entre paréntesis indica la IPL si IPL<3> = 1. Las interrupciones del usuario se desactivan cuando
 IPL<3> = 1.
 3: Los bits de estado de IPL<2:0> se leen solo cuando NSTDIS = 1 (INTCON1<15>).
-
-
-## Página 28
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 26
@@ -3506,9 +3419,6 @@ IF: Modo multiplicador entero o fraccionario Seleccionar bit
 0 = Modo fraccionario habilitado para operaciones múltiples de DSP
 Nota 1: Este bit siempre se leerá como "0".
 2: El bit IPL3 se concatena con los bits IPL<2:0> (SR<7:5>) para formar el nivel de prioridad de interrupción de la CPU.
-
-
-## Página 29
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 27
@@ -3665,7 +3575,6 @@ A = A – x * y
 si
 
   
-## Página 30
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 28
@@ -3709,9 +3618,6 @@ Llevar/pedir prestado
 40
 Multiplicador/Escalador
 17 bits
-
-
-## Página 31
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 29 
@@ -3851,10 +3757,6 @@ OVBTE) en el registro INTCON1 (consulte la Sección 7.0
 tomar medidas inmediatas, por ejemplo, para corregir el sistema 
 ganar. 
 
-
-
-## Página 32
-
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 30 
 © 2009 Microchip Technology Inc. 
@@ -3990,10 +3892,6 @@ abordar el espacio de datos combinado de MCU (X e Y)
 a través del autobús X. Para esta clase de instrucciones, los datos 
 siempre está sujeto a redondeo. 
 
-
-
-## Página 33
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 31
 dsPIC33FJXXXGPX06/X08/X10
@@ -4040,16 +3938,10 @@ presentado a la palanca de cambios del cañón entre las posiciones de la broca 
 a 31 para desplazamientos a la derecha y entre las posiciones de bits 0 a 16
 para turnos a la izquierda.
 
-
-## Página 34
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 32
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 35
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 33
@@ -4179,9 +4071,6 @@ No implementado
 0x02AC00
 0x02ABFE
 
-
-## Página 36
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 34
 © 2009 Microchip Technology Inc.
@@ -4248,9 +4137,6 @@ Ancho de instrucción
 msw
 Dirección
 (dirección lsw)
-
-
-## Página 37
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 35 
@@ -4370,10 +4256,6 @@ consulte las tablas de dispositivos correspondientes
 y diagramas de distribución de pines para dispositivos específicos 
 información. 
 
-
-
-## Página 38
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 36
 © 2009 Microchip Technology Inc.
@@ -4428,9 +4310,6 @@ X datos
 No implementado (X)
 RAM DMA
 RAM de datos (Y)
-
-
-## Página 39
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 37
@@ -4490,9 +4369,6 @@ No implementado (X)
 RAM DMA
 RAM de datos (Y)
 
-
-## Página 40
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 38
 © 2009 Microchip Technology Inc.
@@ -4546,9 +4422,6 @@ Dirección
 MSB
 Dirección
 RAM DMA
-
-
-## Página 41
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 39
@@ -4611,9 +4484,6 @@ Nota:
 DMA RAM se puede utilizar para fines generales.
 propósito de almacenamiento de datos si la función DMA
 no es obligatorio en una solicitud.
-
-
-## Página 42
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 40
@@ -4889,9 +4759,6 @@ xxxx
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 43
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 41
 dsPIC33FJXXXGPX06/X08/X10
@@ -4969,9 +4836,6 @@ Todos
 Se reinicia
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 44
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 42
@@ -5255,9 +5119,6 @@ CN18PUE CN17PUE CN16PUE
 0000
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 45
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 43
@@ -5738,9 +5599,6 @@ VECNUM<6:0>
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 46
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 44
 © 2009 Microchip Technology Inc.
@@ -6021,9 +5879,6 @@ TCS
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 47
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 45
 dsPIC33FJXXXGPX06/X08/X10
@@ -6212,9 +6067,6 @@ MIC<2:0>
 0000
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 48
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 46
@@ -6444,9 +6296,6 @@ OCM<2:0>
 0000
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 49
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 47
@@ -6687,9 +6536,6 @@ Registro de máscara de dirección
 0000
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 50
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 48
@@ -7036,9 +6882,6 @@ Registro de búfer de transmisión y recepción SPI2
 0000
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 51
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 49
@@ -7423,9 +7266,6 @@ DMABL<2:0>
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 52
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 50
 © 2009 Microchip Technology Inc.
@@ -7755,9 +7595,6 @@ PAD<15:0>
 Leyenda:
 — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 53
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 51
 dsPIC33FJXXXGPX06/X08/X10
@@ -7931,9 +7768,6 @@ Todos
 Se reinicia
 Leyenda:
 — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 54
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 52
@@ -8275,9 +8109,6 @@ xxxx
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 55
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 53
 dsPIC33FJXXXGPX06/X08/X10
@@ -8533,9 +8364,6 @@ xxxx
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 56
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 54
 © 2009 Microchip Technology Inc.
@@ -8633,9 +8461,6 @@ Todos
 Se reinicia
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 57
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 55
@@ -9009,9 +8834,6 @@ xxxx
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 58
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 56
 © 2009 Microchip Technology Inc.
@@ -9264,9 +9086,6 @@ xxxx
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 59
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 57
 dsPIC33FJXXXGPX06/X08/X10
@@ -9369,9 +9188,6 @@ Todos
 Se reinicia
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
-
-
-## Página 60
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 58
@@ -9720,9 +9536,6 @@ x = valor desconocido al restablecer, — = no implementado, leído como '0'. Lo
 Nota
 1:
 El conjunto real de pines del puerto de E/S varía de un dispositivo a otro. Consulte los diagramas de distribución de pines correspondientes.
-
-
-## Página 61
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 59
@@ -10101,9 +9914,6 @@ Nota
 1:
 El conjunto real de pines del puerto de E/S varía de un dispositivo a otro. Consulte los diagramas de distribución de pines correspondientes.
 
-
-## Página 62
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 60
 © 2009 Microchip Technology Inc.
@@ -10446,9 +10256,6 @@ AD2MD
 Leyenda:
 x = valor desconocido al restablecer, — = no implementado, leído como '0'. Los valores de reinicio se muestran en hexadecimal.
 
-
-## Página 63
-
 © 2009 Microchip Technology Inc. 
 DS70286C-página 61 
 dsPIC33FJXXXGPX06/X08/X10 
@@ -10559,10 +10366,6 @@ No todas las instrucciones soportan todos los
 modos de direccionamiento indicados anteriormente. Individual 
 Las instrucciones pueden admitir diferentes subconjuntos. 
 de estos modos de direccionamiento. 
-
-
-
-## Página 64
 
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 62 
@@ -10682,10 +10485,6 @@ Registro indirecto con compensación de registro
 El modo de direccionamiento solo está disponible para W9 
 (en el espacio X) y W11 (en el espacio Y). 
 
-
-
-## Página 65
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 63
 dsPIC33FJXXXGPX06/X08/X10
@@ -10795,9 +10594,6 @@ OTRA VEZ:
 INC W0, W0
 ;incrementar el valor de relleno
 
-
-## Página 66
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 64
 © 2009 Microchip Technology Inc.
@@ -10896,9 +10692,6 @@ Sin embargo,
 módulo
 El direccionamiento seguirá funcionando en el X
 RAGU.
-
-
-## Página 67
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 65
@@ -11094,9 +10887,6 @@ decimales
 1
 15
 
-
-## Página 68
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 66
 © 2009 Microchip Technology Inc.
@@ -11204,9 +10994,6 @@ Nota 1:
 Los datos EA<15> siempre son '1' en este caso, pero no se utilizan para calcular la dirección del espacio del programa. Bit 15 de 
 la dirección es PSVPAG<0>.
 
-
-## Página 69
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 67
 dsPIC33FJXXXGPX06/X08/X10
@@ -11243,9 +11030,6 @@ Nota 1: El LSb de las direcciones del espacio del programa siempre se fija en '0
 Alineación de datos en el programa y espacios de datos.
 2: No es necesario que las operaciones de tabla estén alineadas por palabras. Se permiten operaciones de lectura de tablas.
 en el espacio de la memoria de configuración.
-
-
-## Página 70
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 68
@@ -11333,9 +11117,6 @@ La dirección para la operación de la tabla está determinada por los datos EA
 dentro de la página definida por el registro TBLPAG. 
 Sólo se muestran las operaciones de lectura; Las operaciones de escritura también son válidas en
 el área de memoria del usuario.
-
-
-## Página 71
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 69
@@ -11432,16 +11213,10 @@ del programa real
 dirección espacial.
 Área del PSV
 
-
-## Página 72
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 70
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 73
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 71
@@ -11531,9 +11306,6 @@ Instrucción de mesa
 Usando
 Usuario/Configuración
 Seleccionar espacio
-
-
-## Página 74
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 72
@@ -11658,9 +11430,6 @@ TRW
 =
 =
 
-
-## Página 75
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 73
 dsPIC33FJXXXGPX06/X08/X10
@@ -11755,9 +11524,6 @@ Si BORRAR = 0:
 Nota 1: Estos bits solo se pueden restablecer en POR.
 2: Todas las demás combinaciones de NVMOP<3:0> no están implementadas.
 
-
-## Página 76
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 74
 © 2009 Microchip Technology Inc.
@@ -11806,9 +11572,6 @@ bit 15-8
 No implementado: leído como "0"
 poco 7-0
 NVMKEY<7:0>: bits de registro de clave (solo escritura)
-
-
-## Página 77
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 75
@@ -11931,9 +11694,6 @@ NOP
 NOP
 ; el comando es afirmado
 
-
-## Página 78
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 76
 © 2009 Microchip Technology Inc.
@@ -12038,9 +11798,6 @@ NOP
 NOP
 ; se afirma el comando de borrado
 
-
-## Página 79
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 77
 dsPIC33FJXXXGPX06/X08/X10
@@ -12120,9 +11877,6 @@ SYSRST
 Aumento del VDD
 detectar
 POR
-
-
-## Página 80
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 78
@@ -12225,9 +11979,6 @@ provocar un reinicio del dispositivo.
 2: Si el bit de configuración FWDTEN es '1' (no programado), el WDT siempre está habilitado, independientemente del
 Configuración de bits SWDTEN.
 
-
-## Página 81
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 79
 dsPIC33FJXXXGPX06/X08/X10
@@ -12303,9 +12054,6 @@ Puntas de control COSC
 (OSCCON<14:12>)
 WDTR
 ROE
-
-
-## Página 82
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 80
@@ -12469,9 +12217,6 @@ TLOCK = tiempo de bloqueo de PLL (20 μs nominal).
 6:
 TFSCM = Retardo del monitor de reloj a prueba de fallos (100 μs nominales).
 
-
-## Página 83
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 81
 dsPIC33FJXXXGPX06/X08/X10
@@ -12564,9 +12309,6 @@ programado con la dirección de un defecto
 Rutina de manejo de interrupciones que contiene una
 Instrucción RESET.
 
-
-## Página 84
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 82
 © 2009 Microchip Technology Inc.
@@ -12641,9 +12383,6 @@ Tabla de vectores de interrupción (IVT)(1)
 Tabla de vectores de interrupción alternativa (AIVT) (1) 
 Nota 1:
 Consulte la Tabla 7-1 para obtener la lista de vectores de interrupción implementados.
-
-
-## Página 85
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 83
@@ -12889,9 +12628,6 @@ OC8 – Comparación de salida 8
 0x00016E
 Reservado
 
-
-## Página 86
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 84
 © 2009 Microchip Technology Inc.
@@ -13081,9 +12817,6 @@ Dirección IVT
 Dirección AIVT
 Fuente de interrupción
 
-
-## Página 87
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 85
 dsPIC33FJXXXGPX06/X08/X10
@@ -13141,9 +12874,6 @@ nivel de prioridad. IPL3 es un bit de sólo lectura para que los eventos de capt
 no puede ser enmascarado por el software del usuario.
 Todos los registros de interrupción se describen en el Registro 7-1.
 a través del Registro 7-32, en las siguientes páginas.
-
-
-## Página 88
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 86
@@ -13265,9 +12995,6 @@ IPL3: Bit de estado 3(2) del nivel de prioridad de interrupción de la CPU
 Nota 1: Para obtener detalles completos del registro, consulte el Registro 3-2: “CORCON: REGISTRO DE CONTROL DEL NÚCLEO”.
 2: El bit IPL3 se concatena con los bits IPL<2:0> (SR<7:5>) para formar el nivel de prioridad de interrupción de la CPU.
 
-
-## Página 89
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 87
 dsPIC33FJXXXGPX06/X08/X10
@@ -13367,9 +13094,6 @@ MATHERR: Bit de estado de error aritmético
 1 = Se ha producido una trampa de error matemático
 0 = No se ha producido la trampa de error matemático
 
-
-## Página 90
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 88
 © 2009 Microchip Technology Inc.
@@ -13389,9 +13113,6 @@ poco 0
 No implementado: leído como "0"
 REGISTRO 7-3:
 INTCON1: REGISTRO DE CONTROL DE INTERRUPCIONES 1 (CONTINUACIÓN)
-
-
-## Página 91
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 89
@@ -13473,9 +13194,6 @@ poco 0
 INT0EP: Interrupción externa 0 Bit de selección de polaridad de detección de flanco
 1 = Interrupción en flanco negativo 
 0 = Interrupción en flanco positivo
-
-
-## Página 92
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 90
@@ -13578,9 +13296,6 @@ T1IF: Bit de estado del indicador de interrupción del temporizador 1
 1 = Se ha producido una solicitud de interrupción
 0 = La solicitud de interrupción no se ha producido
 
-
-## Página 93
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 91
 dsPIC33FJXXXGPX06/X08/X10
@@ -13598,9 +13313,6 @@ INT0IF: Bit de estado de indicador de interrupción externa 0
 0 = La solicitud de interrupción no se ha producido
 REGÍSTRESE 7-5:
 IFS0: REGISTRO DE ESTADO DE INDICADOR DE INTERRUPCIÓN 0 (CONTINUACIÓN)
-
-
-## Página 94
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 92
@@ -13701,9 +13413,6 @@ INT1IF: Bit de estado de indicador de interrupción externa 1
 1 = Se ha producido una solicitud de interrupción
 0 = La solicitud de interrupción no se ha producido
 
-
-## Página 95
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 93
 dsPIC33FJXXXGPX06/X08/X10
@@ -13723,9 +13432,6 @@ SI2C1IF: Bit de estado del indicador de interrupción de eventos del esclavo I2C
 0 = La solicitud de interrupción no se ha producido
 REGISTRAR 7-6:
 IFS1: REGISTRO 1 DE ESTADO DE INDICADOR DE INTERRUPCIÓN (CONTINUACIÓN)
-
-
-## Página 96
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 94
@@ -13828,9 +13534,6 @@ C1IF: Bit de estado del indicador de interrupción de evento ECAN1
 1 = Se ha producido una solicitud de interrupción
 0 = La solicitud de interrupción no se ha producido
 
-
-## Página 97
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 95
 dsPIC33FJXXXGPX06/X08/X10
@@ -13848,9 +13551,6 @@ SPI2EIF: Bit de estado del indicador de interrupción de error SPI2
 0 = La solicitud de interrupción no se ha producido
 REGÍSTRESE 7-7:
 IFS2: REGISTRO DE ESTADO DE INDICADOR DE INTERRUPCIÓN 2 (CONTINUACIÓN)
-
-
-## Página 98
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 96
@@ -13955,9 +13655,6 @@ T7IF: Bit de estado del indicador de interrupción del temporizador 7
 1 = Se ha producido una solicitud de interrupción
 0 = La solicitud de interrupción no se ha producido
 
-
-## Página 99
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 97
 dsPIC33FJXXXGPX06/X08/X10
@@ -14038,9 +13735,6 @@ U1EIF: Bit de estado del indicador de interrupción de error UART1
 0 = La solicitud de interrupción no se ha producido
 poco 0
 No implementado: leído como "0"
-
-
-## Página 100
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 98
@@ -14143,9 +13837,6 @@ T1IE: Bit de habilitación de interrupción del temporizador 1
 1 = Solicitud de interrupción habilitada
 0 = Solicitud de interrupción no habilitada
 
-
-## Página 101
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 99
 dsPIC33FJXXXGPX06/X08/X10
@@ -14163,9 +13854,6 @@ INT0IE: Interrupción externa 0 bit de habilitación
 0 = Solicitud de interrupción no habilitada
 REGISTRO 7-10:
 IEC0: REGISTRO DE CONTROL DE HABILITACIÓN DE INTERRUPCIÓN 0 (CONTINUACIÓN)
-
-
-## Página 102
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 100
@@ -14266,9 +13954,6 @@ INT1IE: Interrupción externa 1 bit de habilitación
 1 = Solicitud de interrupción habilitada
 0 = Solicitud de interrupción no habilitada
 
-
-## Página 103
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 101
 dsPIC33FJXXXGPX06/X08/X10
@@ -14288,9 +13973,6 @@ SI2C1IE: Bit de habilitación de interrupción de eventos esclavos I2C1
 0 = Solicitud de interrupción no habilitada
 REGISTRO 7-11:
 IEC1: REGISTRO DE CONTROL DE HABILITACIÓN DE INTERRUPCIÓN 1 (CONTINUACIÓN)
-
-
-## Página 104
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 102
@@ -14393,9 +14075,6 @@ C1IE: Bit de habilitación de interrupción de evento ECAN1
 1 = Solicitud de interrupción habilitada
 0 = Solicitud de interrupción no habilitada
 
-
-## Página 105
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 103
 dsPIC33FJXXXGPX06/X08/X10
@@ -14413,9 +14092,6 @@ SPI2EIE: Bit de habilitación de interrupción de error SPI2
 0 = Solicitud de interrupción no habilitada
 REGISTRO 7-12:
 IEC2: REGISTRO DE CONTROL DE HABILITACIÓN DE INTERRUPCIÓN 2 (CONTINUACIÓN)
-
-
-## Página 106
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 104
@@ -14520,9 +14196,6 @@ T7IE: Bit de habilitación de interrupción del temporizador 7
 1 = Solicitud de interrupción habilitada
 0 = Solicitud de interrupción no habilitada
 
-
-## Página 107
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 105
 dsPIC33FJXXXGPX06/X08/X10
@@ -14603,9 +14276,6 @@ U1EIE: Bit de habilitación de interrupción de error UART1
 0 = Solicitud de interrupción no habilitada
 poco 0
 No implementado: leído como "0"
-
-
-## Página 108
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 106
@@ -14690,9 +14360,6 @@ INT0IP<2:0>: Interrupción externa 0 bits de prioridad
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 109
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 107
 dsPIC33FJXXXGPX06/X08/X10
@@ -14775,9 +14442,6 @@ DMA0IP<2:0>: Bits de prioridad de interrupción completa de transferencia de dat
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 110
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 108
@@ -14862,9 +14526,6 @@ T3IP<2:0>: Bits de prioridad de interrupción del temporizador 3
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 111
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 109
 dsPIC33FJXXXGPX06/X08/X10
@@ -14940,9 +14601,6 @@ U1TXIP<2:0>: Bits de prioridad de interrupción del transmisor UART1
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 112
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 110
 © 2009 Microchip Technology Inc.
@@ -15016,9 +14674,6 @@ SI2C1IP<2:0>: Bits de prioridad de interrupción de eventos esclavos I2C1
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 113
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 111
@@ -15103,9 +14758,6 @@ INT1IP<2:0>: Bits de prioridad de interrupción externa 1
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 114
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 112
 © 2009 Microchip Technology Inc.
@@ -15188,9 +14840,6 @@ DMA2IP<2:0>: Bits de prioridad de interrupción completa de transferencia de dat
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 115
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 113
@@ -15275,9 +14924,6 @@ T5IP<2:0>: Bits de prioridad de interrupción del temporizador 5
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 116
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 114
 © 2009 Microchip Technology Inc.
@@ -15360,9 +15006,6 @@ SPI2EIP<2:0>: Bits de prioridad de interrupción de error SPI2
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 117
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 115
@@ -15447,9 +15090,6 @@ DMA3IP<2:0>: Bits de prioridad de interrupción completa de transferencia de dat
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 118
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 116
 © 2009 Microchip Technology Inc.
@@ -15533,9 +15173,6 @@ IC6IP<2:0>: Bits de prioridad de interrupción del canal 6 de captura de entrada
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 119
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 117
 dsPIC33FJXXXGPX06/X08/X10
@@ -15610,9 +15247,6 @@ OC8IP<2:0>: Bits de prioridad de interrupción del canal 8 de comparación de sa
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 120
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 118
@@ -15697,9 +15331,6 @@ T7IP<2:0>: Bits de prioridad de interrupción del temporizador 7
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 121
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 119
 dsPIC33FJXXXGPX06/X08/X10
@@ -15783,9 +15414,6 @@ T9IP<2:0>: Bits de prioridad de interrupción del temporizador 9
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 122
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 120
 © 2009 Microchip Technology Inc.
@@ -15853,9 +15481,6 @@ C2IP<2:0>: Bits de prioridad de interrupción de evento ECAN2
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 123
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 121
 dsPIC33FJXXXGPX06/X08/X10
@@ -15921,9 +15546,6 @@ DCIIP<2:0>: Bits de prioridad de interrupción de evento DCI
 •
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
-
-
-## Página 124
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 122
@@ -15993,9 +15615,6 @@ U1EIP<2:0>: Bits de prioridad de interrupción de error UART1
 000 = La fuente de interrupción está deshabilitada
 poco 3-0
 No implementado: leído como "0"
-
-
-## Página 125
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 123
@@ -16081,9 +15700,6 @@ DMA6IP<2:0>: Bits de prioridad de interrupción completa de transferencia de dat
 001 = La interrupción tiene prioridad 1
 000 = La fuente de interrupción está deshabilitada
 
-
-## Página 126
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 124
 © 2009 Microchip Technology Inc.
@@ -16144,9 +15760,6 @@ VECNUM<6:0>: Número vectorial de bits de interrupción pendientes
 •
 0000001 = El vector de interrupción pendiente es el número 9
 0000000 = El vector de interrupción pendiente es el número 8
-
-
-## Página 127
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 125
@@ -16219,16 +15832,10 @@ En un reinicio del dispositivo, los registros IPCx se
 inicializado, de modo que todos los usuarios interrumpan
 Las fuentes se asignan al nivel de prioridad 4.
 
-
-## Página 128
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 126
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 129
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 127
@@ -16354,9 +15961,6 @@ Recepción ECAN2
 Transmisión ECAN2
 71
 
-
-## Página 130
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 128
 © 2009 Microchip Technology Inc.
@@ -16409,9 +16013,6 @@ controlar
 Controlador DMA
 DMA
 Canales
-
-
-## Página 131
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 129
@@ -16498,9 +16099,6 @@ MODE<1:0>: Bits de selección del modo de funcionamiento del canal DMA
 01 = Modos One-Shot, Ping-Pong deshabilitados
 00 = Continuo, modos Ping-Pong deshabilitados
 
-
-## Página 132
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 130
 © 2009 Microchip Technology Inc.
@@ -16563,9 +16161,6 @@ IRQSEL<6:0>: Bits de selección de número IRQ periférico DMA(2)
 Nota 1: El usuario no puede borrar el bit FORCE. El hardware borra el bit FORCE cuando se activa el bit FORCE.
 La transferencia DMA está completa.
 2: Consulte la Tabla 8-1 para obtener una lista completa de los números IRQ para todas las fuentes de interrupción.
-
-
-## Página 133
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 131
@@ -16640,9 +16235,6 @@ U = Bit no implementado, leído como '0'
 x = El bit es desconocido
 poco 15-0
 STB<15:0>: Bits de dirección de inicio de RAM DMA secundaria (origen o destino)
-
-
-## Página 134
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 132
@@ -16730,9 +16322,6 @@ CNT<9:0>: Bits de registro de recuento de transferencia DMA(2)
 Nota 1: Si el canal está habilitado (es decir, activo), las escrituras en este registro pueden provocar un comportamiento impredecible del
 Canal DMA y debe evitarse.
 2: Número de transferencias DMA = CNT<9:0> + 1.
-
-
-## Página 135
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 133
@@ -16834,9 +16423,6 @@ XWCOL4: Bit de indicador de colisión de escritura de RAM DMA del canal 4
 1 = Colisión de escritura detectada
 0 = No se detectó ninguna colisión de escritura
 
-
-## Página 136
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 134
 © 2009 Microchip Technology Inc.
@@ -16858,9 +16444,6 @@ XWCOL0: Bit de bandera de colisión de escritura de RAM DMA del canal 0
 0 = No se detectó ninguna colisión de escritura
 REGÍSTRESE 8-7:
 DMACS0: REGISTRO DE ESTADO DEL CONTROLADOR DMA 0 (CONTINUACIÓN)
-
-
-## Página 137
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 135
@@ -16956,9 +16539,6 @@ PPST0: Bit de indicador de estado del modo ping-pong del canal 0
 1 = registro DMA0STB seleccionado
 0 = registro DMA0STA seleccionado
 
-
-## Página 138
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 136
 © 2009 Microchip Technology Inc.
@@ -16997,9 +16577,6 @@ U = Bit no implementado, leído como '0'
 x = El bit es desconocido
 poco 15-0
 DSADR<15:0>: dirección RAM DMA más reciente a la que acceden los bits del controlador DMA
-
-
-## Página 139
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 137
@@ -17093,9 +16670,6 @@ Oscilador primario
 R(2)
 POSCMD<1:0>
 FP
-
-
-## Página 140
 
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 138 
@@ -17248,10 +16822,6 @@ N1 N2
 
 > Error de traducción: =
 
-
-
-## Página 141
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 139
 dsPIC33FJXXXGPX06/X08/X10
@@ -17390,9 +16960,6 @@ N1
 m
 N2
 
-
-## Página 142
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 140
 © 2009 Microchip Technology Inc.
@@ -17489,9 +17056,6 @@ Consulte el “Manual de referencia de la familia dsPIC33F” (disponible en el 
 Esto se aplica a los interruptores de reloj en cualquier dirección. En estos casos, la aplicación debe cambiar al modo FRC.
 como fuente de reloj de transición entre los dos modos PLL.
 
-
-## Página 143
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 141
 dsPIC33FJXXXGPX06/X08/X10
@@ -17510,9 +17074,6 @@ Consulte el “Manual de referencia de la familia dsPIC33F” (disponible en el 
 2: No se permiten cambios de reloj directo entre cualquier modo de oscilador primario con modo PLL y FRCPLL.
 Esto se aplica a los interruptores de reloj en cualquier dirección. En estos casos, la aplicación debe cambiar al modo FRC.
 como fuente de reloj de transición entre los dos modos PLL.
-
-
-## Página 144
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 142
@@ -17602,9 +17163,6 @@ PLLPRE<4:0>: Bits divisores de entrada del detector de fase PLL (también denomi
 11111 = Entrada/33
 Nota 1: Este bit se borra cuando se establece el bit ROI y se produce una interrupción.
 
-
-## Página 145
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 143
 dsPIC33FJXXXGPX06/X08/X10
@@ -17663,9 +17221,6 @@ PLLDIV<8:0>: Bits divisores de retroalimentación de PLL (también denominados '
 •
 •
 111111111 = 513
-
-
-## Página 146
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 144
@@ -17733,9 +17288,6 @@ TUN<5:0>: Bits de sintonización del oscilador FRC(1)
 Nota 1: La funcionalidad OSCTUN se ha proporcionado para ayudar a los clientes a compensar los efectos de la temperatura en el
 Frecuencia FRC en un amplio rango de temperaturas. El tamaño del paso de sintonización es una aproximación y no es ni
 caracterizado ni probado.
-
-
-## Página 147
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 145 
@@ -17886,17 +17438,10 @@ Sección
 (DS70186) en la “familia dsPIC33F 
 Manual de referencia” para obtener más detalles. 
 
-
-
-## Página 148
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 146
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 149
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 147
@@ -18012,9 +17557,6 @@ PWRSAV
 #IDLE_MODE
 ; Ponga el dispositivo en modo IDLE
 
-
-## Página 150
-
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 148 
 © 2009 Microchip Technology Inc. 
@@ -18126,10 +17668,6 @@ habilitado después de un retraso de 1 ciclo de instrucción
 ya están configurados para habilitar el módulo 
 operación). 
 
-
-
-## Página 151
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 149
 dsPIC33FJXXXGPX06/X08/X10
@@ -18230,9 +17768,6 @@ C2MD: Bit de desactivación del módulo ECAN2
 1 = el módulo ECAN2 está deshabilitado
 0 = el módulo ECAN2 está habilitado
 
-
-## Página 152
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 150
 © 2009 Microchip Technology Inc.
@@ -18246,9 +17781,6 @@ AD1MD: Bit de desactivación del módulo ADC1
 0 = el módulo ADC1 está habilitado
 REGISTRO 10-1:
 PMD1: MÓDULO PERIFÉRICO DESACTIVAR REGISTRO DE CONTROL 1 (CONTINUACIÓN)
-
-
-## Página 153
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 151
@@ -18348,9 +17880,6 @@ OC5MD: Bit de desactivación de 5 módulos de comparación de salida
 1 = El módulo de comparación de salida 5 está deshabilitado
 0 = El módulo de comparación de salida 5 está habilitado
 
-
-## Página 154
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 152
 © 2009 Microchip Technology Inc.
@@ -18372,9 +17901,6 @@ OC1MD: Bit de desactivación de módulo de comparación de salida 1
 0 = Comparación de salida 1 módulo habilitado
 REGISTRO 10-2:
 PMD2: MÓDULO PERIFÉRICO DESACTIVAR REGISTRO DE CONTROL 2 (CONTINUACIÓN)
-
-
-## Página 155
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 153
@@ -18452,16 +17978,10 @@ AD2MD: Bit de desactivación del módulo AD2
 1 = el módulo AD2 está deshabilitado
 0 = módulo AD2 habilitado
 
-
-## Página 156
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 154
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 157
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 155
@@ -18561,9 +18081,6 @@ Datos de salida
 Datos de entrada
 Habilitación del módulo periférico
 Leer LAT
-
-
-## Página 158
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 156
@@ -18672,9 +18189,6 @@ btss
 PUERTO, #13
 ; Siguiente instrucción
 
-
-## Página 159
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 157
 dsPIC33FJXXXGPX06/X08/X10
@@ -18765,9 +18279,6 @@ Sincronizar
 Puerta
 Sincronizar
 
-
-## Página 160
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 158
 © 2009 Microchip Technology Inc.
@@ -18857,9 +18368,6 @@ TCS: Bit de selección de fuente de reloj del temporizador 1
 0 = Reloj interno (FCY)
 poco 0
 No implementado: leído como "0"
-
-
-## Página 161
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 159 
@@ -18988,10 +18496,6 @@ Nota:
 Sólo Timer2 y Timer3 pueden activar una 
 Transferencia de datos DMA. 
 
-
-
-## Página 162
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 160
 © 2009 Microchip Technology Inc.
@@ -19046,9 +18550,6 @@ TMR3
 TMR2
 16
 
-
-## Página 163
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 161
 dsPIC33FJXXXGPX06/X08/X10
@@ -19084,9 +18585,6 @@ Sincronizar
 01
 00
 Sincronizar
-
-
-## Página 164
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 162
@@ -19180,9 +18678,6 @@ poco 0
 No implementado: leído como "0"
 Nota 1: El pin TxCK no está disponible en todos los temporizadores. Consulte la sección "Diagramas de pines" para conocer los pines disponibles.
 
-
-## Página 165
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 163
 dsPIC33FJXXXGPX06/X08/X10
@@ -19271,16 +18766,10 @@ Las funciones se configuran a través de T2CON.
 debe borrarse para operar el temporizador de 32 bits en modo inactivo.
 3: El pin TyCK no está disponible en todos los temporizadores. Consulte la sección "Diagramas de pines" para conocer los pines disponibles.
 
-
-## Página 166
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 164
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 167
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 165
@@ -19374,9 +18863,6 @@ y
 Sincronizador de reloj
 Nota: Una 'x' en una señal, registro o nombre de bit indica el número del canal de captura.
 
-
-## Página 168
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 166
 © 2009 Microchip Technology Inc.
@@ -19466,9 +18952,6 @@ ICM<2:0>: bits de selección del modo de captura de entrada
 000 = Módulo de captura de entrada apagado
 Nota 1: Las selecciones del temporizador pueden variar. Consulte la hoja de datos del dispositivo para obtener más detalles.
 
-
-## Página 169
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 167
 dsPIC33FJXXXGPX06/X08/X10
@@ -19553,9 +19036,6 @@ El pin OCFA controla de OC1 a OC4. El pin OCFB controla de OC5 a OC8.
 o
 OCFB(2)
 
-
-## Página 170
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 168
 © 2009 Microchip Technology Inc.
@@ -19637,9 +19117,6 @@ One-Shot retrasado
 Comparación de salida 
 Modo habilitado
 
-
-## Página 171
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 169
 dsPIC33FJXXXGPX06/X08/X10
@@ -19716,16 +19193,10 @@ OCM<2:0>: Bits de selección del modo de comparación de salida
 001 = Inicializar pin OCx bajo, comparar las fuerzas del evento pin OCx alto 
 000 = El canal de comparación de salida está deshabilitado
 
-
-## Página 172
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 170
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 173
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 171
@@ -19811,9 +19282,6 @@ Preescalador
 SPIxRXB
 SPIxTXB
 
-
-## Página 174
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 172
 © 2009 Microchip Technology Inc.
@@ -19896,9 +19364,6 @@ SPIRBF: bit de estado completo del búfer de recepción SPIx
 0 = La recepción no está completa, SPIxRXB está vacío
 Se configura automáticamente en el hardware cuando SPIx transfiere datos de SPIxSR a SPIxRXB.
 Se borra automáticamente en el hardware cuando el núcleo lee la ubicación de SPIxBUF y lee SPIxRXB.
-
-
-## Página 175
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 173
@@ -19989,9 +19454,6 @@ Modos SPI (FRMEN = 1).
 2: No establezca los preescaladores primario y secundario en un valor de 1:1.
 3: Este bit debe borrarse cuando FRMEN = 1.
 
-
-## Página 176
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 174
 © 2009 Microchip Technology Inc.
@@ -20015,9 +19477,6 @@ Nota 1: El bit CKE no se utiliza en los modos SPI enmarcados. El usuario debe pr
 Modos SPI (FRMEN = 1).
 2: No establezca los preescaladores primario y secundario en un valor de 1:1.
 3: Este bit debe borrarse cuando FRMEN = 1.
-
-
-## Página 177
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 175
@@ -20090,16 +19549,10 @@ FRMDLY: Bit de selección de flanco de pulso de sincronización de trama
 poco 0
 No implementado: la aplicación del usuario no debe establecer este bit en "1"
 
-
-## Página 178
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 176
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 179
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 177
@@ -20182,9 +19635,6 @@ web
 sitio
 (www.microchip.com).
 
-
-## Página 180
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 178
 © 2009 Microchip Technology Inc.
@@ -20237,9 +19687,6 @@ escribir
 leer
 I2CxMSK
 I2CxRCV
-
-
-## Página 181
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 179
@@ -20340,9 +19787,6 @@ Se utiliza junto con la broca SCLREL.
 1 = Habilitar software o recibir ampliación de reloj
 0 = Desactivar software o recibir ampliación de reloj
 
-
-## Página 182
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 180
 © 2009 Microchip Technology Inc.
@@ -20376,9 +19820,6 @@ SEN: Bit de habilitación de condición de inicio (cuando se opera como maestro 
 0 = Condición de inicio no en progreso
 REGISTRO 17-1:
 I2CxCON: REGISTRO DE CONTROL I2Cx (CONTINUACIÓN)
-
-
-## Página 183
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 181
@@ -20482,9 +19923,6 @@ P: bit de parada
 0 = El bit de parada no se detectó por última vez
 El hardware se configura o se borra cuando se detecta inicio, inicio repetido o parada.
 
-
-## Página 184
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 182
 © 2009 Microchip Technology Inc.
@@ -20511,9 +19949,6 @@ TBF: bit de estado completo del búfer de transmisión
 Hardware configurado cuando el software escribe I2CxTRN. Hardware limpio al finalizar la transmisión de datos.
 REGISTRO 17-2:
 I2CxSTAT: REGISTRO DE ESTADO I2Cx (CONTINUACIÓN)
-
-
-## Página 185
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 183
@@ -20572,16 +20007,10 @@ AMSKx: Máscara para bit de dirección x bit de selección
 1 = Habilitar enmascaramiento para el bit x de la dirección del mensaje entrante; No se requiere coincidencia de bits en esta posición
 0 = Deshabilitar el enmascaramiento para el bit x; Se requiere coincidencia de bits en esta posición
 
-
-## Página 186
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 184
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 187
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 185
@@ -20662,9 +20091,6 @@ Generador de velocidad de baudios
 UxRTS
 IrDA®
 UxCTS
-
-
-## Página 188
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 186
@@ -20761,9 +20187,6 @@ Nota 1: Consulte la Sección 17. “UART” (DS70188) en el “Manual de referen
 habilitando el módulo UART para la operación de recepción o transmisión.
 2: Esta función solo está disponible para el modo BRG 16x (BRGH = 0).
 
-
-## Página 189
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 187
 dsPIC33FJXXXGPX06/X08/X10
@@ -20790,9 +20213,6 @@ UxMODE: REGISTRO DEL MODO UARTx (CONTINUACIÓN)
 Nota 1: Consulte la Sección 17. “UART” (DS70188) en el “Manual de referencia de la familia dsPIC33F” para obtener información sobre
 habilitando el módulo UART para la operación de recepción o transmisión.
 2: Esta función solo está disponible para el modo BRG 16x (BRGH = 0).
-
-
-## Página 190
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 188
@@ -20890,9 +20310,6 @@ búfer. El búfer de recepción tiene uno o más caracteres
 Nota 1: Consulte la Sección 17. “UART” (DS70188) en el “Manual de referencia de la familia dsPIC33F” para obtener información sobre
 habilitando el módulo UART para la operación de transmisión.
 
-
-## Página 191
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 189
 dsPIC33FJXXXGPX06/X08/X10
@@ -20927,16 +20344,10 @@ UxSTA: REGISTRO DE ESTADO Y CONTROL DE UARTx (CONTINUACIÓN)
 Nota 1: Consulte la Sección 17. “UART” (DS70188) en el “Manual de referencia de la familia dsPIC33F” para obtener información sobre
 habilitando el módulo UART para la operación de transmisión.
 
-
-## Página 192
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 190
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 193
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 191 
@@ -21058,10 +20469,6 @@ Manual de referencia familiar”, que es
 disponible en el sitio web de Microchip 
 (www.microchip.com). 
 
-
-
-## Página 194
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 192
 © 2009 Microchip Technology Inc.
@@ -21110,9 +20517,6 @@ Registro de control del búfer TRB3 TX/RX
 Registro de control del búfer TRB2 TX/RX
 TRB1 Registro de control del búfer TX/RX
 Nota 1: i = 1 o 2 se refiere a un módulo ECAN™ particular (ECAN1 o ECAN2).
-
-
-## Página 195
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 193 
@@ -21240,10 +20644,6 @@ esta transmisión se cancela y el correspondiente
 El bit TXABT correspondiente está establecido y el bit TXREQ 
 está despejado. 
 
-
-
-## Página 196
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 194
 © 2009 Microchip Technology Inc.
@@ -21335,9 +20735,6 @@ GANAR: Bit de selección de ventana de mapa SFR
 1 = Usar ventana de filtro  
 0 = Usar ventana de búfer
 
-
-## Página 197
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 195
 dsPIC33FJXXXGPX06/X08/X10
@@ -21395,9 +20792,6 @@ DNCNT<4:0>: Bits de número de bits de filtro DeviceNet™
 •
 00001 = Comparar hasta el byte de datos 1, bit 7 con EID<0>
 00000 = No comparar bytes de datos
-
-
-## Página 198
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 196
@@ -21476,9 +20870,6 @@ ICODE<6:0>: Bits de código de bandera de interrupción
 0000001 = interrupción del búfer TRB1
 0000000 = TRB0 Interrupción del búfer
 
-
-## Página 199
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 197
 dsPIC33FJXXXGPX06/X08/X10
@@ -21545,9 +20936,6 @@ FSA<4:0>: el área FIFO comienza con bits de búfer
 00001 = búfer TRB1
 00000 = búfer TRB0
 
-
-## Página 200
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 198
 © 2009 Microchip Technology Inc.
@@ -21610,9 +20998,6 @@ FNRB<5:0>: FIFO Siguiente lectura de bits de puntero del búfer
 •
 000001 = búfer TRB1
 000000 = búfer TRB0
-
-
-## Página 201
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 199
@@ -21696,9 +21081,6 @@ RBIF: bit de indicador de interrupción del búfer RX
 poco 0
 TBIF: bit de indicador de interrupción del búfer TX
 
-
-## Página 202
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 200
 © 2009 Microchip Technology Inc.
@@ -21768,9 +21150,6 @@ RBIE: Bit de habilitación de interrupción del búfer RX
 poco 0
 TBIE: Bit de habilitación de interrupción del búfer TX
 
-
-## Página 203
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 201
 dsPIC33FJXXXGPX06/X08/X10
@@ -21811,9 +21190,6 @@ bit 15-8
 TERRCNT<7:0>: Bits de recuento de errores de transmisión
 poco 7-0
 RERRCNT<7:0>: recibir bits de recuento de errores
-
-
-## Página 204
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 202
@@ -21876,9 +21252,6 @@ BRP<5:0>: bits del preescalador de velocidad en baudios
 00 0010 = TQ = 2 x 3 x 1/FCAN
 00 0001 = TQ = 2 x 2 x 1/FCAN 
 00 0000 = TQ = 2 x 1 x 1/FCAN
-
-
-## Página 205
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 203
@@ -21951,9 +21324,6 @@ poco 2-0
 PRSEG<2:0>: bits del segmento de tiempo de propagación
 111 = La longitud es 8 x TQ 
 000 = La longitud es 1 x TQ
-
-
-## Página 206
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 204
@@ -22058,9 +21428,6 @@ F0BP<3:0>: Búfer RX escrito cuando el filtro 0 alcanza los bits
 0001 = Aciertos de filtro recibidos en el búfer RX 1
 0000 = Accesos de filtro recibidos en RX Buffer 0
 
-
-## Página 207
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 205
 dsPIC33FJXXXGPX06/X08/X10
@@ -22149,9 +21516,6 @@ F9BP<3:0>: Búfer RX escrito cuando el filtro 9 alcanza bits
 poco 3-0
 F8BP<3:0>: Búfer RX escrito cuando el filtro 8 alcanza bits
 
-
-## Página 208
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 206
 © 2009 Microchip Technology Inc.
@@ -22197,9 +21561,6 @@ bit 7-4
 F13BP<3:0>: Búfer RX escrito cuando el filtro 13 alcanza bits
 poco 3-0
 F12BP<3:0>: Búfer RX escrito cuando el filtro 12 alcanza bits
-
-
-## Página 209
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 207
@@ -22323,9 +21684,6 @@ EID<15:0>: bits de identificador extendido
 1 = El bit de dirección del mensaje EIDx debe ser '1' para coincidir con el filtro
 0 = El bit de dirección del mensaje EIDx debe ser '0' para coincidir con el filtro
 
-
-## Página 210
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 208
 © 2009 Microchip Technology Inc.
@@ -22388,9 +21746,6 @@ F0MSK<1:0>: Fuente de máscara para filtro de 0 bits
 01 = Máscara de aceptación 1 los registros contienen máscara
 00 = Máscara de aceptación 0 registros contienen máscara
 
-
-## Página 211
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 209
 dsPIC33FJXXXGPX06/X08/X10
@@ -22452,9 +21807,6 @@ bit 3-2
 F9MSK<1:0>: Fuente de máscara para filtro de 9 bits (los mismos valores que los bits 15-14)
 poco 1-0
 F8MSK<1:0>: Fuente de máscara para filtro de 8 bits (los mismos valores que los bits 15-14)
-
-
-## Página 212
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 210
@@ -22572,9 +21924,6 @@ EID<15:0>: bits de identificador extendido
 1 = Incluir el bit EIDx en la comparación de filtros
 0 = Bit EIDx no importa en la comparación de filtros
 
-
-## Página 213
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 211
 dsPIC33FJXXXGPX06/X08/X10
@@ -22680,9 +22029,6 @@ poco 15-0
 RXFUL<31:16>: Búfer de recepción n bits completos
 1 = El búfer está lleno (establecido por el módulo) 
 0 = El búfer está vacío (borrarlo mediante el software de la aplicación)
-
-
-## Página 214
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 212
@@ -22791,9 +22137,6 @@ RXOVF<31:16>: Recibir búfer n bits de desbordamiento
 1 = El módulo apuntó una escritura a un búfer lleno (establecido por el módulo) 
 0 = Se borra el desbordamiento (se borra mediante el software de la aplicación)
 
-
-## Página 215
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 213
 dsPIC33FJXXXGPX06/X08/X10
@@ -22876,9 +22219,6 @@ TXmPRI<1:0>: Bits de prioridad de transmisión de mensajes
 01 = Prioridad de mensaje intermedia baja
 00 = Prioridad de mensaje más baja
 Nota 1: Este bit se borra cuando se establece TXREQ.
-
-
-## Página 216
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 214
@@ -22994,9 +22334,6 @@ No implementado: leído como "0"
 bit 11-0
 EID<17:6>: bits de identificador extendido
 
-
-## Página 217
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 215
 dsPIC33FJXXXGPX06/X08/X10
@@ -23097,9 +22434,6 @@ poco 7-0
 TRBnDm<7:0>: Búfer de campo de datos 'n' Byte 'm' bits
 Nota 1: El byte más significativo contiene el byte (m + 1) del búfer.
 
-
-## Página 218
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 216
 © 2009 Microchip Technology Inc.
@@ -23156,9 +22490,6 @@ FILHIT<4:0>: Bits de código de acierto de filtro (solo escritos por el módulo 
 Codifica el número de filtro que resultó en la escritura de este búfer. 
 poco 7-0
 No implementado: leído como "0"
-
-
-## Página 219
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 217 
@@ -23273,10 +22604,6 @@ accede a la misma ubicación relativa en el
 transmitir y recibir buffers, por lo que solo uno 
 Se proporciona contador de direcciones. 
 
-
-
-## Página 220
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 218
 © 2009 Microchip Technology Inc.
@@ -23308,9 +22635,6 @@ CSDO
 0
 Búfer de transmisión 
 Registros con sombra
-
-
-## Página 221
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 219
@@ -23411,9 +22735,6 @@ COFSM<1:0>: bits del modo de sincronización de cuadros
 01 = Modo de sincronización de trama I2S
 00 = Modo de sincronización de cuadros multicanal
 
-
-## Página 222
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-page 220
 © 2009 Microchip Technology Inc.
@@ -23491,9 +22812,6 @@ WS<3:0>: bits de tamaño de palabra de datos DCI
 0001 = Selección no válida. No lo use. Pueden ocurrir resultados inesperados
 0000 = Selección no válida. No lo use. Pueden ocurrir resultados inesperados
 
-
-## Página 223
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 221
 dsPIC33FJXXXGPX06/X08/X10
@@ -23538,9 +22856,6 @@ bits 15-12
 No implementado: leído como "0"
 bit 11-0
 BCG<11:0>: Bits de control del generador de reloj de bits DCI
-
-
-## Página 224
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 222
@@ -23618,9 +22933,6 @@ poco 0
 TMPTY: bit de estado vacío del búfer de transmisión
 1 = Los registros de transmisión están vacíos
 0 = Los registros de transmisión no están vacíos
-
-
-## Página 225
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 223
@@ -23729,16 +23041,10 @@ TSE<15:0>: Bits de control de habilitación de ranura de transmisión
 0 = El pin CSDO tiene tres estados o se conduce a un '0' lógico, durante el intervalo de tiempo individual, dependiendo del estado.
 del bit CSDOM
 
-
-## Página 226
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 224
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 227
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 225 
@@ -23883,10 +23189,6 @@ Nota:
 El módulo ADC debe estar desactivado 
 antes de modificar el bit AD12B. 
 
-
-
-## Página 228
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 226
 © 2009 Microchip Technology Inc.
@@ -23960,9 +23262,6 @@ Selección de entrada
 VREFH
 VREFL
 
-
-## Página 229
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 227
 dsPIC33FJXXXGPX06/X08/X10
@@ -23987,9 +23286,6 @@ Consulte la Figura 9-2 para obtener la derivación de FOSC cuando el PLL está h
 la frecuencia de la fuente del reloj. TOSC = 1/FOSC.
 2:
 Consulte las especificaciones eléctricas del ADC para conocer el valor exacto del reloj RC.
-
-
-## Página 230
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 228
@@ -24089,9 +23385,6 @@ SSRC<2:0>: Bits de selección de fuente de reloj de muestra
 poco 4
 No implementado: leído como "0"
 
-
-## Página 231
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 229
 dsPIC33FJXXXGPX06/X08/X10
@@ -24121,9 +23414,6 @@ Estado HECHO (el software no puede escribir '1'). Borrar este bit NO afectará n
 ress. El hardware lo borra automáticamente al inicio de una nueva conversión.
 REGISTRO 21-1:
 ADxCON1: REGISTRO DE CONTROL ADCx 1 (donde x = 1 o 2) (CONTINUACIÓN)
-
-
-## Página 232
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 230
@@ -24229,9 +23519,6 @@ VREF externo-
 AVDD
 Avss
 
-
-## Página 233
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 231
 dsPIC33FJXXXGPX06/X08/X10
@@ -24302,9 +23589,6 @@ ADCS<7:0>: Bits de selección de reloj de conversión ADC(2)
 Nota 1: Este bit solo se usa si ADxCON1<SSRC> = 1.
 2: Este bit no se utiliza si ADxCON3<ADRC> = 1.
 
-
-## Página 234
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 232
 © 2009 Microchip Technology Inc.
@@ -24365,9 +23649,6 @@ DMABL<2:0>: selecciona el número de ubicaciones del búfer DMA por bits de entr
 010 = Asigna 4 palabras de buffer a cada entrada analógica
 001 = Asigna 2 palabras de buffer a cada entrada analógica
 000 = Asigna 1 palabra de buffer a cada entrada analógica
-
-
-## Página 235
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 233
@@ -24444,9 +23725,6 @@ Cuando AD12B = 1, CHxSA es: U-0, no implementado, leído como '0'
 1 = La entrada positiva CH1 es AN3, la entrada positiva CH2 es AN4, la entrada positiva CH3 es AN5
 0 = La entrada positiva de CH1 es AN0, la entrada positiva de CH2 es AN1, la entrada positiva de CH3 es AN2
 
-
-## Página 236
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 234
 © 2009 Microchip Technology Inc.
@@ -24515,9 +23793,6 @@ CH0SA<4:0>: Selección de entrada positiva del canal 0 para bits de muestra A
 00000 = La entrada positiva del canal 0 es AN0
 Nota:
 ADC2 solo puede seleccionar AN0 a AN15 como entrada positiva.
-
-
-## Página 237
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 235
@@ -24630,9 +23905,6 @@ CSS<15:0>: bits de selección de escaneo de entrada ADC
 Nota 1: En dispositivos sin 16 entradas analógicas, el usuario puede seleccionar todos los bits ADxCSSL. Sin embargo, las entradas seleccionadas
 para escanear sin una entrada correspondiente en el dispositivo convertirá VREFL.
 2: CSSx = ANx, donde x = 0 a 15.
-
-
-## Página 238
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 236
@@ -24747,9 +24019,6 @@ puertos sin una entrada correspondiente en el dispositivo.
 2: En dispositivos con dos módulos analógicos a digitales, tanto AD1PCFGL como AD2PCFGL afectarán la 
 Configuración de pines de puerto multiplexados con AN0-AN15.
 3: PCFGx = ANx, donde x = 0 a 15.
-
-
-## Página 239
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 237
@@ -24891,9 +24160,6 @@ ID de unidad de usuario Byte 3
 Nota 1: Cuando se lean, estos bits aparecerán como "1". Cuando escriba en estos bits, configúrelos en "1".
 2: Cuando se lee, este bit devuelve el valor programado actual.
 
-
-## Página 240
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 238
 © 2009 Microchip Technology Inc.
@@ -24938,9 +24204,6 @@ FSS
 Protección contra escritura flash del programa de segmento seguro
 1 = Se puede escribir un segmento seguro
 0 = El segmento seguro está protegido contra escritura
-
-
-## Página 241
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 239
@@ -25007,9 +24270,6 @@ dsPIC33FJXXXGPX06/X08/X10 DESCRIPCIÓN DE BITS DE CONFIGURACIÓN (CONTINUACIÓN)
 Campo de bits
 Registrarse
 Descripción
-
-
-## Página 242
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 240
@@ -25093,9 +24353,6 @@ dsPIC33FJXXXGPX06/X08/X10 DESCRIPCIÓN DE BITS DE CONFIGURACIÓN (CONTINUACIÓN)
 Campo de bits
 Registrarse
 Descripción
-
-
-## Página 243
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 241
@@ -25198,9 +24455,6 @@ dsPIC33F
 CEFC
 3,3 V
 
-
-## Página 244
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 242
 © 2009 Microchip Technology Inc.
@@ -25298,9 +24552,6 @@ RS
 despertar
 Reiniciar
 
-
-## Página 245
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 243
 dsPIC33FJXXXGPX06/X08/X10
@@ -25382,16 +24633,10 @@ Manual de referencia familiar” para obtener más información.
 información sobre uso, configuración y
 funcionamiento de CodeGuard™ Security.
 
-
-## Página 246
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 244
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 247
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 245
@@ -25497,9 +24742,6 @@ esta hoja de datos, consulte la sección relacionada
 en la “Referencia de la familia dsPIC33F
 Manual”, que está disponible en el
 Sitio web de Microchip (www.microchip.com).
-
-
-## Página 248
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 246
@@ -25608,9 +24850,6 @@ Registro W de destino ∈
 Wm,Wn
 Dividendo, par de registros de trabajo del divisor (direccionamiento directo)
 
-
-## Página 249
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 247
 dsPIC33FJXXXGPX06/X08/X10
@@ -25651,9 +24890,6 @@ TABLA 23-1:
 SÍMBOLOS UTILIZADOS EN LAS DESCRIPCIONES DE CÓDIGOS DE OPCIÓN (CONTINUACIÓN)
 campo
 Descripción
-
-
-## Página 250
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 248
@@ -26004,9 +25240,6 @@ Cambio de bits Ws
 1
 Ninguno
 
-
-## Página 251
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 249
 dsPIC33FJXXXGPX06/X08/X10
@@ -26323,9 +25556,6 @@ palabras
 Ciclos
 Banderas de estado 
 Afectados
-
-
-## Página 252
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 250
@@ -26664,9 +25894,6 @@ Ciclos
 Banderas de estado 
 Afectados
 
-
-## Página 253
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 251
 dsPIC33FJXXXGPX06/X08/X10
@@ -26980,9 +26207,6 @@ palabras
 Ciclos
 Banderas de estado 
 Afectados
-
-
-## Página 254
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 252
@@ -27329,9 +26553,6 @@ Ciclos
 Banderas de estado 
 Afectados
 
-
-## Página 255
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 253
 dsPIC33FJXXXGPX06/X08/X10
@@ -27401,9 +26622,6 @@ simuladores, a través de depuradores en circuito de bajo costo, para
 emuladores con todas las funciones. Esto elimina el aprendizaje.
 curva al actualizar a herramientas con mayor flexibilidad
 y poder.
-
-
-## Página 256
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 254
@@ -27513,9 +26731,6 @@ ofrece la flexibilidad de desarrollar y depurar código fuera
 del entorno del laboratorio de hardware, convirtiéndolo en un
 Excelente y económica herramienta de desarrollo de software.
 
-
-## Página 257
-
 © 2009 Microchip Technology Inc. 
 DS70286C-página 255 
 dsPIC33FJXXXGPX06/X08/X10 
@@ -27621,10 +26836,6 @@ algoritmos optimizados para una programación rápida de grandes
 dispositivos de memoria e incorpora una tarjeta SD/MMC para 
 almacenamiento de archivos y aplicaciones de datos seguras. 
 
-
-
-## Página 258
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 256
 © 2009 Microchip Technology Inc.
@@ -27690,9 +26901,6 @@ Consulte la página web de Microchip (www.microchip.com)
 para ver la lista completa de demostraciones, desarrollo
 y kits de evaluación.
 
-
-## Página 259
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 257
 dsPIC33FJXXXGPX06/X08/X10
@@ -27724,9 +26932,6 @@ Las condiciones de clasificación durante períodos prolongados pueden afectar l
 2: La corriente máxima permitida es una función de la disipación de potencia máxima del dispositivo (consulte la Tabla 25-2).
 3: Las excepciones son CLKOUT, que puede absorber/generar 25 mA, y VREF+, VREF-, SCLx, SDAx, PGECx.
 y pines PGEDx, que pueden absorber/generar 12 mA.
-
-
-## Página 260
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 258
@@ -27814,9 +27019,6 @@ Resistencia térmica del paquete, TQFP de 64 pines (10x10x1 mm)
 Nota 1:
 La unión a la resistencia térmica ambiental, los números Theta-JA (θJA) se logran mediante simulaciones de paquetes.
 
-
-## Página 261
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 259
 dsPIC33FJXXXGPX06/X08/X10
@@ -27893,9 +27095,6 @@ Este es el límite al que se puede reducir el VDD sin perder datos de la RAM.
 Estos parámetros se caracterizan pero no se prueban en la fabricación.
 4:
 El voltaje VDD debe permanecer en VSS durante un mínimo de 200 μs para garantizar POR.
-
-
-## Página 262
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 260
@@ -28010,9 +27209,6 @@ MCLR = VDD, WDT y FSCM están deshabilitados. CPU, SRAM, memoria de programa y m
 operativo. No hay ningún módulo periférico en funcionamiento; sin embargo, cada periférico está sincronizado (bits PMD 
 están todos puestos a cero).
 
-
-## Página 263
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 261
 dsPIC33FJXXXGPX06/X08/X10
@@ -28120,9 +27316,6 @@ Los datos de la columna "Típico" son de 3,3 V, 25 °C, a menos que se indique l
 2:
 La corriente base IIDLE se mide con el núcleo apagado, el reloj encendido y todos los módulos apagados. Módulo periférico 
 Los registros SFR deshabilitados se ponen a cero. Todos los pines de E/S se configuran como entradas y se conectan a VSS.
-
-
-## Página 264
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 262
@@ -28255,9 +27448,6 @@ DC71g
 ma
 Nota 1:
 Los datos de la columna Típica son de 3,3 V, 25 °C, a menos que se indique lo contrario.
-
-
-## Página 265
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 263
@@ -28433,9 +27623,6 @@ La corriente negativa se define como la corriente generada por el pin.
 4:
 Consulte "Diagramas de pines" para obtener una lista de pines tolerantes a 5 V.
 
-
-## Página 266
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 264
 © 2009 Microchip Technology Inc.
@@ -28516,9 +27703,6 @@ V
 —
 Nota 1:
 Los parámetros son solo una guía de diseño y no se prueban en la fabricación.
-
-
-## Página 267
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 265
@@ -28641,9 +27825,6 @@ El condensador debe estar bajo.
 resistencia en serie 
 (< 5 ohmios)
 
-
-## Página 268
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 266
 © 2009 Microchip Technology Inc.
@@ -28712,9 +27893,6 @@ CL = 50 pF para todos los pines excepto OSC2
 15 pF para salida OSC2
 Condición de carga 1: para todos los pines excepto OSC2
 Condición de carga 2 - para OSC2
-
-
-## Página 269
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 267
@@ -28856,9 +28034,6 @@ OS41
 OS31
 OS31
 
-
-## Página 270
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 268
 © 2009 Microchip Technology Inc.
@@ -28966,9 +28141,6 @@ VDD = 3,0-3,6 V
 Nota 1:
 Cambio de frecuencia LPRC a medida que cambia VDD.
 
-
-## Página 271
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 269
 dsPIC33FJXXXGPX06/X08/X10
@@ -29035,9 +28207,6 @@ DI40
 DO31
 DO32
 
-
-## Página 272
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 270
 © 2009 Microchip Technology Inc.
@@ -29069,9 +28238,6 @@ Retraso
 SY35 
 SY30
 SY12
-
-
-## Página 273
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 271
@@ -29179,9 +28345,6 @@ Nota 1:
 Estos parámetros se caracterizan pero no se prueban en la fabricación.
 2:
 Los datos en la columna "Típico" son de 3,3 V, 25 °C a menos que se indique lo contrario.
-
-
-## Página 274
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 272
@@ -29304,9 +28467,6 @@ Incremento de borde a temporizador
 —
 Nota 1:
 Timer1 es un tipo A.
-
-
-## Página 275
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 273
@@ -29454,9 +28614,6 @@ TCY
 —
 —
 
-
-## Página 276
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 274
 © 2009 Microchip Technology Inc.
@@ -29559,9 +28716,6 @@ OC10
 Nota: Consulte la Figura 25-1 para conocer las condiciones de carga.
 o modo PWM)
 
-
-## Página 277
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 275
 dsPIC33FJXXXGPX06/X08/X10
@@ -29606,9 +28760,6 @@ OCFA/OCFB
 OCx
  OC20
  OC15
-
-
-## Página 278
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 276
@@ -29745,9 +28896,6 @@ El período de reloj mínimo para SCKx es 100 ns. Por lo tanto, el reloj generad
 violar esta especificación.
 4:
 Asume una carga de 50 pF en todos los pines SPIx.
-
-
-## Página 279
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 277
@@ -29892,9 +29040,6 @@ El período de reloj mínimo para SCKx es 100 ns. Por lo tanto, el reloj generad
 violar esta especificación.
 4:
 Asume una carga de 50 pF en todos los pines SPIx.
-
-
-## Página 280
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 278
@@ -30056,9 +29201,6 @@ Los datos en la columna "Típico" son de 3,3 V, 25 °C a menos que se indique lo
 3:
 Asume una carga de 50 pF en todos los pines SPIx.
 
-
-## Página 281
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 279
 dsPIC33FJXXXGPX06/X08/X10
@@ -30094,9 +29236,6 @@ SP70
 SP40
 SP41
 Nota: Consulte la Figura 25-1 para conocer las condiciones de carga.
-
-
-## Página 282
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 280
@@ -30240,9 +29379,6 @@ violar esta especificación.
 4:
 Asume una carga de 50 pF en todos los pines SPIx.
 
-
-## Página 283
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 281
 dsPIC33FJXXXGPX06/X08/X10
@@ -30279,9 +29415,6 @@ en
 SDax
 Fuera
 Nota: Consulte la Figura 25-1 para conocer las condiciones de carga.
-
-
-## Página 284
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 282
@@ -30526,9 +29659,6 @@ BRG es el valor del generador de velocidad de baudios I2C. Consulte la Sección 
 2:
 Capacitancia máxima de pines = 10 pF para todos los pines I2Cx (solo para el modo de 1 MHz).
 
-
-## Página 285
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 283
 dsPIC33FJXXXGPX06/X08/X10
@@ -30564,9 +29694,6 @@ SDax
 en
 SDax
 Fuera
-
-
-## Página 286
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 284
@@ -30809,9 +29936,6 @@ pF
 Nota 1:
 Capacitancia máxima de pines = 10 pF para todos los pines I2Cx (solo para el modo de 1 MHz).
 
-
-## Página 287
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 285
 dsPIC33FJXXXGPX06/X08/X10
@@ -30846,9 +29970,6 @@ CS55
 Nota: Consulte la Figura 25-1 para conocer las condiciones de carga.
 CS20
 CS56
-
-
-## Página 288
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 286
@@ -31020,9 +30141,6 @@ violar esta especificación.
 4:
  Asume una carga de 50 pF en todos los pines DCI.
 
-
-## Página 289
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 287
 dsPIC33FJXXXGPX06/X08/X10
@@ -31185,9 +30303,6 @@ CS75
 CS62
 CS20
 
-
-## Página 290
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 288
 © 2009 Microchip Technology Inc.
@@ -31244,9 +30359,6 @@ ns
 —
 Nota 1:
 Estos parámetros se caracterizan pero no se prueban en la fabricación.
-
-
-## Página 291
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 289
@@ -31398,9 +30510,6 @@ códigos.
 Estos parámetros no se caracterizan ni se prueban en la fabricación.
 3:
 Estos parámetros se caracterizan; pero no se prueban en la fabricación.
-
-
-## Página 292
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 290
@@ -31567,9 +30676,6 @@ Nota 1:
 El resultado de la conversión ADC nunca disminuye con un aumento en el voltaje de entrada y no falta 
 códigos.
 
-
-## Página 293
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 291
 dsPIC33FJXXXGPX06/X08/X10
@@ -31735,9 +30841,6 @@ Nota 1:
 El resultado de la conversión ADC nunca disminuye con un aumento en el voltaje de entrada y no falta 
 códigos.
 
-
-## Página 294
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 292
 © 2009 Microchip Technology Inc.
@@ -31781,9 +30884,6 @@ eoc
  Ejecución
 en la Sección 16. “Convertidor analógico a digital (ADC)” 
 (DS70183) en el “Manual de referencia de la familia dsPIC33F”.
-
-
-## Página 295
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 293
@@ -31893,9 +30993,6 @@ rendimiento, especialmente a temperaturas elevadas.
 tDPU es el tiempo necesario para que el módulo ADC se estabilice cuando se enciende (AD1CON1<ADON> = 1). 
 Durante este tiempo, el resultado del ADC es indeterminado.
 
-
-## Página 296
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 294
 © 2009 Microchip Technology Inc.
@@ -31944,9 +31041,6 @@ eoc
 7 – Convertir el bit 0.
  Ejecución
  (DS70183) en el “Manual de referencia de la familia dsPIC33F”.
-
-
-## Página 297
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 295
@@ -31998,9 +31092,6 @@ TCONV
 Ejecución
 en la Sección 16. “Convertidor analógico a digital (ADC)” 
 (DS70183) en el “Manual de referencia de la familia dsPIC33F”.
-
-
-## Página 298
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 296
@@ -32101,9 +31192,6 @@ rendimiento, especialmente a temperaturas elevadas.
 TDPU es el tiempo necesario para que el módulo ADC se estabilice cuando se enciende (AD1CON1<ADON> = 1). 
 Durante este tiempo, el resultado del ADC es indeterminado.
 
-
-## Página 299
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 297
 dsPIC33FJXXXGPX06/X08/X10
@@ -32177,9 +31265,6 @@ mi
 mi
 3
 mi
-
-
-## Página 300
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 298
@@ -32290,17 +31375,17 @@ b
 α
 Dibujo de tecnología de microchip C04-085B
 
-
-## Página 301
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 299
 dsPIC33FJXXXGPX06/X08/X10
 	
-				
+
+			
+	
 !"#$%
 &
-' (
+' 
+(
  
 	!"
 #!$!%&'#(##!	
@@ -32310,9 +31395,6 @@ dsPIC33FJXXXGPX06/X08/X10
 !!+,,''' "	
 
 ", %
-
-
-## Página 302
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 300
@@ -32421,17 +31503,17 @@ b
 φ
 Dibujo de tecnología de microchip C04-092B
 
-
-## Página 303
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 301
 dsPIC33FJXXXGPX06/X08/X10
 )	
-				
+
+			
+	
 # #!" #$ %
 &
-' (
+' 
+(
  
 	!"
 #!$!%&'#(##!	
@@ -32441,9 +31523,6 @@ dsPIC33FJXXXGPX06/X08/X10
 !!+,,''' "	
 
 ", %
-
-
-## Página 304
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 302
@@ -32552,17 +31631,17 @@ b
 φ
 Dibujo de tecnología de microchip C04-100B
 
-
-## Página 305
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 303
 dsPIC33FJXXXGPX06/X08/X10
 	
-				
+
+			
+	
 # #!" #$ %
 &
-' (
+' 
+(
  
 	!"
 #!$!%&'#(##!	
@@ -32572,9 +31651,6 @@ dsPIC33FJXXXGPX06/X08/X10
 !!+,,''' "	
 
 ", %
-
-
-## Página 306
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 304
@@ -32683,17 +31759,17 @@ b
 α
 Dibujo de tecnología de microchip C04-110B
 
-
-## Página 307
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 305
 dsPIC33FJXXXGPX06/X08/X10
 	
-				
+
+			
+	
 !"#$ %
 &
-' (
+' 
+(
  
 	!"
 #!$!%&'#(##!	
@@ -32704,16 +31780,10 @@ dsPIC33FJXXXGPX06/X08/X10
 
 ", %
 
-
-## Página 308
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 306
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 309
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 307
@@ -32768,9 +31838,6 @@ Se agregaron referencias POR y BOR en la operación de reinicio del bit de bande
 (Tabla 5-1).
 Sección 7.0 “Acceso directo a memoria (DMA)” Se actualizó la referencia cruzada de la tabla en la Nota 2 en DMAxREQ 
 registro (Registro 7-2).
-
-
-## Página 310
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 308
@@ -32837,9 +31904,6 @@ ACTUALIZACIONES PRINCIPALES DE LA SECCIÓN (CONTINUACIÓN)
 Nombre de la sección
 Descripción de la actualización
 
-
-## Página 311
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 309
 dsPIC33FJXXXGPX06/X08/X10
@@ -32868,9 +31932,6 @@ TABLA A-1:
 ACTUALIZACIONES PRINCIPALES DE LA SECCIÓN (CONTINUACIÓN)
 Nombre de la sección
 Descripción de la actualización
-
-
-## Página 312
 
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 310
@@ -32938,9 +31999,6 @@ Transmisor receptor asíncrono
 Se actualizó la configuración de bits UTXINV en el registro UxSTA (consulte 
 Registro 18-2).
 
-
-## Página 313
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 311
 dsPIC33FJXXXGPX06/X08/X10
@@ -32977,16 +32035,10 @@ ACTUALIZACIONES PRINCIPALES DE LA SECCIÓN (CONTINUACIÓN)
 Nombre de la sección
 Descripción de la actualización
 
-
-## Página 314
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 312
 © 2009 Microchip Technology Inc.
 NOTAS:
-
-
-## Página 315
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 313 
@@ -33116,10 +32168,6 @@ Mapa de registro ECAN1 (C1CTRL1.WIN = 0 o 1)... 52
 Mapa de registro ECAN1 (C1CTRL1.WIN = 0)................. 52 
 Mapa de registro ECAN1 (C1CTRL1.WIN = 1)................ 53 
 
-
-
-## Página 316
-
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 314 
 © 2009 Microchip Technology Inc. 
@@ -33248,10 +32296,6 @@ Mapa de registro ...............................................................
 PUERTO 
 Mapa de registro ................................................................ 60 
 Funciones de ahorro de energía ........................................ 147 
-
-
-
-## Página 317
 
 © 2009 Microchip Technology Inc. 
 DS70286C-página 315 
@@ -33387,10 +32431,6 @@ RSCON (Control de ranura de recepción DCI) ......... 223
 SPIxCON1 (Control SPIx 1) ................................... 173 
 SPIxCON2 (Control SPIx 2) ................................... 175 
 
-
-
-## Página 318
-
 dsPIC33FJXXXGPX06/X08/X10 
 DS70286C-página 316 
 © 2009 Microchip Technology Inc. 
@@ -33493,10 +32533,6 @@ Consideraciones de programación ................................ 242
 Dirección WWW ................................................................ 317 
 WWW, soporte en línea ................................................ 12 
 
-
-
-## Página 319
-
 © 2009 Microchip Technology Inc.
 DS70286C-página 317
 dsPIC33FJXXXGPX06/X08/X10
@@ -33546,9 +32582,6 @@ el reverso de este documento.
 El soporte técnico está disponible a través del sitio web.
 en: http://support.microchip.com
 
-
-## Página 320
-
 dsPIC33FJXXXGPX06/X08/X10
 DS70286C-página 318
 © 2009 Microchip Technology Inc.
@@ -33590,9 +32623,6 @@ dsPIC33FJXXXGPX06/X08/X10
 ¿Hay alguna información incorrecta o engañosa (qué y dónde)?
 7.
 ¿Cómo mejorarías este documento?
-
-
-## Página 321
 
 © 2009 Microchip Technology Inc.
 DS70286C-página 319
@@ -33666,9 +32696,6 @@ Paquete
 Patrón
 dsPIC 33 FJ 256 GP7 10 T I / PT - XXX
 Bandera de cinta y carrete (si corresponde)
-
-
-## Página 322
 
 DS70286C-página 320
 © 2009 Microchip Technology Inc.
@@ -33841,4 +32868,3 @@ Teléfono: 44-118-921-5869
 Fax: 44-118-921-5820
 Ventas y servicio a nivel mundial
 04/02/09
-

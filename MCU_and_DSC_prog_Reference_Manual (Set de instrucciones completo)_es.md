@@ -31592,10 +31592,6 @@ CLR (Borrar acumulador, captación previa de operandos) ......... 165
 CLR (Borrar para WREG)................................................. 163 
 CLR (Borrar Wd)................................................. 164 
 
-
-
-## Página 370
-
 DS70157D-página 370 
 ¤ 2009 Microchip Technology Inc. 
 Manual de referencia del programador MCU y DSC de 16 bits 
@@ -31733,10 +31729,6 @@ SUB (Restar Ws de Wb)................................. 322
 SUBB (Restar literal corto de Wb con préstamo) 327 
 SUBB (Restar Wn del Literal con Préstamo).......... 326 
 
-
-
-## Página 371
-
 ¤ 2009 Microchip Technology Inc. 
 DS70157D-página 371 
 Índice 
@@ -31859,10 +31851,6 @@ Diagrama........................................................................
 Descripciones de registros ................................................ 16 
 Registro PSVPAG................................................................ 18 
 
-
-
-## Página 372
-
 DS70157D-página 372
 ¤ 2009 Microchip Technology Inc.
 Manual de referencia del programador MCU y DSC de 16 bits
@@ -31914,17 +31902,11 @@ Operación de captación previa del espacio de datos Y .........................
 z
 Bit de estado Z ................................................................ 66
 
-
-## Página 373
-
 ¤ 2009 Microchip Technology Inc.
 DS70157D-página 373
 índice
 índice
 NOTAS:
-
-
-## Página 374
 
 DS70157D-página 374
 ¤ 2009 Microchip Technology Inc.
@@ -32097,4 +32079,3 @@ Teléfono: 44-118-921-5869
 Fax: 44-118-921-5820
 Ventas y servicio a nivel mundial
 26/03/09
-
