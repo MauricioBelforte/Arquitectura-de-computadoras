@@ -86,6 +86,16 @@ Microchip estructuró todo su motor de interrupciones utilizando 4 sufijos clave
 > **Prioridad Natural (Conflicto Matemático):** ¿Qué ocurre si dos módulos periféricos explotan al mismo tiempo exacto y tú les habías establecido a ambos por código la misma prioridad de urgencia `(Ej. IPC = 5)`?
 > En este escenario de empate absoluto, la CPU resolverá la crisis revisando los números de Vector ordenados de su IVT; el valor numérico menor dictará precedencia sobre el otro (Ej. INT0 atenderá antes que el Timer3 porque INT0 está codificado más arriba en el silicio).
 
+### 2.1 La Batalla de Prioridades: CPU vs Periférico (El nivel IPL)
+
+Para que el dsPIC33 decida si detiene lo que está haciendo o ignora un evento, existe una "batalla numérica" entre el dispositivo y el propio núcleo del procesador:
+
+1. **La Condición Estricta:** La prioridad configurada para un dispositivo periférico (`IPCx`, que va del 0 al 7) debe ser **ESTRICTAMENTE MAYOR** a la prioridad actual que tiene la CPU para poder interrumpirla. *Ejemplo: Si la CPU está procesando una tarea vital en nivel 4, solo periféricos con IPC de 5, 6 o 7 podrán robarle la atención.*
+2. **El Escudo de la CPU (`IPL<3:0>`):** La CPU define su nivel actual de "concentración" usando un parámetro de 4 bits llamado **IPL (Interrupt Priority Level)**. 
+3. **El Registro Modificable (`SR`):** Los tres bits más bajos de esta prioridad (`IPL<2:0>`) residen en el registro **SR (Status Register)**. Estos sí son accesibles; tú como programador puedes subir o bajar esta "barrera" temporalmente en tu código para proteger operaciones matemáticas sensibles de las interrupciones molestas.
+4. **El Bit Intocable (`CORCON`):** El cuarto bit (`IPL<3>`) está escondido en el registro de núcleo **CORCON**. **NO es accesible** por el programador bajo ningún concepto. El hardware lo pone en `1` unilateralmente solo cuando ocurre un **TRAP** (Un error catastrófico). Esto eleva mágicamente a la CPU a prioridades de 8 a 15, volviéndola inmune hasta a la interrupción de hardware más crítica (que como máximo llega a 7).
+5. **El Orden Natural (IVT):** Si hay empate de prioridades entre dos eventos, el HW mira la tabla **IVT**; el periférico programado en una dirección de memoria menor gana el desempate por orden natural de diseño.
+
 > [!NOTE]
 > **¿Dónde encuentro la información de Hardware y Pines (`INTx`) en la bibliografía oficial?**
 > - 📄 [**`dsPic33FJ256GP710-70286C (Datasheet).pdf`**](file:///d:/Escritorio/INFORMATICA/ARQUITECTURA%20DE%20COMPUTADORAS/dsPic33FJ256GP710-70286C%20(Datasheet).pdf) *(Manual específico del chip real)*
@@ -93,6 +103,61 @@ Microchip estructuró todo su motor de interrupciones utilizando 4 sufijos clave
 >   - **Registros dedicados:** **Sección 7.0 "Interrupt Controller"**. Enumera exactamente qué vectores posee tu chip.
 > - 📄 [**`DsPIC33 - Interrupts -DS70184b.pdf`**](file:///d:/Escritorio/INFORMATICA/ARQUITECTURA%20DE%20COMPUTADORAS/PRACTICA%202/DsPIC33%20-%20Interrupts%20-DS70184b.pdf) *(Family Reference Manual)*
 >   - Explica el concepto profundo de arquitectura **(Section 6)**, pero obvia los números de pines porque sirve para más de 100 procesadores dsPIC distintos.
+
+### 2.2 Guía de Lectura: ¿Cómo interpretar una tabla de registros del Datasheet?
+
+El Diccionario y las tablas de arriba te dicen *dónde* buscar cada registro. Pero cuando abrís el Datasheet real, te vas a encontrar con tablas como esta que muestran *cómo está organizado el registro por dentro*. Acá te enseño a leerlas usando como ejemplo el **IPC1 (Interrupt Priority Control 1)** que está en la dirección `0x00A6` de la Memoria de Datos.
+
+#### Representación visual de los 16 bits del registro IPC1
+
+```
+  bit 15    14    13    12    11    10     9     8     7     6     5     4     3     2     1     0
+┌──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┐
+│  U-0 │R/W-1│R/W-0│R/W-0│  U-0 │R/W-1│R/W-0│R/W-0│  U-0 │R/W-1│R/W-0│R/W-0│  U-0 │R/W-1│R/W-0│R/W-0│
+│  —   │     T2IP<2:0>   │  —   │    OC2IP<2:0>   │  —   │    IC2IP<2:0>   │  —   │   DMA0IP<2:0>  │
+└──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┘
+```
+
+#### Paso 1: Entender la estructura de los bits (El mapa)
+El registro es de 16 bits (del 0 al 15). Están agrupados de a **3 bits útiles + 1 bit separador**. Cada grupo de 3 bits controla la **prioridad** de un periférico diferente:
+
+* **Bits 14-12 → `T2IP<2:0>`:** Controlan la prioridad del **Timer 2**.
+* **Bits 10-8 → `OC2IP<2:0>`:** Controlan la prioridad del **Output Compare 2**.
+* **Bits 6-4 → `IC2IP<2:0>`:** Controlan la prioridad del **Input Capture 2**.
+* **Bits 2-0 → `DMA0IP<2:0>`:** Controlan la prioridad del **DMA Canal 0**.
+
+#### Paso 2: ¿Qué significan las siglas de la leyenda?
+Esto es clave para saber qué podés hacer con cada bit:
+
+| Sigla | Significado | ¿Qué implica? |
+| :--- | :--- | :--- |
+| **U-0** | **Unimplemented**, se lee como `0` | El bit no existe o no tiene función. Siempre vale `0`. En IPC1 son los bits 15, 11, 7 y 3 (los separadores). |
+| **R/W** | **Readable / Writable** | Podés **leer** el valor actual y también **escribirlo** para cambiar la prioridad. |
+| **-n** | **Value at POR** (Power-on Reset) | Es el valor que tiene el bit cuando encendés el micro. Ej: `R/W-1` → arranca en `1`. `R/W-0` → arranca en `0`. |
+
+> [!IMPORTANT]
+> **Valor por defecto de las prioridades:** Fijate que los bits de cada grupo arrancan en `1-0-0` (binario = **4**). Esto significa que al encender el micro, **todas las interrupciones arrancan con prioridad 4 por defecto**, y la CPU arranca con IPL = 0. Por eso cualquier interrupción habilitada puede interrumpir al `main()` sin que vos toques nada.
+
+#### Paso 3: Cómo configurar la prioridad (El valor de los 3 bits)
+Como cada periférico tiene **3 bits** asignados, podés codificar un número del 0 al 7 en binario:
+
+| Binario | Decimal | Efecto |
+| :--- | :--- | :--- |
+| `111` | **7** | Prioridad **máxima**. Gana ante cualquier otro periférico con menor número. |
+| `101` | **5** | Prioridad alta. |
+| `100` | **4** | Prioridad **por defecto** al encender el micro. |
+| `001` | **1** | Prioridad **mínima** (pero sigue activa). |
+| `000` | **0** | ⚠️ **Interrupción DESHABILITADA** para ese periférico, aunque el bit de Enable (`IEC`) esté en 1. |
+
+#### Ejemplo práctico en código C
+Si necesitás que el **Timer 2** tenga una prioridad de **5**, tendrías que poner el binario `101` en los bits 14, 13 y 12 del registro IPC1. En C con XC16, el compilador te lo simplifica:
+
+```c
+IPC1bits.T2IP = 5; // El compilador sabe que esto apunta a los bits 14:12 de IPC1 (0x00A6)
+```
+
+> [!TIP]
+> **¿Cómo se conecta todo?** En la tabla de vectores del Datasheet (Sección 7.0), en la fila del **Timer 2**, la columna "Priority" te dice `IPC1<14:12>`. Eso es exactamente el campo `T2IP` que acabamos de leer en la hoja de datos. **El Diccionario te dice la dirección (`0x00A6`), la tabla de vectores te dice qué bits usar (`14:12`), y esta guía te enseña a leer qué significan.**
 
 ---
 
