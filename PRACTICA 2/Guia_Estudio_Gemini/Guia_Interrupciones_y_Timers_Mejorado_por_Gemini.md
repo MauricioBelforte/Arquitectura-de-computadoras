@@ -193,6 +193,95 @@ Al igual que el complejo sistema de interrupciones general, el módulo del Timer
 > - 📄 [**`manual_referencia_dsPIC33F_11_timers.pdf`**](file:///d:/Escritorio/INFORMATICA/ARQUITECTURA%20DE%20COMPUTADORAS/PRACTICA%202/manual_referencia_dsPIC33F_11_timers.pdf) *(Family Reference Manual)*
 >   - Expone toda la matemática y los modos de operación **(Section 11)**, pero jamás te mostrará los pines.
 
+### 3.1.1 Guía de Lectura: Tabla General de Registros de Timer (Table 11-4)
+
+Cuando abrís la **Sección 11 del Family Reference Manual**, lo primero que te aparece es una tabla panorámica con **todos** los registros de **todos** los timers. Es intimidante al principio, pero en realidad es un resumen compacto que te dice qué bits existen en cada registro y con qué valor arrancan al encender el micro.
+
+#### Reproducción simplificada de la Tabla 11-4:
+
+| SFR Name | Bit 15 | Bit 14 | Bit 13 | ... | Bit 6 | Bit 5-4 | Bit 3 | Bit 2 | Bit 1 | Bit 0 | Reset |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **TMR1** | | | | Timer1 Register (16 bits de contador) | | | | | | | `xxxx` |
+| **PR1** | | | | Period Register 1 (16 bits de límite) | | | | | | | `FFFF` |
+| **T1CON** | TON | — | TSIDL | — | TGATE | TCKPS | — | TSYNC | TCS | — | `0000` |
+| **TMRx** | | | | Timerx Register (Tipo B) | | | | | | | `xxxx` |
+| **TMRyHLD** | | | | Timery Holding Register (solo 32-bit) | | | | | | | `xxxx` |
+| **TMRy** | | | | Timery Register (Tipo C) | | | | | | | `xxxx` |
+| **PRx** | | | | Period Register x (Tipo B) | | | | | | | `FFFF` |
+| **PRy** | | | | Period Register y (Tipo C) | | | | | | | `FFFF` |
+| **TxCON** | TON | — | TSIDL | — | — | TGATE | TCKPS | — | T32 | TCS | `0000` |
+| **TyCON** | TON | — | TSIDL | — | — | TGATE | TCKPS | — | — | TCS | `0000` |
+
+#### ¿Cómo leer esta tabla?
+
+1. **Columna "SFR Name":** Es el nombre del registro que usás en tu código C (ej: `TMR1`, `T1CON`).
+2. **Columnas de Bits (15 a 0):** Te muestran qué "perilla" o función vive en cada posición. Si ves un guion largo (`—`) significa que ese bit **no se usa** (Unimplemented).
+3. **Columna "Reset":** Es el valor hexadecimal que tiene el registro al encender el micro. Esto es clave:
+   * **`xxxx`** en TMR1 significa que el contador arranca con un **valor desconocido**. Por eso siempre lo ponés a cero antes de arrancar (`TMR1 = 0;`).
+   * **`FFFF`** en PR1 significa que el periodo arranca en su **valor máximo** (65535). Si no lo configurás, el timer contará hasta 65535 antes de generar la interrupción.
+   * **`0000`** en T1CON significa que el timer arranca **apagado** (`TON = 0`), con prescaler 1:1 (`TCKPS = 00`) y usando el reloj interno (`TCS = 0`).
+
+4. **Las letras `n`, `x`, `y`:** Son comodines que te dicen a qué tipo de timer aplica:
+   * `n` = Cualquier timer (1 a 9).
+   * `x` = Solo Timers Tipo B (2, 4, 6, 8).
+   * `y` = Solo Timers Tipo C (3, 5, 7, 9).
+
+> [!IMPORTANT]
+> **El bit `T32` solo existe en los TxCON (Tipo B).** Cuando lo ponés en `1`, fusionás el Timer Tipo B con su vecino Tipo C para crear un **super-timer de 32 bits**. Ejemplo: `T2CONbits.T32 = 1;` fusiona el Timer2 + Timer3.
+
+### 3.1.2 Guía de Lectura: Registro T1CON bit a bit (Register 12-1)
+
+Ahora que ya sabés leer la tabla panorámica, vamos a hacer zoom en un registro concreto. Así es como aparece el **T1CON** cuando abrís la **Sección 12.0** del Datasheet:
+
+#### Representación visual de los 16 bits de T1CON (`0x0104`)
+
+```
+  bit 15    14    13    12    11    10     9     8     7     6     5     4     3     2     1     0
+┌──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┬──────┬─────┬─────┬─────┐
+│R/W-0 │ U-0 │R/W-0│ U-0 │  U-0 │ U-0 │ U-0 │ U-0 │  U-0 │R/W-0│R/W-0│R/W-0│  U-0 │R/W-0│R/W-0│ U-0 │
+│ TON  │  —  │TSIDL│  —  │   —  │  —  │  —  │  —  │   —  │TGATE│  TCKPS<1:0> │  —  │TSYNC│ TCS │  —  │
+└──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┴──────┴─────┴─────┴─────┘
+```
+
+#### Desglose de cada bit funcional:
+
+| Bit(s) | Nombre | Tipo | Reset | Función |
+| :--- | :--- | :--- | :--- | :--- |
+| **15** | `TON` | R/W | 0 | **Interruptor de encendido.** `1` = Timer1 encendido y contando. `0` = Apagado. |
+| **14** | — | U | 0 | No implementado. |
+| **13** | `TSIDL` | R/W | 0 | Si vale `1`, el timer se detiene cuando la CPU entra en modo Idle (ahorro de energía). |
+| **12-8** | — | U | 0 | No implementados. |
+| **7** | — | U | 0 | No implementado. |
+| **6** | `TGATE` | R/W | 0 | **Modo Compuerta.** Si vale `1`, el timer solo cuenta mientras un pin externo esté en alto. |
+| **5-4** | `TCKPS<1:0>` | R/W | 00 | **Prescaler.** Divisor de frecuencia del reloj: `00`=1:1, `01`=1:8, `10`=1:64, `11`=1:256. |
+| **3** | — | U | 0 | No implementado. |
+| **2** | `TSYNC` | R/W | 0 | **Sincronización.** Solo aplica cuando usás reloj externo (`TCS=1`). Si vale `1`, sincroniza los pulsos externos con el reloj interno de la CPU. |
+| **1** | `TCS` | R/W | 0 | **Selector de Reloj.** `0` = Reloj interno (FCY). `1` = Reloj externo por pin T1CK. |
+| **0** | — | U | 0 | No implementado. |
+
+> [!CAUTION]
+> **Orden de configuración obligatorio:** Siempre configurá **todos los bits de TxCON ANTES** de poner `TON = 1`. Si encendés el timer primero y después cambiás el prescaler o la fuente de reloj, podés generar comportamientos impredecibles. El orden seguro es:
+> 1. `T1CON = 0;` → Apagar y limpiar todo.
+> 2. `TMR1 = 0;` → Poner el contador a cero.
+> 3. `PR1 = valor;` → Cargar el periodo deseado.
+> 4. `T1CONbits.TCKPS = 0b11;` → Configurar el prescaler (ej: 1:256).
+> 5. `T1CONbits.TON = 1;` → **Último paso:** Encender el motor.
+
+#### Ejemplo práctico completo en código C
+
+```c
+// Configurar Timer1 para generar una interrupción cada 250 ms (0.25 segundos)
+// Asumiendo Fosc = 80MHz → Fcy = 40MHz → Tcy = 25ns
+
+T1CON = 0;              // Paso 1: Apagar y resetear todo el registro de control
+TMR1 = 0;               // Paso 2: Contador a cero
+PR1 = 39062;            // Paso 3: Periodo = 0.25s / (25ns * 256) ≈ 39062
+T1CONbits.TCKPS = 0b11; // Paso 4: Prescaler 1:256
+IFS0bits.T1IF = 0;       // Limpiar bandera por si estaba sucia
+IEC0bits.T1IE = 1;       // Habilitar interrupción del Timer1
+T1CONbits.TON = 1;       // Paso 5: ¡ENCENDER! (siempre al final)
+```
+
 ### 3.2 Ingeniería de la Ecuación del Cronometrador
 > [!TIP]
 > **Fórmula Universal Dinámica de Temporización XC16:**
