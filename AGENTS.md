@@ -8,7 +8,7 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 - **Formato Estricto:** Al expandir el diccionario, se debe respetar la catalogación por temas (General, CPU, Timers, Interrupciones) y se deben añadir al final "Ejemplos de Sintaxis C (XC16)" garantizando que se entienda cómo escribirlo en MPLAB.
 
 ## 2. Gestión del Repositorio y `.gitignore`
-- **Solo Texto y Código:** El repositorio debe mantenerse liviano. Archivos de código (C, H), proyectos comprimidos (`.zip`), scripts (`.py`) y Markdown (`.md`) se suben a Git.
+- **Solo Texto y Código:** El repositorio debe mantenerse liviano. Archivos de código (C, H), proyectos comprimidos (`.zip`, `.rar`), scripts (`.py`) y Markdown (`.md`) se suben a Git.
 - **Aislamiento de Binarios:** Si el usuario incluye/sube nuevos archivos pesados como **imágenes (`.jpg`, `.png`, `.gif`), audios (`.m4a`), o nuevos manuales crudos (`.pdf`, `.doc`)**, el Agente DEBE agregarlos de inmediato al archivo `.gitignore`.
 
 ## 3. Flujo de Lectura y Extracción
