@@ -19,8 +19,25 @@ Imaginá que estás en una pizzería.
 
 Empezamos definiendo nuestras variables globales y macros que nos harán la vida más fácil.
 
+### ¿Por qué el Prescaler es 1:1?
+
+El enunciado pide un tiempo base de **150 microsegundos**. Esto es un tiempo extremadamente corto.
+Hagamos la matemática con cada prescaler disponible para ver cuál conviene:
+
+| Prescaler | Tcy efectivo (cada cuánto suma 1 el TMR) | PR1 necesario (150us / Tcy) | ¿Es entero? | ¿Cabe en 16 bits (máx 65535)? |
+|-----------|------------------------------------------|------------------------------|-------------|-------------------------------|
+| **1:1**   | 0,025 us                                | **6000**                     | ✅ Sí       | ✅ Sí (sobra espacio)         |
+| 1:8       | 0,2 us                                  | 750                          | ✅ Sí       | ✅ Sí                         |
+| 1:64      | 1,6 us                                  | **93,75**                    | ❌ ¡No!     | -                             |
+| 1:256     | 6,4 us                                  | **23,4375**                  | ❌ ¡No!     | -                             |
+
+**Conclusión:** Los prescalers 1:64 y 1:256 dan números con decimales. Como el registro `PR1` solo puede guardar números enteros, habría que redondear y el tiempo **nunca sería exactamente** 150us. El prescaler 1:8 también funciona, pero el 1:1 nos da la **máxima resolución posible** (el grano más fino de tiempo, 0,025us por pulso). Como 150us es un tiempo tan pequeño que entra cómodamente en un registro de 16 bits con 1:1, no necesitamos "frenar" el reloj con un prescaler mayor.
+
+> **Regla general para elegir prescaler:** Usá el prescaler más bajo que te dé un número entero en PR1 y que no se pase de 65535. Así tenés la máxima precisión.
+
 ```c
 // Definimos el tiempo base del Timer (150us a 40MHz con Prescaler 1:1)
+// Cálculo: 150us / 0,025us = 6000 pulsos exactos
 #define ValPR1  6000 
 
 // Creamos un Filtro Inteligente. El enunciado dice que SOLO aceptamos números o los signos aritméticos básicos.
