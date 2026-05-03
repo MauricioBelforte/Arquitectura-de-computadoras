@@ -23,6 +23,12 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 - **Idioma y Tiempo Verbal:** Todos los mensajes de `commit` al realizar un `push` deben escribirse estrictamente en **español**, utilizando un tiempo verbal descriptivo en pasado (pasivo o impersonal). 
 - **Ejemplos de formato:** *"Se actualizó la guía de estudio"*, *"Se agregaron comentarios explicativos en el proyectobase2"*, *"Se corrigió el cálculo matemático del Timer"*.
 
+## 6. Metodología de Resolución y Documentación Pedagógica
+- **Comentarios "Deep-Dive" en C:** Las soluciones de código deben incluir comentarios extensos en español que desglosen la lógica matemática (ej. frecuencias, prescalers) y el comportamiento físico de los registros (WREGs, IFS, etc.).
+- **Generación de Walkthroughs:** Ante ejercicios complejos, el Agente debe crear un documento `Walkthrough_... .md` independiente que explique la construcción de la solución de forma iterativa y pedagógica, como si fuera una narración del pensamiento del programador.
+- **Uso de Analogías:** Se fomenta el uso de analogías del mundo real (ej. pizzería, turnos de TV) para explicar conceptos abstractos de hardware y concurrencia.
+- **Saneamiento de Codificación:** Si un archivo presenta caracteres rotos por codificación antigua, el Agente debe recrearlo en formato UTF-8 para garantizar la integridad visual del estudio.
+
 ---
 
 ## Índice de Herramientas de Python 🛠️
