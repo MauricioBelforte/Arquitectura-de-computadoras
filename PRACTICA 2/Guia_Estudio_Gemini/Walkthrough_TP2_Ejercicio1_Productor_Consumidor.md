@@ -4,6 +4,17 @@ Este documento es una recreación cronológica de cómo pensar, diseñar y progr
 
 ---
 
+## Enunciado Oficial: Ejercicio 1 (Productor/Consumidor)
+El objetivo es implementar una rutina de interrupción para gestionar un buffer circular que almacene datos recibidos por el Puerto B (PORTB) bajo el paradigma Productor/Consumidor:
+
+*   **Productor (ISR):** La rutina de atención de la interrupción externa (INT1) debe detectar el ingreso de caracteres por flanco ascendente. Solo debe aceptar caracteres válidos (números '0'-'9' y operadores '+', '-', '*', '/'). Los datos válidos se guardan en un buffer circular de 16 posiciones.
+*   **Consumidor (Main):** Debe leer los caracteres pendientes del buffer circular y trasladarlos a una tabla de "Log de Operaciones". En paralelo, debe ejecutar una rutina de parpadeo de un LED.
+*   **Temporización Dinámica (Timer):** El tiempo de espera base es de 150us. Si no hay datos, el tiempo aumenta linealmente sumando 150us en cada intento fallido hasta un tope de 900us. Al consumir un dato, el tiempo debe resetearse a 150us inmediatamente.
+
+---
+
+---
+
 ## 1. Entendiendo el Paradigma: Productor / Consumidor
 
 Antes de tirar código, hay que entender qué es lo que nos pide la cátedra:

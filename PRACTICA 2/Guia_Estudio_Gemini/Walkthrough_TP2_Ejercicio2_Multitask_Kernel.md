@@ -4,6 +4,18 @@ Este documento explica de forma pedagógica y cronológica cómo construir un **
 
 ---
 
+## Enunciado Oficial: Ejercicio 2 (Multitask)
+Escribir un programa que simule la ejecución de tres procesos independientes (procesoA, procesoB y procesoC) y concurrentes:
+
+*   **Planificador:** Debe alternar el uso de la CPU entre los tres procesos asignando idéntico **Quantum** (2 interrupciones de reloj). Debe resguardar el estado (registros) del proceso actual y recuperar el del siguiente.
+*   **Reloj:** Implementado con un Timer que genera interrupciones regulares.
+*   **Estructura:** Se debe definir una estructura de datos (PCB) para contener el estado de los procesos.
+*   **Restricción:** No se deben modificar los procesos A, B y C proporcionados.
+
+---
+
+---
+
 ## 1. El Concepto: Multitarea Preventiva (Preemptive Multitasking)
 
 Imaginá que tenés un solo televisor (la CPU) y tres hermanos (Proceso A, B y C) que quieren ver canales distintos. Como no pueden verlo al mismo tiempo, vos (el Kernel) hacés lo siguiente:

@@ -1,9 +1,11 @@
 # Análisis Alternativo: TP2 Ejercicio 2 - Multitask (por Claude)
 
-> Este documento es un **complemento** al Walkthrough original creado por Gemini. 
-> No reemplaza ni modifica el existente. Ofrece una segunda perspectiva sobre la 
-> misma solución, profundizando en aspectos que el primer documento no cubrió y 
-> señalando algunos puntos de discusión técnica.
+> Este documento es un **complemento** al Walkthrough original creado por Gemini. No reemplaza ni modifica el existente. Ofrece una segunda perspectiva sobre la misma solución, profundizando en aspectos técnicos y de memoria.
+
+---
+
+## Enunciado Oficial: Ejercicio 2 (Multitask)
+Simular la ejecución concurrente de tres procesos independientes (A, B y C) mediante un planificador Round-Robin con un **Quantum de 2 interrupciones de reloj**. El sistema debe resguardar y restaurar el contexto completo (registros) de cada proceso utilizando una estructura de datos (PCB) y pilas independientes.
 
 ---
 
