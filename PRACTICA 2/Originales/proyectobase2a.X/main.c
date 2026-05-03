@@ -37,8 +37,9 @@ int counterINT0 = 0;
  * MATEMÁTICA DEL TIMER (A 40 MHz):
  * Si el micro opera a 40MHz, cada latido (Tcy) dura 0,025 us. 
  * Al configurar el prescaler en 1:256, el TMR1 (registro interno que lleva la cuenta) suma "1" cada 6,4 us (0,025 us * 256).
- * Al cargar un límite de PR1 = 62500, el TMR1 lo iguala y desborda tras 400.000 us (6,4 us * 62500).
- * Es decir, genera UNA interrupción exactamente cada 400 milisegundos (0,4 segundos).
+ * Al cargar un límite de PR1 = 62500, el TMR1 lo iguala y "desborda" tras 400.000 us (6,4 us * 62500).
+ * Este "desborde" (cuando el contador choca su límite y se reinicia) es lo que 
+ * dispara o genera UNA interrupción exactamente cada 400 milisegundos (0,4 segundos).
  * Como el bucle principal espera 10 interrupciones (counterTimer > 9), 
  * los LEDs se actualizan cada 4 segundos exactos (0,4s * 10).
  * 
