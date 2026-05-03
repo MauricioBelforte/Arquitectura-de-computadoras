@@ -169,6 +169,53 @@ Los Timers son los metrónomos inamovibles del microcontrolador. Son rutinas de 
 2.  **Modelo Tipo B (Timers 2, 4, 6 y 8):** Dedicados y especializados con la genialidad de enclavarse a los modelos tipo C para crear un **Timer contiguo de 32 bits** supermasivo para control de motores muy finos y bases PWM.
 3.  **Modelo Tipo C (Timers 3, 5, 7 y 9):** Suplen los perfiles esclavos/emparejables del Tipo B.
 
+### 3.0 ¿Cómo funciona físicamente un Timer?
+
+Para entender cómo funciona un **Timer** (temporizador) en un microcontrolador como el dsPIC33F, imaginalo como un contador digital de pulsos de reloj. Físicamente, es un módulo de hardware independiente que "observa" los latidos del procesador y suma uno en un registro interno cada vez que detecta un latido.
+
+Aquí te explico cada concepto desglosado físicamente:
+
+#### A. ¿Qué significa una frecuencia de 40 MHz?
+En el contexto de los timers, nos referimos a la **frecuencia de instrucción ($Fcy$)**.
+*   **Físicamente:** Es el "latido del corazón" interno del microcontrolador. Si tenés 40 MHz, significa que el reloj interno genera **40 millones de pulsos por segundo**.
+*   **El tiempo ($Tcy$):** A partir de esto, calculamos cuánto dura un solo latido: $Tcy = 1 / 40\text{ MHz} = 0,025\text{ }\mu\text{s}$ (25 nanosegundos). Sin nada que lo detenga, el timer sumaría "1" cada 25 nanosegundos.
+
+#### B. ¿Qué hace el Prescaler?
+El **Prescaler** funciona físicamente como una **caja de cambios** o un divisor de frecuencia antes de que el pulso llegue al contador del timer.
+*   **Físicamente:** Es un circuito que recibe los pulsos de 40 MHz pero solo deja pasar uno después de que hayan ocurrido "N" pulsos.
+*   **Ejemplo:** Si configurás un prescaler de **1:64**, el timer no contará cada 25 nanosegundos. En su lugar, esperará a que pasen **64 latidos** del procesador para sumar recién "1" en su registro interno.
+*   **Utilidad:** Sirve para que el timer no se llene (desborde) tan rápido y te permita medir tiempos más largos.
+
+#### C. ¿Qué hacen el PRx o PR1?
+El **PR (Period Register)** es el "límite" o el valor de la **alarma** que vos configurás.
+*   **Físicamente (El Comparador):** Dentro del chip hay un circuito llamado "Comparador de Igualdad". Este circuito mira constantemente dos cosas: el valor actual del contador (**TMR1**) y el valor que vos grabaste en el registro de periodo (**PR1**).
+*   **La Ruptura:** Cuando el contador $TMR1$ llega a ser exactamente igual al valor en $PR1$, ocurren tres cosas instantáneamente por hardware:
+    1.  El contador **TMR1 se reinicia a cero** automáticamente.
+    2.  Se levanta una "bandera" (el bit **T1IF** se pone en 1) para avisar que el tiempo se cumplió.
+    3.  Si las interrupciones están habilitadas, la CPU deja lo que está haciendo y salta a la **Rutina de Servicio de Interrupción (ISR)**.
+
+#### D. Cómo contar el tiempo (La lógica física)
+Para medir un tiempo exacto (por ejemplo, **25 ms**), vos ajustás los "engranajes" para que la alarma ($PR1$) suene justo en ese momento.
+
+La fórmula física que conecta todo es:
+$$t = Tcy \cdot \text{Prescaler} \cdot PR1$$
+
+Si querés **25.000 $\mu$s (25 ms)** con un reloj de **0,025 $\mu$s (40 MHz)** y un prescaler de **64**:
+1.  Cada incremento del timer ahora vale: $0,025 \mu s \cdot 64 = 1,6 \mu s$.
+2.  Para llegar a los 25.000 $\mu$s, ¿cuántas veces debe sumar el timer?
+3.  $PR1 = 25.000 / 1,6 = \mathbf{15.625}$.
+
+#### E. Aclaración del funcionamiento paso a paso (TMR y Prescaler)
+Para asegurar que el concepto está claro, respondamos una duda común: *¿El que cuenta los pulsos es el TMR? ¿Es decir, cada $0,025 \mu s$ si el prescaler está en 1 cuenta uno, y si el prescaler está en 64 el TMR cuenta uno cada $1,6 \mu s$?*
+
+**Exactamente, así es.** Físicamente, el registro que lleva la cuenta es el **TMRn** (como el TMR1), el cual se incrementa en cada pulso que le llega **después** de pasar por el divisor de frecuencia o prescaler.
+*   **Prescaler en 1:1:** No hay división. El contador **TMRn suma "1" cada $0,025 \mu s$**.
+*   **Prescaler en 1:64:** El circuito espera a que pasen 64 pulsos de reloj para dejar pasar solo uno al contador. Por lo tanto, el **TMRn suma "1" cada $1,6 \mu s$**.
+
+Mientras el **TMR1** va sumando esos pasos, el **comparador de igualdad** lo observa. En el momento exacto en que el valor del **TMR1 iguala al valor que cargaste en el PR1**, ocurren los eventos automáticos por hardware: se levanta la bandera **T1IF**, el contador **TMR1 se reinicia a cero** y se salta a la ISR.
+
+**En resumen:** El procesador late a 40MHz, el prescaler ralentiza esos latidos para que el contador ($TMR1$) no corra tan rápido, y el $PR1$ es la meta donde el comparador físico dispara la interrupción.
+
 ### 3.1 Los Registros Fundamentales del Timer
 
 Al igual que el complejo sistema de interrupciones general, el módulo del Timer se controla dominando tres ubicaciones de memoria específicas:

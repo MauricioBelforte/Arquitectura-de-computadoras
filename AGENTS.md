@@ -19,6 +19,10 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 - **Nunca teoría a medias:** Los manuales técnicos suelen tener fragmentos de código incompletos o mal traducidos por el traductor automático (ej. *nulo __atributo__*).
 - **Proyectos Compilables:** Cuando se aborde un tema nuevo (ej. Interrupciones, Timers, UART), el Agente debe crear carpetas independientes con ejemplos `main.c` **funcionales y compilables** que el usuario pueda copiar, pegar y simular con *Stimulus* en MPLAB X, en lugar de darle sólo porciones de código aisladas.
 
+## 5. Estándar de Commits en Git
+- **Idioma y Tiempo Verbal:** Todos los mensajes de `commit` al realizar un `push` deben escribirse estrictamente en **español**, utilizando un tiempo verbal descriptivo en pasado (pasivo o impersonal). 
+- **Ejemplos de formato:** *"Se actualizó la guía de estudio"*, *"Se agregaron comentarios explicativos en el proyectobase2"*, *"Se corrigió el cálculo matemático del Timer"*.
+
 ---
 
 ## Índice de Herramientas de Python 🛠️
