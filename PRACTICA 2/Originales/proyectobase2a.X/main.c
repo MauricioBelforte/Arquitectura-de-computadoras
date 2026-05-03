@@ -41,6 +41,32 @@ int counterINT0 = 0;
  * Es decir, genera UNA interrupción exactamente cada 400 milisegundos (0,4 segundos).
  * Como el bucle principal espera 10 interrupciones (counterTimer > 9), 
  * los LEDs se actualizan cada 4 segundos exactos (0,4s * 10).
+ * 
+ * ¿CÓMO TRABAJAN EN EQUIPO LAS 2 INTERRUPCIONES?
+ * Son dos eventos totalmente independientes:
+ * 1. Timer1: Cuenta el "tiempo" internamente. Avanza solo, pase lo que pase.
+ * 2. INT0 (Pulsos): Solo cuenta cuando hay un evento físico en el mundo exterior 
+ *    (ej. un botón presionado que genera un flanco ascendente de 0V a 3 o 5v que ingresa por algun pin).
+ * El Timer "marca la ventana de tiempo" (4 segs) y el INT0 cuenta los "eventos" 
+ * ocurridos dentro de esa ventana (similar a un medidor de RPM o Frecuencímetro).
+ * 
+ * ¿POR DÓNDE ENTRA LA CORRIENTE? (MAPEO FÍSICO DE PINES)
+ * Para que el chip "sienta" la interrupción, la señal eléctrica debe entrar
+ * por pines físicos específicos. Estos pines están "multiplexados" (tienen 
+ * múltiples funciones asignadas a la misma pata metálica del chip):
+ * - INT0: La corriente del pulso entra por la pata compartida con RE8.
+ * - INT1: Entra por la pata compartida con RE9.
+ * - INT2: Entra por la pata compartida con RE10.
+ * - Timer1 (T1CK): Si decidieras usar el Timer como contador de eventos externos
+ *   en lugar de su reloj interno, los pulsos deben ingresar por el pin RC14.
+ * 
+ * ¿QUÉ MUESTRAN LOS LEDs (LATA) Y CUÁL ES EL MÁXIMO VISUAL?
+ * Al cumplirse los 4 segundos, el código asigna `LATA = counterINT0;`.
+ * El número decimal de pulsos se convierte automáticamente a binario puro y
+ * se refleja en los 8 pines físicos (1=encendido, 0=apagado). (Ej: 5 = 0000 0101).
+ * LÍMITE: Al tener exactamente 8 LEDs, el número máximo que pueden formar juntos 
+ * todos encendidos es el 255 (1111 1111). Si llegaras a generar 256 pulsos o más, 
+ * los LEDs mostrarían los últimos 8 bits, "reiniciándose" visualmente desde 0.
  */
 int main(void) {
 

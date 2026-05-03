@@ -396,3 +396,31 @@ void __attribute__((__interrupt__, no_auto_psv)) _T1Interrupt(void) {
 
 > [!CAUTION]
 > **El gran error de los parciales:** Omitir la instrucción **`IFSxbits.TxIF = 0;`** al salir condena repetitiva y permanentemente al hardware a reingresar a esta función una y otra vez (creyendo que el evento no fue atendido), causando un cuelgue fantasma permanente del Microcontrolador.
+
+---
+
+## 5. Caso Práctico: Proyecto Base 2 (Timer + INT0 + LEDs)
+
+Para aterrizar todo el comportamiento de interrupciones, analizamos el comportamiento conjunto del **Timer1**, una **Interrupción Externa (INT0)** y un **Puerto de Salida (PORTA / LATA)**.
+
+### A. Trabajo en equipo de 2 interrupciones independientes
+Es crucial entender que el Timer y las interrupciones externas operan en paralelo sin molestarse:
+1. **Timer1:** Cuenta el "tiempo" internamente. Avanza solo, pase lo que pase, funcionando como el reloj que marca una **ventana de tiempo** fija (ej. cada 4 segundos).
+2. **INT0 (Pulsos):** Funciona como un contador de eventos. Solo avanza cuando ocurre un evento físico en el mundo exterior (un botón presionado que genera un flanco ascendente).
+
+**Analogía:** El Timer es el cronómetro y el INT0 es el contador de vueltas. Juntos permiten crear sistemas como un frecuencímetro o medidor de RPM.
+
+### B. Mapeo Físico y Multiplexado (¿Por dónde entra la corriente?)
+Para que el microcontrolador "sienta" la interrupción, el pulso eléctrico (una transición de 0V a 3.3V/5V) debe ingresar físicamente por pines específicos. Los pines de un dsPIC están **multiplexados**, es decir, una misma pata metálica sirve para varias funciones.
+Ejemplos de mapeos vitales:
+*   **INT0:** La señal debe ingresar por el pin compartido con **RE8** (Puerto E, bit 8).
+*   **INT1:** Pin compartido con **RE9**.
+*   **INT2:** Pin compartido con **RE10**.
+*   **Timer1 (T1CK):** Si en lugar de usar el oscilador interno del micro configuramos el Timer como contador de pulsos externos, la señal debería entrar por el pin **RC14**.
+
+### C. La traducción de Decimal a Binario Físico (LEDs)
+Si conectamos 8 LEDs al puerto A y ejecutamos la asignación `LATA = counterINT0;`, el procesador agarra automáticamente el número decimal de pulsos de la variable y enciende/apaga los pines formando el número **en binario puro** ($1 = Encendido, 0 = Apagado$).
+*   *Ejemplo:* Si hubo 5 pulsos, los LEDs formarán el patrón `0000 0101` (se encienden el pin 0 y el pin 2).
+
+**El Límite de los 8 bits (Máximo Visual):** 
+Al tener exactamente 8 pines/LEDs físicos, el número máximo que pueden formar todos encendidos es el **255** en decimal (`1111 1111` en binario). Si el `counterINT0` detecta 256 pulsos o más, los LEDs empezarán a engañar a la vista: volverán a mostrar `0000 0000` y empezarán de nuevo, ya que los LEDs físicos solo tienen capacidad para mostrar los 8 bits menos significativos del número.
