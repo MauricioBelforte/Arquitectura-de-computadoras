@@ -30,16 +30,24 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
 *   `Obsoletos/`: Versiones descartadas, capturas de pantalla de ayuda y borradores.
 
 ### 3. Carpetas Globales de Soporte
-*   `MANUALES/`: Repositorio de datasheets generales del dsPIC33F (CPU, Set de Instrucciones, Mapa de Memoria).
-*   `Herramientas_Python/`: Scripts de automatización para traducción y limpieza de PDFs.
-*   `CLASES TEORICAS/`: Material y apuntes de las clases presenciales/virtuales.
-*   `Cuestionarios/`: Material de estudio para los exámenes teóricos cortos.
+*   **`MANUALES/`**: Repositorio central de documentación técnica pesada.
+    *   `Audios/`: Grabaciones y notas de voz técnicas.
+    *   `PDFs/`: Datasheets originales de Microchip en inglés.
+    *   `Programacion_C/`: Guías de sintaxis de C para XC16.
+    *   `Traducidos_Referencia/`: Manuales de referencia de Microchip traducidos al español.
+*   **`CLASES TEORICAS/`**: Material y apuntes de las clases presenciales/virtuales.
+    *   `Originales_PDF/`: Diapositivas y material virgen de la cátedra.
+*   **`Cuestionarios/`**: Material de estudio para los exámenes teóricos cortos.
+    *   `Cuestionario X/`: Preguntas y respuestas específicas de cada test.
+*   **`Herramientas_Python/`**: Scripts de automatización (`translate_pdf.py`, `fix_code_md.py`, etc.).
+*   **`scratch/`**: Carpeta de trabajo temporal para la IA (scripts rápidos de prueba).
 
 ---
 
 ## ✅ Protocolo de Sincronización
 Si al abrir el repositorio en una nueva máquina detectas archivos fuera de lugar:
-1. **Mover** los manuales técnicos a `PRACTICA X/Documentacion/Manuales/`.
-2. **Mover** las diapositivas a `PRACTICA X/Documentacion/Diapositivas/`.
+1. **Mover** los manuales técnicos de periféricos a `PRACTICA X/Documentacion/Manuales/`.
+2. **Mover** las diapositivas de clase a `PRACTICA X/Documentacion/Diapositivas/`.
 3. **Eliminar** copias duplicadas de archivos `.md` en la raíz de las carpetas de práctica.
-4. **Ejecutar `git pull`** para asegurar que las guías generadas por la IA estén actualizadas.
+4. **Respetar las subcarpetas** de `MANUALES/` para evitar mezclar PDFs con Audios.
+5. **Ejecutar `git pull`** para asegurar que las guías generadas por la IA estén actualizadas.

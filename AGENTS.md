@@ -37,8 +37,7 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 
 ## 7. Estándar de Estructura de Proyecto y Nomenclatura
 - **Idioma Mandatorio:** Todo documento generado por el Agente (resúmenes, guías, explicaciones) debe escribirse en **español** y utilizar términos técnicos precisos. Queda prohibido el uso de nombres de archivos en inglés para material de estudio propio.
-- **Estructura Raíz:**
-    - `MANUALES/`: Carpeta central para documentación de referencia general (Datasheets, Manuales de Referencia de Microchip, Audios y archivos pesados).
+- **Estructura Raíz:** Ver archivo `ESTRUCTURA_REPOSITORIO.md` para el desglose detallado de carpetas globales (`MANUALES/`, `CLASES TEORICAS/`, `Cuestionarios/`, etc.).
 - **Estructura por Práctica (`PRACTICA X/`):**
     - `ENUNCIADO/`: Contiene la consigna original (PDF) y su traducción.
     - `Documentacion/`:
@@ -51,7 +50,8 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 
 ## 8. Protocolo de Navegación y Búsqueda (Para el Agente)
 Para garantizar la continuidad entre sesiones, el Agente debe seguir este orden de búsqueda:
-1.  **Fechas y Plazos:** Consultar siempre `CRONOGRAMA_RESUMEN.md` en la raíz.
+1.  **Estructura del Proyecto:** Consultar siempre `ESTRUCTURA_REPOSITORIO.md` para ubicar archivos y respetar la jerarquía de subcarpetas.
+2.  **Fechas y Plazos:** Consultar siempre `CRONOGRAMA_RESUMEN.md` en la raíz.
 2.  **Teoría y Conceptos:** 
     - Diccionario técnico: `Documentacion/Diccionario.md`.
     - Clases: `CLASES TEORICAS/` (resúmenes) y `CLASES TEORICAS/Originales_PDF/`.
