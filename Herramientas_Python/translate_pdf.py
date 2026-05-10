@@ -74,10 +74,12 @@ def translate_pdf_to_md(pdf_path, md_path):
 if __name__ == '__main__':
     # Archivos a traducir usando rutas relativas automáticas
     pdfs_a_traducir = [
-        os.path.join(DIR_RAIZ, "PRACTICA 2", "manual_referencia_dsPIC33F_11_timers.pdf"),
-        os.path.join(DIR_RAIZ, "Set_de_Instrucciones_dsPic33 (Resumido).pdf"),
-        os.path.join(DIR_RAIZ, "MCU_and_DSC_prog_Reference_Manual (Set de instrucciones completo).pdf"),
-        os.path.join(DIR_RAIZ, "dsPic33FJ256GP710-70286C (Datasheet).pdf")
+        # os.path.join(DIR_RAIZ, "PRACTICA 2", "manual_referencia_dsPIC33F_11_timers.pdf"),
+        # os.path.join(DIR_RAIZ, "Set_de_Instrucciones_dsPic33 (Resumido).pdf"),
+        # os.path.join(DIR_RAIZ, "MCU_and_DSC_prog_Reference_Manual (Set de instrucciones completo).pdf"),
+        # os.path.join(DIR_RAIZ, "dsPic33FJ256GP710-70286C (Datasheet).pdf"),
+        os.path.join(DIR_RAIZ, "PRACTICA 3", "MANUALES", "DsPIC33 - DMA -DS70182b.pdf"),
+        os.path.join(DIR_RAIZ, "PRACTICA 3", "MANUALES", "dsPIC33 - Analog to Digital Converter-DS70183A.pdf")
     ]
     
     for pdf_path in pdfs_a_traducir:

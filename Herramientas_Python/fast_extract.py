@@ -25,7 +25,9 @@ pdfs_a_extraer = [
     os.path.join(DIR_RAIZ, "CLASES TEORICAS", "03. Unidad 8 - Microcontroladores.pdf"),
     os.path.join(DIR_RAIZ, "CLASES TEORICAS", "04. Unidad 7 - Entrada-Salida.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 1", "AC - TP1 - 2026.pdf"),
-    os.path.join(DIR_RAIZ, "PRACTICA 2", "AC - TP2 - 2026.pdf")
+    os.path.join(DIR_RAIZ, "PRACTICA 2", "AC - TP2 - 2026.pdf"),
+    os.path.join(DIR_RAIZ, "PRACTICA 3", "ENUNCIADO", "AC - TP3 - 2026.pdf"),
+    os.path.join(DIR_RAIZ, "PRACTICA 3", "MANUALES", "Conversor Analógico_Digital.pdf")
 ]
 
 for pdf_path in pdfs_a_extraer:

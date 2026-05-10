@@ -1,0 +1,62 @@
+/* 
+Arquitectura de Computadoras 2020
+Ejercicio multitasking con interrupciones.
+Completar el código faltante.
+ */
+
+#include <p33FJ256GP710.h>
+#include "xc.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "kernel.h"
+
+unsigned dirA,dirB,dirC;
+
+void procesoA(void)
+{
+    int x,y,z;
+
+    x = 2;
+    y = 4;
+    while(1) {
+        z = x + y;
+        x = x + 2;
+        y = z;
+    }
+}
+
+void procesoB(void)
+{
+    int a,b,c;
+
+    a = 1;
+    b = 3;
+    while(1) {
+        c = a * b;
+        a = a + 2;
+    }
+}
+
+void procesoC(void)
+{
+    int r,s,t;
+
+    r = 1;
+    s = r;
+    while(1) {
+        t = r + s;
+        t >>= 1;
+        r = r + 1;
+        s = s + 4;
+    }
+}
+
+int main(int argc, char** argv) {
+    dirA=procesoA;
+    // A se ejecuta solo no importa guardarlo inicialmente, si resguardar su valor de retorno
+    dirB=procesoB;
+    dirC=procesoC;
+    boot();
+    procesoA();
+    return (EXIT_SUCCESS);
+}

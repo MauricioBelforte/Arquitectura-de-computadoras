@@ -1,0 +1,79 @@
+## SCL Builder Setup File: Do not edit!!
+
+## VERSION: MPLAB X
+## FORMAT:  v2.00.01
+## DEVICE:  DSPIC33FJ256GP710
+
+## PINREGACTIONS
+cyc
+No Repeat
+--
+&
+## ADVPINREGACTIONS
+--
+&
+--
+COND2
+Any
+
+
+
+0
+cyc
+
+--
+&
+## CLOCK
+&
+## STIMULUSFILE
+&
+## RESPONSEFILE
+&
+## ASYNCH
+Pin
+RD0
+Toggle
+
+Puerta A
+-1
+--
+Pin
+RD1
+Toggle
+
+Puerta B
+-1
+--
+Pin
+RD2
+Toggle
+
+Puerta C
+-1
+--
+Pin
+RD5
+Toggle
+
+Presion gas
+-1
+--
+Pin
+RD6
+Toggle
+
+Energia
+-1
+--
+Pin
+RB15
+Toggle
+
+Temp 1
+-1
+--
+&
+## ADVANCEDSCL
+
+1
+&

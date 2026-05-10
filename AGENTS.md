@@ -25,9 +25,41 @@ Este documento centraliza las reglas, flujos de trabajo acordados y el índice d
 
 ## 6. Metodología de Resolución y Documentación Pedagógica
 - **Comentarios "Deep-Dive" en C:** Las soluciones de código deben incluir comentarios extensos en español que desglosen la lógica matemática (ej. frecuencias, prescalers) y el comportamiento físico de los registros (WREGs, IFS, etc.).
-- **Generación de Walkthroughs:** Ante ejercicios complejos, el Agente debe crear un documento `Walkthrough_... .md` independiente que explique la construcción de la solución de forma iterativa y pedagógica, como si fuera una narración del pensamiento del programador.
-- **Uso de Analogías:** Se fomenta el uso de analogías del mundo real (ej. pizzería, turnos de TV) para explicar conceptos abstractos de hardware y concurrencia.
+- **Generación de Guías Paso a Paso:** Ante ejercicios complejos, el Agente debe crear un documento `Guia_Paso_a_Paso_... .md` independiente que explique la construcción de la solución de forma iterativa y pedagógica.
+- **Guías de Preparación para Examen:** Al finalizar un ejercicio práctico, el Agente debe generar un documento `Guia_Examen_... .md` enfocado en la demostración técnica ante el docente. Debe incluir:
+    - Pasos de simulación en MPLAB X y configuración de *Stimulus* (pines y valores).
+    - Variables críticas para la ventana de *Watches* con valores esperados (Hex/Decimal).
+    - Uso del *Stopwatch* para validación de tiempos y frecuencias.
+    - Sección de "Preguntas Trampa" con respuestas justificadas sobre hardware y lógica.
+- **Rigor Técnico Obligatorio:** Queda prohibido el uso de analogías coloquiales (ej. oficinas, escritorios, pizzerías) en las Guías y Documentación. Se debe utilizar terminología estricta de hardware y arquitectura de computadoras: Puntero de Pila (SP / WREG15), Program Counter (PC), registros de trabajo (WREG0...WREG14), memoria RAM de datos, aritmética de punteros y marcos de interrupción. Siempre que se mencione un componente, se debe incluir su sigla o registro correspondiente entre paréntesis para mayor claridad técnica.
+- **Precisión Arquitectónica y Desglose de Hardware:** Toda documentación debe diferenciar explícitamente entre acciones realizadas por el **Hardware** (automáticas de la CPU) y acciones por **Software** (nuestro código). Los ejemplos deben utilizar mapas de memoria realistas, respetando la Arquitectura Harvard y utilizando direcciones físicas hexadecimales coherentes con el mapa de memoria del dsPIC (ej. variables globales en direcciones bajas `0x0800`, Stack en direcciones altas).
 - **Saneamiento de Codificación:** Si un archivo presenta caracteres rotos por codificación antigua, el Agente debe recrearlo en formato UTF-8 para garantizar la integridad visual del estudio.
+
+## 7. Estándar de Estructura de Proyecto y Nomenclatura
+- **Idioma Mandatorio:** Todo documento generado por el Agente (resúmenes, guías, explicaciones) debe escribirse en **español** y utilizar términos técnicos precisos. Queda prohibido el uso de nombres de archivos en inglés para material de estudio propio.
+- **Estructura Raíz:**
+    - `MANUALES/`: Carpeta central para documentación de referencia general (Datasheets, Manuales de Referencia de Microchip, Audios y archivos pesados).
+- **Estructura por Práctica (`PRACTICA X/`):**
+    - `ENUNCIADO/`: Contiene la consigna original (PDF) y su traducción.
+    - `Documentacion/`:
+        - `Manuales/`: Datasheets y Manuales de Referencia técnicos de Microchip.
+        - `Diapositivas/`: Apuntes, presentaciones y material teórico de la cátedra.
+    - `GUIA DE ESTUDIO GEMINI/`: Carpeta exclusiva para el material de estudio generado (Resumen, Guía Paso a Paso, Guía de Examen).
+    - `Entrega/`: Versiones finales, aprobadas y compilables del código.
+    - `Obsoletos/`: Borradores, capturas de WhatsApp y archivos descartados.
+    - `Originales/`: Proyectos base (.zip) y archivos fuente originales de la cátedra.
+
+## 8. Protocolo de Navegación y Búsqueda (Para el Agente)
+Para garantizar la continuidad entre sesiones, el Agente debe seguir este orden de búsqueda:
+1.  **Fechas y Plazos:** Consultar siempre `CRONOGRAMA_RESUMEN.md` en la raíz.
+2.  **Teoría y Conceptos:** 
+    - Diccionario técnico: `Documentacion/Diccionario.md`.
+    - Clases: `CLASES TEORICAS/` (resúmenes) y `CLASES TEORICAS/Originales_PDF/`.
+3.  **Desarrollo de Prácticas:**
+    - Consigna: `PRACTICA X/ENUNCIADO/`.
+    - Guías de estudio: `PRACTICA X/GUIA DE ESTUDIO GEMINI/`.
+    - Código final: `PRACTICA X/Entrega/`.
+4.  **Documentación Oficial:** `MANUALES/PDFs/` para datasheets y manuales de referencia.
 
 ---
 
@@ -40,3 +72,4 @@ Todos los scripts han sido configurados para ejecutarse sin importar en qué com
 2. **`translate_pdf.py`:** Convierte manuales en INGLÉS al español usando Google Translate. *(Cuidado: demora horas en datasheets grandes por la espera entre párrafos para evitar baneos de Google).*
 3. **`format_md.py`:** Limpiador estético de Markdown. Arregla viñetas, acomoda los títulos por niveles (`###`), y elimina basura visual del texto extraído.
 4. **`fix_code_md.py`:** Escanea los documentos traducidos y re-ensambla la sintaxis rota del C (cambia *nulo __atributo__* por `void __attribute__` y arregla bucles *mientras* por `while`).
+5. **`leer_pdf_consola.py`:** Lector rápido para visualizar contenido de PDFs directamente en la consola sin generar archivos.

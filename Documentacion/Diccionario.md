@@ -33,7 +33,11 @@ Siglas que encontrarás frecuentemente al definir variables o analizar el flujo 
 *   **Tcy (Instruction Cycle Time):** Tiempo de Ciclo de Instrucción. Es la duración de una sola instrucción ($Tcy = 1/Fcy$). Es el valor que usas para multiplicar en las fórmulas de los Timers. Ej: Si Fcy es 40MHz, Tcy es 25 nanosegundos. *(No es un registro, es el inverso de FCY.)*
 *   **GPR (General Purpose Registers):** Registros de Propósito General. Zona de la Memoria de Datos (RAM) destinada a las variables que define el programador. *(Memoria de Datos: desde `0x0800` hasta el final de la RAM disponible, compartido con la Pila.)*
 *   **SFR (Special Function Registers):** Registros de Funciones Especiales. Registros destinados al control y configuración de los periféricos del microcontrolador. *(Memoria de Datos: ocupan el rango `0x0000` a `0x07FF`, los primeros 2 KB.)*
-*   **CORCON (Core Control Register):** Registro de control de 16 bits utilizado para configurar los parámetros fundamentales del núcleo (core) del CPU. Permite configurar la visibilidad de memoria (PSV), modos de saturación DSP y gestionar niveles de prioridad de excepciones (IPL3). *(Memoria de Datos - SFR: `0x0044`)*
+*   **CORCON (Core Control Register):** Registro de control de 16 bits utilizado para configurar los parámetros fundamentales del núcleo (core) del CPU. Sus funciones principales incluyen:
+    *   **Configuración de Memoria:** Permite habilitar la visibilidad del espacio de programa (Flash) en el espacio de datos (bit **PSV**).
+    *   **Control DSP:** Configura los modos de saturación (SATA/SATB) y redondeo (RND) para los acumuladores en operaciones matemáticas avanzadas de procesado de señal.
+    *   **Gestión de Bucles:** Controla la terminación prematura de bucles de hardware (DO loops) y proporciona el nivel de anidamiento de los mismos.
+    *   **Estado de Prioridad:** Aloja el bit **IPL3** mencionado anteriormente, que indica si una trampa (trap) o excepción de procesador está siendo atendida. *(Memoria de Datos - SFR: `0x0044`)*
 
 
 ### 4. Registros Específicos del dsPIC33 (Puertos e Interrupciones)
@@ -134,10 +138,21 @@ Ejemplos de cómo escribir el código en MPLAB X para interactuar con el hardwar
 | **PORTD** | `0x02D4` | Memoria de Datos (SFR) |
 | **LATD** | `0x02D6` | Memoria de Datos (SFR) |
 | **AD1CON1** | `0x0320` | Memoria de Datos (SFR) |
+| **AD1CON2** | `0x0322` | Memoria de Datos (SFR) |
+| **AD1CON3** | `0x0324` | Memoria de Datos (SFR) |
+| **AD1CHS0** | `0x0328` | Memoria de Datos (SFR) |
+| **AD1PCFGL** | `0x032C` | Memoria de Datos (SFR) |
+| **ADC1BUF0** | `0x0300` | Memoria de Datos (SFR) |
+| **DMA0CON** | `0x0380` | Memoria de Datos (SFR) |
+| **DMA0REQ** | `0x0382` | Memoria de Datos (SFR) |
+| **DMA0STA** | `0x0384` | Memoria de Datos (SFR) |
+| **DMA0PAD** | `0x0388` | Memoria de Datos (SFR) |
+| **DMA0CNT** | `0x038A` | Memoria de Datos (SFR) |
 | **IVT** | `0x000004` a `0x0000FF` | Memoria de Programa (Flash) |
 | **AIVT** | `0x000100` a `0x0001FF` | Memoria de Programa (Flash) |
 | **Pila (Stack)** | Desde ~`0x0800` | Memoria de Datos (RAM) |
 | **GPR (Variables)** | Desde ~`0x0800` | Memoria de Datos (RAM) |
+| **DPSRAM (DMA)** | Área específica en RAM | Memoria de Datos (Dual Port) |
 
 ---
 
@@ -188,7 +203,18 @@ Este esquema simula el orden físico de los registros en la memoria RAM (bus de 
 | `0x02D4` | **PORTD** |
 | `0x02D6` | **LATD** |
 | `...` | *Hueco de memoria...* |
-| `0x0320` | **AD1CON1** |
+| `0x0300` | **ADC1BUF0** (Resultado de la conversión ADC1) |
+| `0x0320` | **AD1CON1** (Control ADC 1) |
+| `0x0322` | **AD1CON2** (Control ADC 2) |
+| `0x0324` | **AD1CON3** (Control ADC 3) |
+| `0x032C` | **AD1PCFGL** (Configuración de pines analógicos) |
+| `...` | *Registros intermedios...* |
+| `0x0380` | **DMA0CON** (Control Canal 0 DMA) |
+| `0x0382` | **DMA0REQ** (Asociación periférico DMA 0) |
+| `0x0384` | **DMA0STA** (Dirección RAM de inicio A) |
+| `0x0386` | **DMA0STB** (Dirección RAM de inicio B) |
+| `0x0388` | **DMA0PAD** (Dirección del periférico para DMA 0) |
+| `0x038A` | **DMA0CNT** (Contador de transferencias DMA 0) |
 | `...` | *Resto de los SFRs...* |
 | `0x07FF` | *Límite final del bloque SFR de hardware* |
 | **--- ZONA GPR ---** | **(General Purpose Registers: `0x0800` en adelante)** - *Memoria libre para tu código* |
@@ -215,3 +241,21 @@ Este esquema simula la memoria Flash no volátil, donde el bus de direcciones us
 | `Dinámico` | **Funciones ISR** (Ej: Aquí se aloja la función `_T1Interrupt()`) |
 | `Dinámico` | **Constantes** (Si defines `const int x = 5`, se guarda aquí, no en la RAM) |
 | `Límite Flash` | *Fin de la memoria de programa (Flash) instalada* |
+
+---
+
+### 10. Periféricos Avanzados (ADC y DMA)
+Conceptos clave para la digitalización de señales y la transferencia eficiente de datos.
+
+*   **ADC (Analog-to-Digital Converter):** Conversor Analógico-Digital. Periférico que transforma una tensión analógica (0V a VREF) en un valor numérico digital.
+*   **SAR (Successive Approximation Register):** Registro de Aproximación Sucesiva. Método de hardware que utiliza el ADC para determinar el valor digital bit a bit (comparando contra una referencia interna).
+*   **VREF (Voltage Reference):** Voltaje de Referencia. Tensión máxima y mínima (típicamente AVDD y AVSS) contra la que el ADC compara la entrada analógica.
+*   **Resolución:** Cantidad de bits del resultado. En dsPIC33F: 10 bits (1024 saltos) o 12 bits (4096 saltos). A más bits, mayor precisión (escalones más pequeños).
+*   **TAD (A/D Conversion Clock):** Tiempo de reloj de conversión. Periodo mínimo necesario para convertir un solo bit. El tiempo total de conversión depende de la cantidad de TADs (12 para 10 bits).
+*   **Sampling (Muestreo):** Fase en la que el amplificador Sample/Hold se conecta al pin para cargar el condensador interno con el voltaje de entrada.
+*   **Holding (Retención):** Fase en la que se desconecta el pin y se mantiene el voltaje estable para que el circuito SAR realice la conversión.
+*   **DMA (Direct Memory Access):** Acceso Directo a Memoria. Módulo que mueve datos entre periféricos y RAM de forma autónoma. **No usa ciclos de CPU**.
+*   **DPSRAM (Dual Port SRAM):** Memoria de doble puerto. Memoria RAM especial que permite que el DMA y la CPU accedan simultáneamente por buses distintos sin colisionar.
+*   **Ping-Pong:** Técnica de DMA que usa dos buffers (A y B). Mientras el DMA llena el buffer A, la CPU puede procesar los datos del buffer B, permitiendo un flujo de datos continuo.
+*   **Post-Incremento:** Modo de direccionamiento donde el puntero de memoria avanza automáticamente después de cada transferencia DMA.
+*   **IRQSEL:** Bits en el registro `DMAxREQ` que definen qué evento de hardware (ej: fin de conversión ADC) dispara la transferencia DMA.
