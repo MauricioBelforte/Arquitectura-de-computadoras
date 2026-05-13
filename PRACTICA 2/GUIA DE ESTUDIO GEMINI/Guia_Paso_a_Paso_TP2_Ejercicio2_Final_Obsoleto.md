@@ -122,7 +122,7 @@ Para validar el "Método de la Pizarra", observamos las entrañas del dsPIC33F.
         *   **`arregloProcA[0]` = `0x0444`**: Dirección física en la Memoria de Programa (Flash) de `procesoA`.
 2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
     *   **Valores Reales observados:**
-        *   **`W15` = `0x0888`**: La pila creció porque el hardware empujó (PUSH) el Program Counter y el Status Register.
+        *   **`W15` = `0x0888`**: La pila creció porque el hardware empujó (PUSH) el Program Counter y el Status Register del **Proceso A**.
 3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
     *   **Valores Reales observados:**
         *   **`W15` = `0x0892`** (RAM): El puntero creció por llamar a la función `planificador()`.

@@ -114,7 +114,7 @@ Para observar el trasplante de memoria, colocá los siguientes puntos de parada 
 2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
     *   **Propósito:** Detectar el momento exacto en que el Timer1 decide que es hora de cambiar de proceso.
     *   **Valores Reales observados:**
-        *   **`W15` = `0x0888`**: Observamos que la pila creció (de `0x0862` a `0x0888`). Esto ocurre porque el hardware y el compilador "empujaron" (PUSH) el Program Counter y los registros de trabajo para no perder el estado del Proceso A.
+        *   **`W15` = `0x0888`**: Observamos que la pila creció (de `0x0862` a `0x0888`). Esto ocurre porque el hardware y el compilador "empujaron" (PUSH) el Program Counter y el Status Register del **Proceso A** para no perder su estado.
     *   **Acción:** Dale a **Play (F5)** y espera a que se detenga ahí.
 3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
     *   **Propósito:** Ver la aritmética de punteros para encontrar el contexto del proceso.
