@@ -45,6 +45,16 @@ Este directorio contiene scripts diseñados para automatizar el procesamiento de
 *   **Funcionamiento:** Extrae el texto y lo imprime usando codificación UTF-8 para evitar errores de caracteres especiales.
 *   **Uso:** `python Herramientas_Python/leer_pdf_consola.py "ruta/archivo.pdf"`
 
+### 6. `diagnostico_pdf.py` (Diagnóstico de Codificación)
+*   **Propósito:** Analizar los codepoints Unicode de los caracteres especiales de un PDF para detectar problemas de codificación antes de extraerlo.
+*   **Funcionamiento:** Escanea las primeras páginas del PDF e imprime una tabla con cada carácter especial encontrado, su frecuencia y su categoría:
+    *   **Latin-1 (U+00C0–U+00FF):** Tildes y eñes. Correctos en UTF-8. Si se ven rotos, el problema es la terminal, no el archivo.
+    *   **PUA (U+E000–U+F8FF):** Viñetas de fuentes Symbol/Wingdings. Se suprimen automáticamente con `fast_extract.py`.
+*   **Uso:** Configurar `PDF_A_ANALIZAR` en el script y ejecutar:
+    ```bash
+    python Herramientas_Python/diagnostico_pdf.py
+    ```
+
 ---
 
 ## 🚀 Cómo utilizarlas
@@ -65,7 +75,9 @@ Este directorio contiene scripts diseñados para automatizar el procesamiento de
     *   Para **mirar rápido** un documento: Usar `leer_pdf_consola.py`.
     *   Para **integrar** un manual nuevo (inglés): `translate` -> `format` -> `fix_code`.
     *   Para **integrar** un manual nuevo (español): `fast_extract` -> `format`.
+    *   Si el texto extraído tiene **caracteres rotos**: ejecutar `diagnostico_pdf.py` primero.
 
 ---
 > [!IMPORTANT]
-> **Configuración de Archivos:** Para añadir nuevos PDFs a la cola de procesamiento, edita la lista `pdfs_a_extraer` dentro de cada script. Los scripts escanearán automáticamente las subcarpetas del proyecto.
+> **Agregar nuevos PDFs a `fast_extract.py`:** Para clases teóricas, añadir una tupla `("nombre.pdf", "nombre_es.md")` a la lista `CLASES_TEORICAS_PDFS`. Para otros PDFs (prácticas, manuales), añadir la ruta completa a `OTROS_PDFS`. Los scripts usan rutas dinámicas y funcionan en cualquier máquina donde esté clonado el repositorio.
+

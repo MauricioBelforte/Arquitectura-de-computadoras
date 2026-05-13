@@ -21,3 +21,6 @@ __pycache__/
 # Ignorar archivos de sistema
 .DS_Store
 Thumbs.db
+
+# Ignorar carpeta de trabajo temporal de la IA (scripts de prueba y diagnóstico)
+scratch/
