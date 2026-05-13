@@ -37,20 +37,27 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 
 El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. **¿Cómo descubrimos que es 18?** Usamos una estrategia de "Búsqueda y Descarte Lógico":
 
-1. **Punto Cero (Inicio de la Pila):** 
+1. **Cálculo Teórico (¿Cuánto debe medir el Contexto?):** 
+   Antes de tocar el micro, sabemos por arquitectura que un cambio de contexto guarda:
+   *   Program Counter (PC): **2 words**
+   *   Status Register (SR): **1 word**
+   *   Registros de Trabajo (W0 a W14): **15 words**
+   *   **Total esperado = 18 words.**
+
+2. **Punto Cero (Inicio de la Pila):** 
    Ponemos un Breakpoint justo antes de entrar al primer proceso. **En `main.c`, línea 60 (`procesoA();`)**. Anotamos el valor del Puntero de Pila (`W15`).
    *Ejemplo: `W15` = **`0x0862`***.
    > **¿Por qué el PC no estará aquí?** Porque el Proceso A usará la pila para sus variables y funciones. Cuando llegue la interrupción, el PC se guardará donde esté la pila en ese instante, no en el "suelo" (`0x0862`).
 
-2. **Captura del W15 Actual (Paso del Planificador):**
+3. **Captura del W15 Actual (Paso del Planificador):**
    Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que se detenga allí. Supongamos que el nuevo `W15` = **`0x0892`**.
 
-3. **Caza del PC (Búsqueda por proximidad):**
+4. **Caza del PC (Búsqueda por proximidad):**
    Sabemos que el hardware empujó el PC de la tarea. Abrimos **File Registers** y buscamos direcciones de RAM entre el fondo (`0x0862`) y el tope actual (`0x0892`).
-   *   **La Regla:** Buscamos un valor de Flash (`04XX`) que esté a **18 posiciones** de nuestro `W15` actual.
+   *   **La Regla del Match:** Buscamos un valor de Flash (`04XX`) que esté exactamente a **18 posiciones** de nuestro `W15` actual.
    *   Encontramos el **`0x0454`** en la dirección de RAM **`0x086E`**.
 
-4. **Validación y Descubrimiento del Desplazamiento:**
+5. **Validación y Descubrimiento del Desplazamiento:**
    Hacemos la resta: `0x0892` (actual) - `0x086E` (donde está el PC) = **36 bytes**.
    Como trabajamos en palabras de 16 bits: `36 / 2 = 18`.
    **¡Descubrimos que DESPLAZAMIENTO = 18!**
