@@ -37,24 +37,23 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 
 El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. **¿Cómo descubrimos que es 18?** Usamos una estrategia de "Búsqueda y Descarte Lógico":
 
-1. **Sabemos cuánto debe medir el Contexto:** 
-   En nuestra arquitectura, un cambio de contexto guarda:
-   *   Program Counter (PC): **2 words**
-   *   Status Register (SR): **1 word**
-   *   Registros de Trabajo (W0 a W14): **15 words**
-   *   **Total esperado = 18 words.**
+1. **Punto Cero (Inicio de la Pila):** 
+   Ponemos un Breakpoint justo antes de entrar al primer proceso. **En `main.c`, línea 60 (`procesoA();`)**. Anotamos el valor del Puntero de Pila (`W15`).
+   *Ejemplo: `W15` = **`0x0862`***.
+   > **¿Por qué el PC no estará aquí?** Porque el Proceso A usará la pila para sus variables y funciones. Cuando llegue la interrupción, el PC se guardará donde esté la pila en ese instante, no en el "suelo" (`0x0862`).
 
-2. **Captura del W15 Actual:**
-   Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que se detenga allí. Supongamos que `W15` = **`0x0892`**.
+2. **Captura del W15 Actual (Paso del Planificador):**
+   Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que se detenga allí. Supongamos que el nuevo `W15` = **`0x0892`**.
 
-3. **Caza del PC (Escaneo por proximidad):**
-   Abrimos **File Registers** (RAM) y buscamos direcciones que estén **aproximadamente 18 posiciones (36 bytes)** más atrás de nuestro `W15` actual. Para saber desde dónde empezar a buscar, recordamos que la pila inició en **`main.c`, línea 60 (`procesoA();`)** con un `W15` de **`0x0862`**.
-   *   A 24 posiciones (`0x0862`) vemos un `0x04AA`.
-   *   A 18 posiciones (`0x086E`) vemos un **`0x0454`**.
+3. **Caza del PC (Búsqueda por proximidad):**
+   Sabemos que el hardware empujó el PC de la tarea. Abrimos **File Registers** y buscamos direcciones de RAM entre el fondo (`0x0862`) y el tope actual (`0x0892`).
+   *   **La Regla:** Buscamos un valor de Flash (`04XX`) que esté a **18 posiciones** de nuestro `W15` actual.
+   *   Encontramos el **`0x0454`** en la dirección de RAM **`0x086E`**.
 
-4. **Validación y Descubrimiento:**
-   Como el Proceso A empieza en `0x0444`, el valor **`0x0454`** es el único que tiene sentido lógico como punto de interrupción y que además encaja con la suma de registros (18). 
-   **Conclusión:** Realizamos la resta final: `0x0892 - 0x086E = 36 bytes` -> **`DESPLAZAMIENTO = 18`**.
+4. **Validación y Descubrimiento del Desplazamiento:**
+   Hacemos la resta: `0x0892` (actual) - `0x086E` (donde está el PC) = **36 bytes**.
+   Como trabajamos en palabras de 16 bits: `36 / 2 = 18`.
+   **¡Descubrimos que DESPLAZAMIENTO = 18!**
 
 > [!TIP]
 > **¿Por qué elegimos el 0x0454 y no otros valores?**
