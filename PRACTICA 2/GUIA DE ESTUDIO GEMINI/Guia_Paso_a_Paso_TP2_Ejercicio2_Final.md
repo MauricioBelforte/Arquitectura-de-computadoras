@@ -84,3 +84,18 @@ void __attribute__((interrupt, auto_psv)) _T1Interrupt( void ){
 ```
 *   **QUANTUM:** Representa la porción de tiempo máxima otorgada a un proceso para utilizar la CPU. Como el `Timer1` se dispara en intervalos configurables, se requieren varios disparos (`contT1`) para alcanzar el `QUANTUM` completo.
 *   **Alternancia Constante:** Cuando se llega al `QUANTUM`, se llama al planificador. Al salir del planificador, la función termina y ejecuta por hardware un `RETFIE`. Esa instrucción saca de la pila el PC (que ahora es el de Proceso B) y salta al código del proceso nuevo sin que este lo note.
+
+---
+
+## 5. Guía de Testeo y Simulación en MPLAB X (Direcciones Reales)
+
+Para validar que el Kernel está "trasplantando" los contextos correctamente, debemos observar las entrañas del dsPIC33F durante la simulación. Esta sección la construiremos juntos mientras analizas tu entorno de MPLAB X.
+
+### Paso 1: Preparación del Entorno
+Antes de empezar, asegurate de tener el proyecto abierto y configurado para simulación (*Simulator*).
+
+> **Punto de Control Técnico:** 
+> 1. ¿Qué valor tiene configurado el `QUANTUM` en tu código?
+> 2. En el menú de MPLAB X: `Window -> Debugging`, ¿tenés abiertas las ventanas de **Watches**, **Variables** y **Disassembly**?
+> 3. ¿Podés ver en la ventana de **Disassembly** en qué dirección de Memoria de Programa (`0x...`) comienzan las funciones `procesoA`, `procesoB` y `procesoC`? (Esto es lo que el código guarda en `dirA`, `dirB`, `dirC`).
+
