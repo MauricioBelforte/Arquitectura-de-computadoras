@@ -55,7 +55,7 @@ CLASES_TEORICAS_PDFS = [
 # OTROS PDFs: el .md se guarda junto al PDF (mismo directorio).
 # ---------------------------------------------------------------------------
 OTROS_PDFS = [
-    os.path.join(DIR_RAIZ, "Documentacion", "Manuales", "Programacion_C", "AC - Anexo1.pdf"),
+    os.path.join(DIR_RAIZ, "Documentacion", "AC - Anexo1.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 1", "AC - TP1 - 2026.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 2", "AC - TP2 - 2026.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 3", "ENUNCIADO", "AC - TP3 - 2026.pdf"),
