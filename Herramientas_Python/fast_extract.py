@@ -52,6 +52,15 @@ CLASES_TEORICAS_PDFS = [
 ]
 
 # ---------------------------------------------------------------------------
+# PROGRAMACION C: (nombre_pdf_en Originales/, nombre_md_en Programacion_C/)
+# ---------------------------------------------------------------------------
+PROGRAMACION_C_PDFS = [
+    ("Apunte_C.pdf", "Apunte_C_es.md"),
+    ("Apunte_C_Arqui.pdf", "Apunte_C_Arqui_es.md"),
+    ("aprenda_lenguaje_ansi_c_como_si_estuviera_en_primero.pdf", "aprenda_ansi_c_es.md"),
+]
+
+# ---------------------------------------------------------------------------
 # OTROS PDFs: el .md se guarda junto al PDF (mismo directorio).
 # ---------------------------------------------------------------------------
 OTROS_PDFS = [
@@ -61,6 +70,7 @@ OTROS_PDFS = [
     os.path.join(DIR_RAIZ, "PRACTICA 3", "ENUNCIADO", "AC - TP3 - 2026.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 3", "MANUALES", "Conversor Analógico_Digital.pdf"),
 ]
+
 
 # ---------------------------------------------------------------------------
 # Funciones de extracción
@@ -126,6 +136,14 @@ print("=== CLASES TEÓRICAS ===")
 for nombre_pdf, nombre_md in CLASES_TEORICAS_PDFS:
     pdf_path = os.path.join(DIR_ORIG, nombre_pdf)
     md_path  = os.path.join(DIR_CLASES, nombre_md)
+    extraer_pdf(pdf_path, md_path)
+
+print("\n=== PROGRAMACIÓN C ===")
+DIR_PROG_C = os.path.join(DIR_RAIZ, "Documentacion", "Manuales", "Programacion_C")
+DIR_PROG_C_ORIG = os.path.join(DIR_PROG_C, "Originales")
+for nombre_pdf, nombre_md in PROGRAMACION_C_PDFS:
+    pdf_path = os.path.join(DIR_PROG_C_ORIG, nombre_pdf)
+    md_path  = os.path.join(DIR_PROG_C, nombre_md)
     extraer_pdf(pdf_path, md_path)
 
 print("\n=== OTROS PDFs ===")

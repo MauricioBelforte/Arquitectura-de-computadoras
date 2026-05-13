@@ -39,6 +39,8 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
         *   `PDFs/`: Datasheets originales de Microchip en inglés (ignorados por `.gitignore`).
         *   `Traducidos_Referencia/`: Manuales de referencia de Microchip traducidos al español (`_es.md`).
         *   `Programacion_C/`: Carpeta para recursos de sintaxis C (archivos del usuario).
+            *   `Originales/`: PDFs originales de los manuales de C.
+            *   `*.md`: Versiones transcritas y formateadas para lectura rápida.
 *   **`CLASES TEORICAS/`**: Material y apuntes de las clases presenciales/virtuales.
     *   `Originales_PDF/`: Diapositivas y material virgen de la cátedra.
 *   **`Cuestionarios/`**: Material de estudio para los exámenes teóricos cortos.
