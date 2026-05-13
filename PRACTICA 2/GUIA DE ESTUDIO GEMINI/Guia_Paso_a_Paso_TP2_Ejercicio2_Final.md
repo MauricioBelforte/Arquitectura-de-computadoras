@@ -117,23 +117,26 @@ Para observar el trasplante de memoria, colocá los siguientes puntos de parada 
         *   **`W15` = `0x0888`**: Observamos que la pila creció (de `0x0862` a `0x0888`). Esto ocurre porque el hardware y el compilador "empujaron" (PUSH) el Program Counter y los registros de trabajo para no perder el estado del Proceso A.
     *   **Acción:** Dale a **Play (F5)** y espera a que se detenga ahí.
 3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
-    *   **Propósito:** Ver la aritmética de punteros. 
-    *   **Qué observar:** Agregá el registro **W15** a los Watches. Mirá su valor. Luego, dale a **Step Over (F8)** para ejecutar `puntero-=DESPLAZAMIENTO;` y fijate cómo el puntero ahora apunta 18 posiciones más abajo en la RAM.
+    *   **Propósito:** Ver la aritmética de punteros para encontrar el contexto del proceso.
+    *   **Valores Reales observados:**
+        *   **`W15` = `0x0892`** (Memoria de Datos / RAM): El puntero creció por la llamada a la función `planificador()`.
+        *   **`puntero` = `0x086E`** (Memoria de Datos / RAM): Tras ejecutar `puntero-=18`, el puntero retrocedió hasta la base del "marco de interrupción".
+        *   **`*puntero` = `0x0454`** (Dirección apuntando a Memoria de Programa / Flash): ¡Esta es la dirección de retorno! Notá que el proceso A empezaba en `0x0444`, por lo que `0x0454` es el punto exacto donde el proceso fue interrumpido.
+    *   **Qué observar:** Agregá el registro **W15** a los Watches. Mirá su valor. Luego, dale a **Step Over (F8)** para ejecutar `puntero-=DESPLAZAMIENTO;` y fijate cómo el puntero ahora apunta 18 posiciones (36 bytes) más abajo en la **Memoria de Datos (RAM)**.
 
 ---
 
 ### Paso 3: El "Trasplante" de Memoria
-Con el programa detenido en el `planificador()` (Paso 2.3), hacé lo siguiente:
+Con el programa detenido en el `planificador()`, es momento de ver cómo el Kernel intercambia los cerebros de los procesos.
 
-1.  **Inspección de Pila:** Buscá la dirección de RAM que tiene el `puntero` (W15 - 18).
+1.  **Inspección de Pila (Memoria de Datos):** El `puntero` (`0x086E`) apunta a la base del contexto de A en la RAM.
 2.  **Ejecución Paso a Paso:** Usá **F8** para entrar al ciclo `for`. 
 3.  **La Pregunta Clave:** 
-    *   ¿Ves cómo el valor en `arregloProcA[i]` cambia por un número que parece una dirección de memoria? 
-    *   ¿Y cómo el valor en la Pila (RAM física) cambia por el contenido de `arregloProcB[i]`?
+    *   **Guardado:** ¿Ves cómo el valor en `arregloProcA[0]` cambia de `0x0444` a `0x0454`? (El Kernel guarda el punto exacto donde se quedó A en la **Memoria de Datos**).
+    *   **Carga:** ¿Ves cómo el valor en la Pila física (`0x086E` en RAM) cambia por el contenido de `arregloProcB[0]`? (El Kernel inyecta la dirección de inicio del Proceso B en la RAM).
 
 > **Punto de Control para el usuario:**
 > Pasame los valores que ves en:
 > *   `W15` (antes de entrar al planificador).
 > *   `arregloProcA[0]` (después de que se ejecute la primera línea del `for`).
-> *   La dirección de memoria a la que apunta `puntero`.
 
