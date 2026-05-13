@@ -120,20 +120,75 @@ Para validar el "Método de la Pizarra", observamos las entrañas del dsPIC33F.
     *   **Valores Reales observados:**
         *   **`W15` = `0x0862`**: El Puntero de Pila está en la zona alta de la RAM de datos.
         *   **`arregloProcA[0]` = `0x0444`**: Dirección física en la Memoria de Programa (Flash) de `procesoA`.
+    
+    ```text
+    ESTADO DE LA MEMORIA (Arranque)
+    ───────────────────────────────────────────────
+    RAM (Variables)
+    [0x0840] arregloProcA[0] = 0x0444  <-- PC inicial de A
+    [0x0842] arregloProcA[1] = 0x0000
+    
+    RAM (Pila/Stack)
+    [0x0860] (Datos anteriores)
+    [0x0862] (Espacio Libre)         <-- W15 apunta aquí
+    ───────────────────────────────────────────────
+    ```
 2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
     *   **Valores Reales observados:**
         *   **`W15` = `0x0888`**: La pila creció porque el hardware empujó (PUSH) el Program Counter y el Status Register del **Proceso A**.
+
+    ```text
+    ESTADO DE LA MEMORIA (Interrupción del Timer)
+    ───────────────────────────────────────────────
+    RAM (Pila/Stack)
+    [0x0862] ... (Basura o variables locales de A)
+    ...
+    [0x086E] 0x0454 (PC retorno)     <-- Hardware guardó dónde se quedó A
+    [0x0870] 0x0000 (SR guardado)
+    [0x0872] W0 guardado             <-- Software (GUARDAR_REGISTROS)
+    ...
+    [0x0888] (Espacio Libre)         <-- W15 subió hasta aquí automáticamente
+    ───────────────────────────────────────────────
+    ```
 3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
     *   **Valores Reales observados:**
         *   **`W15` = `0x0892`** (RAM): El puntero creció por llamar a la función `planificador()`.
         *   **`puntero` = `0x086E`** (RAM): Tras ejecutar `puntero-=18`, retrocedimos a la base del "marco de interrupción".
         *   **`*puntero` = `0x0454`** (Flash): ¡Dirección de retorno! El proceso A fue interrumpido exactamente aquí.
 
+    ```text
+    ESTADO DE LA MEMORIA (Aritmética de Punteros)
+    ───────────────────────────────────────────────
+    RAM (Pila/Stack)
+    [0x086E] 0x0454 (PC de A)        <-- 'puntero' (W15 - 18) aterrizó exactamente aquí
+    [0x0870] 0x0000 (SR de A)
+    ...
+    [0x088A] PC retorno planificador <-- W15 subió por culpa del CALL a la función
+    ...
+    [0x0892] (Espacio Libre)         <-- W15 actual
+    ───────────────────────────────────────────────
+    ```
+
 ### Paso 3: El "Trasplante" de Memoria
 Con el programa detenido en el `planificador()`, ejecutamos el `for` paso a paso (F8):
 *   **Guardado:** `arregloProcA[0]` cambia de `0x0444` a `0x0454`. Se guardó el punto exacto de la interrupción en la RAM.
 *   **Carga:** La Pila física (`0x086E`) es sobrescrita por el valor de `arregloProcB[0]`.
 *   **Dirección de B:** El valor inyectado es **`0x045C`** (Flash).
+
+    ```text
+    EL TRASPLANTE (EL MÉTODO DE LA PIZARRA EN ACCIÓN)
+    ─────────────────────────────────────────────────────────────
+    ANTES (Vuelta 0 del FOR):
+    [ Arreglo A ]  arregloProcA[0]  = 0x0444 (Inicio original)
+    [ RAM FÍSICA]  Pila en 0x086E   = 0x0454 (PC de interrupción de A)
+    [ Arreglo B ]  arregloProcB[0]  = 0x045C (Inicio de B)
+
+    DESPUÉS (Vuelta 0 del FOR terminada):
+    [ Arreglo A ]  arregloProcA[0]  = 0x0454  <-- A guardó su estado
+    [ RAM FÍSICA]  Pila en 0x086E   = 0x045C  <-- B invadió la pila
+    [ Arreglo B ]  arregloProcB[0]  = 0x045C
+    ─────────────────────────────────────────────────────────────
+    ```
 
 ### Paso 4: El Salto Final (RETFIE)
 1.  **Salir de la Interrupción:** Usamos **F5 (Continue)**.
