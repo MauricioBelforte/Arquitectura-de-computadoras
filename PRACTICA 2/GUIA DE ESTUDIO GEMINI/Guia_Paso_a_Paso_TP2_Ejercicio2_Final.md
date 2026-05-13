@@ -135,8 +135,19 @@ Con el programa detenido en el `planificador()`, es momento de ver cómo el Kern
     *   **Guardado:** ¿Ves cómo el valor en `arregloProcA[0]` cambia de `0x0444` a `0x0454`? (El Kernel guarda el punto exacto donde se quedó A en la **Memoria de Datos**).
     *   **Carga:** ¿Ves cómo el valor en la Pila física (`0x086E` en RAM) cambia por el contenido de `arregloProcB[0]`? (El Kernel inyecta la dirección de inicio del Proceso B en la RAM).
 
-> **Punto de Control para el usuario:**
-> Pasame los valores que ves en:
-> *   `W15` (antes de entrar al planificador).
-> *   `arregloProcA[0]` (después de que se ejecute la primera línea del `for`).
+*   **Dirección de B:** El valor inyectado desde `arregloProcB[0]` es **`0x045C`** (Memoria de Programa / Flash).
+
+---
+
+### Paso 4: El Salto Final (RETFIE)
+Una vez que el ciclo `for` termina, la Pila física (RAM) ha sido totalmente "hackeada". Ya no contiene el rastro del Proceso A, sino el contexto del Proceso B.
+
+1.  **Salir de la Interrupción:** Dale a **F5 (Continue)**.
+2.  **El Efecto Mariposa:** El hardware ejecuta la instrucción `RETFIE` (Return from Interrupt). Esta instrucción saca de la pila el Program Counter. Como nosotros pusimos `0x045C` en el lugar del PC, la CPU salta inmediatamente a esa dirección.
+3.  **Resultado:** Verás que la flecha verde de ejecución ahora está dentro de la función `procesoB`. ¡El cambio de contexto ha sido un éxito!
+
+> **Resumen de Direcciones Reales:**
+> *   **Proceso A (Flash):** Empieza en `0x0444`. Se interrumpió en `0x0454`.
+> *   **Proceso B (Flash):** Empieza en `0x045C`.
+> *   **Stack (RAM):** Base inicial en `0x0862`. Punto de intercambio en `0x086E`.
 
