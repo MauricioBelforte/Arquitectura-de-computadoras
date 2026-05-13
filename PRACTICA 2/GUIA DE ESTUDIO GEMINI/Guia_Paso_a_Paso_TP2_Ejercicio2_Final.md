@@ -1,0 +1,64 @@
+# Guía de Estudio: Estrategia de Stack Swapping (dsPIC33F)
+
+> [!IMPORTANT]
+> Esta guía detalla la metodología técnica para defender el Ejercicio 2 del TP2, enfocándose en la lógica matemática y física del intercambio de contextos.
+
+## 1. El Concepto Fundamental: ¿Qué es el Stack Swap?
+En sistemas multitarea, el dsPIC alterna entre procesos. Como cada proceso cree que es el único dueño del CPU, debemos "congelar" su estado (registros, PC, SR) en su propio Stack y "descongelar" el estado del siguiente proceso.
+
+## 2. Anatomía del Contexto (18 Words)
+Para que el cambio de contexto sea exitoso, debemos saber exactamente qué guardamos. En nuestra arquitectura:
+*   **Program Counter (PC):** 2 words (El dsPIC usa 24 bits para el PC, repartidos en 2 words de 16 bits).
+*   **Status Register (SR):** 1 word.
+*   **Registros de Trabajo (W0 a W14):** 15 words.
+*   **TOTAL:** 18 words.
+
+> [!NOTE]
+> **Glosario de Tamaño:**
+> * 1 Word = 16 bits = 2 bytes.
+> * Las direcciones de memoria de datos (RAM) avanzan de **2 en 2** (ej: 0x0862 -> 0x0864).
+
+## 3. Metodología de Cálculo del Desplazamiento
+El profesor preguntará: **"¿Por qué restas 18?"**. La respuesta no es "porque sí", sino el resultado de este proceso lógico:
+
+### Paso 1: El Punto Cero (Dirección más baja)
+Sabemos que el proceso empieza en una dirección base. En nuestro código (`main.c:60`), el proceso A se inicializa en la RAM en la dirección **`0x0862`**. Esta es la dirección más baja donde "nace" el stack de la tarea.
+
+### Paso 2: Captura en el Planificador
+Cuando el Timer 1 interrumpe, el CPU salta al planificador (`kernel.c:47`). En ese instante exacto, capturamos el valor actual del **W15 (Stack Pointer)**. Supongamos que vale **`0x0892`**.
+
+### Paso 3: Caza del Program Counter (PC)
+Sabemos que el hardware empujó el PC de la tarea al stack antes de entrar a la interrupción. Abrimos **File Registers** en MPLAB X y buscamos entre el fondo (`0x0862`) y el tope actual (`0x0892`).
+
+*   **La Regla del Match:** Buscamos un valor de memoria de programa (`04XX`) que esté exactamente a **18 posiciones** de nuestro `W15` actual.
+*   Encontramos el **`0x0454`** en la dirección de RAM **`0x086E`**.
+
+![File Register](File_register.png)
+*Figura 1: Vista de File Registers en MPLAB X. Notar el valor 0454 en el cruce de la fila 0860 y la columna 0E (Dirección 0x086E).*
+
+### Paso 4: Validación Matemática
+Hacemos la resta:
+`0x0892` (W15 actual) - `0x086E` (Ubicación del PC) = **`0x24`** bytes.
+
+Convertimos bytes a words:
+`0x24` (36 decimal) / 2 = **18 words**.
+
+### Paso 5: Conclusión Técnica
+"El desplazamiento es **18** porque el PC guardado por el hardware se encuentra exactamente a 18 words de distancia del tope actual de la pila en el momento de la interrupción".
+
+---
+
+## 4. Guía de Examen: Preguntas Trampa
+
+**P: ¿Por qué el PC no está en la dirección más baja (0x0862)?**
+**R:** Porque el stack es dinámico. El proceso A puede haber llamado a funciones o usado el stack antes de ser interrumpido. `0x0862` es solo el inicio, pero el PC siempre estará a 18 words del `W15` que capturamos en la interrupción.
+
+**P: ¿Qué pasa si el desplazamiento fuera 17 o 19?**
+**R:** El sistema colapsaría. Al hacer el `return` de la interrupción, el CPU intentaría cargar registros de trabajo como si fuesen direcciones de memoria de programa, provocando un *Address Error Trap*.
+
+## 5. Configuración de Simulación
+Para validar esto en MPLAB X:
+1.  Poner un breakpoint en `kernel.c:47`.
+2.  Abrir la ventana **File Registers**.
+3.  Verificar que el valor del PC de la tarea (ej: `0454`) esté a la distancia calculada.
+4.  Usar el **Stopwatch** para medir el tiempo que tarda el intercambio (debería ser constante).
