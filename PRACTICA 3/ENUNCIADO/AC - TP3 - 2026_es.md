@@ -17,7 +17,7 @@ también la sección correspondiente a este práctico, disponible en el Aula Vir
 - Utilizar el proyecto base proyectobase3.X disponible en el Aula Virtual. 
  
  
-### Ejercicio 1: Conversión ADC – Polling. 
+### ### Ejercicio 1: Conversión ADC – Polling. 
  
 Escribir un programa que realice un monitoreo continuo de 2 pulsadores conectados en los pines 
 RD6 y RD7. Dependiendo del pulsador accionado se deberá realizar una lectura analógica en 
@@ -31,7 +31,7 @@ convertido sea igual a 0 se deberá incrementar un contador global, y enviar dic
 del contador por el PORTE, donde habrá LEDS conectados en los pines. 
  
  
-### Ejercicio 2: Conversión ADC  – DMA. 
+### ### Ejercicio 2: Conversión ADC  – DMA. 
  
 Escribir un programa que realice muestreos y mediciones de temperaturas en valores analógicos, 
 relacionados a un brazo robot. Para ello, los valores analógicos de temperaturas serán ingresados 
@@ -78,5 +78,4 @@ enviado un valor indicando dicha situación por el PORTE 0011 0000 (0x30).
  
  
 Año 2026 
-UNPSJB – Facultad de Ingeniería 
-Página 2 de 2
+UNPSJB – Facultad de Ingeniería

@@ -17,7 +17,7 @@ Material de soporte:
 también la sección correspondiente a este práctico, disponible en el Aula Virtual. 
 - Utilizar el proyecto base proyectobase1.X también disponible en el Aula Virtual. 
  
-### ### ### Ejercicio 1: Sistema de habilitación de máquina 
+### ### ### ### Ejercicio 1: Sistema de habilitación de máquina 
  
 Se desea implementar el control básico de habilitación de una máquina. La máquina sólo puede 
 ponerse en funcionamiento si: 
@@ -39,7 +39,7 @@ NOTA:
 El programa deberá estar controlando el estado de las entradas continuamente (polling) y actuar 
 dependiendo las condiciones presentadas. 
  
-### ### ### Ejercicio 2: Automatismo 
+### ### ### ### Ejercicio 2: Automatismo 
  
 Un sistema de calefacción de una fábrica posee un termostato variable y cinco sensores de 
 detección de apertura de accesos (portones y puertas al exterior de la fábrica). El sistema de control 
@@ -71,7 +71,4 @@ bloques tal que:
 2.​ En el segundo bloque se instrumente la lógica consignada, utilizando las variables de 
 memoria. 
 3.​ En el tercer bloque se actualicen las salidas y sólo se escriba una salida cuando exista un 
-cambio respecto a su estado inmediato anterior (no escribir permanentemente). 
- 
- 
-Año 2026
+cambio respecto a su estado inmediato anterior (no escribir permanentemente).
