@@ -107,7 +107,10 @@ Para observar el trasplante de memoria, colocá los siguientes puntos de parada 
 
 1.  **En `main.c`, línea 60 (`procesoA();`):**
     *   **Propósito:** Ver que las direcciones de inicio ya se cargaron en los arreglos.
-    *   **Qué observar:** Abrí la ventana de **Watches**, agregá `arregloProcA` y mirá el valor en la posición `[0]`. Debería ser la misma dirección que viste en **Disassembly** para `procesoA`.
+    *   **Valores Reales observados:**
+        *   **`W15` = `0x0862`**: El Puntero de Pila está en la zona alta de la RAM de datos.
+        *   **`arregloProcA[0]` = `0x0444`**: Esta es la dirección física en la Memoria de Programa donde vive la función `procesoA`.
+    *   **Qué observar:** Abrí la ventana de **Watches**, agregá `arregloProcA` y verificá que coincida con lo que ves en el **Disassembly**.
 2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
     *   **Propósito:** Detectar el momento exacto en que el Timer1 decide que es hora de cambiar de proceso.
     *   **Acción:** Dale a **Play (F5)** y espera a que se detenga ahí.
