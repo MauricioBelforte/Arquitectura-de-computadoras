@@ -29,6 +29,12 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 
 ## 🎯 2. Estrategia Práctica: ¿Cómo calcular el "DESPLAZAMIENTO"?
 
+> [!IMPORTANT]
+> **Glosario de Tamaños (Arquitectura dsPIC):**
+> *   **1 Word (Palabra):** Equivale a **16 bits** o **2 bytes**.
+> *   **Celdas de Memoria de Datos (RAM):** Cada celda física en la RAM es de 8 bits (1 byte), pero el micro trabaja con **palabras de 16 bits**. Por eso las direcciones saltan de 2 en 2 (ej. `0x0860`, `0x0862`).
+> *   **Puntero de Pila (W15):** Siempre se mueve de a **2 bytes** (1 Word) para mantener la alineación.
+
 El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. **¿Cómo descubrimos que es 18?** Usamos una estrategia de "Búsqueda y Descarte Lógico":
 
 1. **Sabemos cuánto debe medir el Contexto:** 
