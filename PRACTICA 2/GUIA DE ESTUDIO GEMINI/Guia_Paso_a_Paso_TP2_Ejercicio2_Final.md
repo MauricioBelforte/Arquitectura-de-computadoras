@@ -17,18 +17,23 @@ La única forma de alternar entre ellos es engañar al hardware. Cuando ocurre l
 
 ---
 
-## 2. Inicialización de Estructuras (`kernel.c -> init()`)
+## 2. Identificación e Inicialización de Tareas (A, B y C)
 
-Antes de correr los procesos, se necesita "falsificar" los contextos iniciales:
+En este sistema, **A, B y C** representan tres **Procesos o Tareas independientes** (hilos de ejecución) que compiten por el tiempo de la CPU. Cada uno es una función de C con un bucle infinito que realiza una acción específica (ej. parpadear un LED o incrementar un contador).
+
+*   **Proceso A, B y C:** Son las entidades lógicas que el Kernel debe alternar.
+*   **`dirA`, `dirB`, `dirC`**: Son las direcciones físicas en la **Memoria de Programa** donde comienza el código de cada función.
+
+Antes de correr los procesos, se necesita "falsificar" los contextos iniciales en la función `init()`:
 ```c
 void init(void){
-    // ... inicialización en 0 ...
-    arregloProcA[0]=dirA; // PC inicial de A
-    arregloProcB[0]=dirB; // PC inicial de B
-    arregloProcC[0]=dirC; // PC inicial de C
+    // ... inicialización de registros en 0 ...
+    arregloProcA[0]=dirA; // PC inicial del Proceso A
+    arregloProcB[0]=dirB; // PC inicial del Proceso B
+    arregloProcC[0]=dirC; // PC inicial del Proceso C
 }
 ```
-En las direcciones `[0]` de los arreglos se guardan las direcciones base de las funciones en Memoria de Programa (`dirA`, `dirB`, `dirC`). Esto garantiza que la primera vez que se cargue la pila de un proceso, el hardware encuentre la dirección correcta para iniciar la ejecución.
+En las direcciones `[0]` de los arreglos se guardan las direcciones base de las funciones. Esto garantiza que la primera vez que el planificador cargue el contexto en la pila física, el hardware encuentre la dirección correcta (Program Counter) para saltar a la tarea.
 
 ---
 
