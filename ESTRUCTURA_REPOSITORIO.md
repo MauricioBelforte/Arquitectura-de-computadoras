@@ -26,6 +26,7 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
     *   `Guia_Teorica_... .md`: Resumen consolidado de conceptos.
     *   `Guia_Paso_a_Paso_... .md`: Tutorial iterativo para resolver los ejercicios.
     *   `Guia_Examen_... .md`: Preparación técnica para la defensa ante el docente.
+*   `MPLAB/`: Carpeta de desarrollo local para proyectos `.X` (en curso).
 *   `Entrega/`: Proyectos `.X` de MPLAB finales, limpios y compilables.
 *   `Originales/`: Archivos fuente, plantillas o `.zip` provistos por la cátedra.
 *   `Obsoletos/`: Versiones descartadas, capturas de pantalla de ayuda y borradores.
@@ -35,6 +36,7 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
     *   `Diccionario.md`: Glosario técnico unificado.
     *   `APUNTE DE CATEDRA/`:
         *   `AC - Anexo1.pdf`: Manual de referencia general de la cátedra.
+        *   `AC - Anexo1_es.md`: Transcripción legible del anexo.
     *   `Manuales/`: Repositorio central de documentación técnica pesada.
         *   `Audios/`: Grabaciones y notas de voz técnicas (ignoradas por `.gitignore`).
         *   `PDFs/`: Datasheets originales de Microchip en inglés (ignorados por `.gitignore`).
