@@ -1,4 +1,4 @@
-# 🧠 Walkthrough: Trabajo Práctico 2 - Ejercicio 2 (El Método de la Pizarra)
+# Walkthrough: Trabajo Práctico 2 - Ejercicio 2 (Kernel Multitarea - Stack Swap)
 **Materia:** Arquitectura de Computadoras
 **Arquitectura:** dsPIC33F (Arquitectura Harvard)
 
@@ -6,30 +6,23 @@ Este documento detalla el funcionamiento exacto del Ejercicio 2 (entregado y apr
 
 ---
 
-## 🌟 1. La Idea Central: Intercambio de Memoria de Datos (Stack Swapping)
+## 1. Concepto de Context Switching (Stack Swap)
 
-En este ejercicio, queremos que 3 procesos (A, B y C) compartan el tiempo de una única CPU. Para lograrlo, implementaremos un kernel multitarea cooperativo basado en el método de **Copia de Stack** (El Método de la Pizarra).
-
-En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten el mismo espacio físico. El registro `WREG15` funciona como el Stack Pointer global. Como solo existe un Stack Pointer por hardware, todos los procesos deben utilizar la misma región de memoria de datos para sus contextos. Cuando ocurre la interrupción del `Timer1`:
-
-1. El proceso actual detiene su ejecución. El hardware apila automáticamente el **Program Counter (PC)** y el **Status Register (SR)**. Luego, nuestro software apila el resto del contexto (**Registros de Trabajo W0...W14**) en la RAM apuntada por `WREG15`.
-2. El kernel **copia** este bloque de memoria física (el stack actual) hacia un **Arreglo en RAM** dedicado a ese proceso para resguardarlo.
-3. El kernel **sobrescribe** la región física del stack con la información guardada del *siguiente* proceso.
-4. La CPU ejecuta un retorno de interrupción (`RETFIE`), desapilando los registros y el Program Counter (PC) del nuevo contexto, retomando su ejecución.
-
-### 📊 Componentes Técnicos
-| Componente | Función Técnica |
-| :--- | :--- |
-| **Memoria de Datos (Stack)** | Región de RAM donde se apilan dinámicamente el PC, SR, Registros W y variables. |
-| **Arreglos (`arregloProc`)** | Estructuras estáticas en RAM para resguardar el contexto completo de los procesos inactivos. |
-| **Timer 1 (`_T1Interrupt`)** | Generador de interrupciones que delimita el tiempo de CPU (Quantum). |
-| **Puntero de Pila (WREG15)** | Registro físico que contiene la dirección actual del tope de la pila en memoria. |
+A diferencia de un flujo normal donde los procesos corren hasta terminar (`return`), en este kernel ejecutamos 3 tareas de bucle infinito (`procesoA`, `procesoB`, `procesoC`).
+La única forma de alternar entre ellos es engañar al hardware. Cuando ocurre la interrupción del `Timer1`:
+1.  El microcontrolador guarda el estado de la tarea actual en la **Pila física (Stack)**.
+2.  El Kernel **copia** toda la información de la pila a un "Arreglo de Resguardo" (ej. `arregloProcA`).
+3.  El Kernel **sobrescribe** la pila física con la información guardada del siguiente proceso (ej. `arregloProcB`).
+4.  Al forzar el retorno de interrupción (`RETFIE`), el hardware obedece a la nueva pila y salta directamente a la siguiente tarea.
 
 ---
 
-## 🛠️ 2. Construcción del Contexto Inicial (`init`)
+## 2. Identificación e Inicialización de Tareas (A, B y C)
 
-En este sistema, **A, B y C** representan tres **Procesos o Tareas independientes** (hilos de ejecución) que compiten por el tiempo de la CPU. Cada uno es una función de C con un bucle infinito.
+En este sistema, **A, B y C** representan tres **Procesos o Tareas independientes** (hilos de ejecución) que compiten por el tiempo de la CPU. Cada uno es una función de C con un bucle infinito que realiza una acción específica (ej. parpadear un LED o incrementar un contador).
+
+*   **Proceso A, B y C:** Son las entidades lógicas que el Kernel debe alternar.
+*   **`dirA`, `dirB`, `dirC`**: Son las direcciones físicas en la **Memoria de Programa** donde comienza el código de cada función.
 
 Antes de correr los procesos, se necesita "falsificar" los contextos iniciales en la función `init()`:
 ```c
@@ -40,25 +33,11 @@ void init(void){
     arregloProcC[0]=dirC; // PC inicial del Proceso C
 }
 ```
-
-#### 📋 ¿Qué hay exactamente dentro del arreglo? (Mapa de Memoria)
-| Índice del Arreglo | Contenido Técnico | Descripción |
-| :--- | :--- | :--- |
-| `[0]` | **Program Counter (PC)** | La dirección física en la **Memoria de Programa** donde comienza el código. |
-| `[1]` | **Status Register (SR)** | El estado de las banderas (Z, C, N) del micro. |
-| `[2]` al `[16]` | **Registros W0...W14** | Los valores temporales que el proceso estaba usando. |
-
-#### ⚠️ Diferencia Crítica: Arquitectura Harvard
-Es vital no confundir los dos espacios de memoria del dsPIC:
-*   **Memoria de Programa (Flash):** Contiene las instrucciones del código. El **Program Counter (PC)** apunta aquí. Las variables `dirA`, `dirB` y `dirC` son direcciones de este espacio.
-*   **Memoria de Datos (RAM):** Contiene las variables, los arreglos y la **Pila (Stack)**. El **Stack Pointer (WREG15)** apunta aquí.
-
-> [!IMPORTANT]
-> Lo que hacemos en `init()` es **guardar una dirección de la Memoria de Programa (PC) dentro de la Memoria de Datos (Stack/Arreglo)**. Es como anotar la dirección de una casa (Flash) en un papel (RAM).
+En las direcciones `[0]` de los arreglos se guardan las direcciones base de las funciones. Esto garantiza que la primera vez que el planificador cargue el contexto en la pila física, el hardware encuentre la dirección correcta (Program Counter) para saltar a la tarea.
 
 ---
 
-## ⚙️ 3. El Planificador y la Aritmética de Punteros
+## 3. El Planificador y la Aritmética de Punteros
 
 El corazón del ejercicio es la función `planificador()`, la cual trasplanta los bloques de memoria.
 
@@ -67,6 +46,7 @@ El corazón del ejercicio es la función `planificador()`, la cual trasplanta lo
 unsigned int* puntero=WREG15;   
 puntero-=DESPLAZAMIENTO;        
 ```
+Cuando entramos a la interrupción de Timer1 y luego a la función `planificador()`, el Puntero de Pila (`WREG15`) se encuentra en el "tope" de la pila, habiendo apilado registros adicionales para la llamada a la función.
 Para copiar todo el **marco de interrupción**, es imperativo retroceder el puntero hasta la "base" de los datos del proceso interrumpido. `DESPLAZAMIENTO` representa la cantidad matemática exacta de saltos (words / 16 bits) que el puntero debe retroceder para apuntar al primer elemento empujado por el hardware: el **Program Counter (PC)**.
 
 ### El Intercambio en el Switch-Case
@@ -78,18 +58,20 @@ switch(estadoProceso){
             *puntero=arregloProcB[i];   // Reemplaza por pila de B
             puntero++;
         }
+        estadoProceso++;
+        break;
 // ... (Repite para B->C y C->A)
 ```
 **Operación a bajo nivel:**
-1.  **Lectura:** `*puntero` accede a la Pila física en RAM. Lee el valor y lo resguarda a salvo en la variable global `arregloProcA[i]`.
-2.  **Escritura:** Inmediatamente después, inserta en esa misma dirección de memoria física el contenido guardado en `arregloProcB[i]`.
+1.  **Lectura:** `*puntero` accede a la Pila física en RAM. Lee el valor (PC, SR o registros W) y lo resguarda a salvo en la variable global `arregloProcA[i]`.
+2.  **Escritura:** Inmediatamente después, inserta en esa misma dirección de memoria física de la Pila el contenido guardado en `arregloProcB[i]`.
+3.  **Avance:** `puntero++` avanza a la siguiente dirección del Stack (subiendo en la RAM).
 
-> [!IMPORTANT]
-> **Diferencia Crítica:** Nota que aquí **no guardamos la dirección del Puntero de Pila (WREG15)**. Mantenemos el `W15` intacto y realizamos una sobreescritura directa (`swap`) del bloque de datos contenido en la memoria de datos (El Método de la Pizarra).
+Cuando termina el ciclo for, toda la "conciencia" del Proceso A está respaldada estáticamente en RAM, y la Pila física está completamente dominada por el contexto del Proceso B. 
 
 ---
 
-## ⏱️ 4. El Ciclo de Interrupción (`_T1Interrupt`)
+## 4. El Ciclo de Interrupción (`_T1Interrupt`)
 
 ```c
 void __attribute__((interrupt, auto_psv)) _T1Interrupt( void ){
@@ -100,54 +82,72 @@ void __attribute__((interrupt, auto_psv)) _T1Interrupt( void ){
     }
 }
 ```
-*   **QUANTUM:** Tiempo máximo otorgado a un proceso para utilizar la CPU. 
-*   **Alternancia Constante:** Al salir del planificador, la función ejecuta `RETFIE`. Esa instrucción saca de la pila el PC (que ahora es el del siguiente proceso) y salta al código nuevo sin que este lo note.
+*   **QUANTUM:** Representa la porción de tiempo máxima otorgada a un proceso para utilizar la CPU. Como el `Timer1` se dispara en intervalos configurables, se requieren varios disparos (`contT1`) para alcanzar el `QUANTUM` completo.
+*   **Alternancia Constante:** Cuando se llega al `QUANTUM`, se llama al planificador. Al salir del planificador, la función termina y ejecuta por hardware un `RETFIE`. Esa instrucción saca de la pila el PC (que ahora es el de Proceso B) y salta al código del proceso nuevo sin que este lo note.
 
 ---
 
-## 🔬 5. Guía de Testeo y Simulación en MPLAB X (Direcciones Reales)
+## 5. Guía de Testeo y Simulación en MPLAB X (Direcciones Reales)
 
-Para validar el "Método de la Pizarra", observamos las entrañas del dsPIC33F.
+Para validar que el Kernel está "trasplantando" los contextos correctamente, debemos observar las entrañas del dsPIC33F durante la simulación. Esta sección la construiremos juntos mientras analizas tu entorno de MPLAB X.
 
 ### Paso 1: Preparación del Entorno
+Antes de empezar, asegurate de tener el proyecto abierto y configurado para simulación (*Simulator*).
+
 > **Punto de Control Técnico:** 
-> 1. El `QUANTUM` está configurado en **2**.
-> 2. El `DESPLAZAMIENTO` es **18**.
-> 3. En el menú: `Window -> Debugging`, abrí **Watches**, **Variables** y **Disassembly**.
-
-### Paso 2: Ubicación Estratégica de Breakpoints
-1.  **En `main.c`, línea 60 (`procesoA();`):**
-    *   **Valores Reales observados:**
-        *   **`W15` = `0x0862`**: El Puntero de Pila está en la zona alta de la RAM de datos.
-        *   **`arregloProcA[0]` = `0x0444`**: Dirección física en la Memoria de Programa (Flash) de `procesoA`.
-2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
-    *   **Valores Reales observados:**
-        *   **`W15` = `0x0888`**: La pila creció porque el hardware empujó (PUSH) el Program Counter y el Status Register.
-3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
-    *   **Valores Reales observados:**
-        *   **`W15` = `0x0892`** (RAM): El puntero creció por llamar a la función `planificador()`.
-        *   **`puntero` = `0x086E`** (RAM): Tras ejecutar `puntero-=18`, retrocedimos a la base del "marco de interrupción".
-        *   **`*puntero` = `0x0454`** (Flash): ¡Dirección de retorno! El proceso A fue interrumpido exactamente aquí.
-
-### Paso 3: El "Trasplante" de Memoria
-Con el programa detenido en el `planificador()`, ejecutamos el `for` paso a paso (F8):
-*   **Guardado:** `arregloProcA[0]` cambia de `0x0444` a `0x0454`. Se guardó el punto exacto de la interrupción en la RAM.
-*   **Carga:** La Pila física (`0x086E`) es sobrescrita por el valor de `arregloProcB[0]`.
-*   **Dirección de B:** El valor inyectado es **`0x045C`** (Flash).
-
-### Paso 4: El Salto Final (RETFIE)
-1.  **Salir de la Interrupción:** Usamos **F5 (Continue)**.
-2.  **El Efecto Mariposa:** La instrucción `RETFIE` saca de la pila el Program Counter. Como pusimos `0x045C`, la CPU salta inmediatamente a esa dirección. ¡El cambio de contexto ha sido un éxito!
+> 1. El `QUANTUM` está configurado en **2** (se requieren 2 disparos del Timer1 para cambiar de proceso).
+> 2. El `DESPLAZAMIENTO` es **18** (esto es lo que retrocedemos `W15` para encontrar el contexto guardado).
+> 3. En el menú de MPLAB X: `Window -> Debugging`, ¿tenés abiertas las ventanas de **Watches**, **Variables** y **Disassembly**?
+> 4. **Misión:** Buscá en **Disassembly** las funciones `procesoA`, `procesoB` y `procesoC`. Pasame las direcciones hexadecimales (`0x...`) donde comienzan.
 
 ---
 
-## 📝 6. Resumen para la Defensa: El Flujo de la Conciencia
+### Paso 2: Ubicación Estratégica de Breakpoints
+Para observar el trasplante de memoria, colocá los siguientes puntos de parada haciendo clic en el número de línea:
 
-Si el profesor te pregunta cómo funciona tu código, recuerda estas palabras clave y el flujo de la "Conciencia" del Micro:
+1.  **En `main.c`, línea 60 (`procesoA();`):**
+    *   **Propósito:** Ver que las direcciones de inicio ya se cargaron en los arreglos.
+    *   **Valores Reales observados:**
+        *   **`W15` = `0x0862`**: El Puntero de Pila está en la zona alta de la RAM de datos.
+        *   **`arregloProcA[0]` = `0x0444`**: Esta es la dirección física en la Memoria de Programa donde vive la función `procesoA`.
+    *   **Qué observar:** Abrí la ventana de **Watches**, agregá `arregloProcA` y verificá que coincida con lo que ves en el **Disassembly**.
+2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
+    *   **Propósito:** Detectar el momento exacto en que el Timer1 decide que es hora de cambiar de proceso.
+    *   **Valores Reales observados:**
+        *   **`W15` = `0x0888`**: Observamos que la pila creció (de `0x0862` a `0x0888`). Esto ocurre porque el hardware y el compilador "empujaron" (PUSH) el Program Counter y los registros de trabajo para no perder el estado del Proceso A.
+    *   **Acción:** Dale a **Play (F5)** y espera a que se detenga ahí.
+3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
+    *   **Propósito:** Ver la aritmética de punteros para encontrar el contexto del proceso.
+    *   **Valores Reales observados:**
+        *   **`W15` = `0x0892`** (Memoria de Datos / RAM): El puntero creció por la llamada a la función `planificador()`.
+        *   **`puntero` = `0x086E`** (Memoria de Datos / RAM): Tras ejecutar `puntero-=18`, el puntero retrocedió hasta la base del "marco de interrupción".
+        *   **`*puntero` = `0x0454`** (Dirección apuntando a Memoria de Programa / Flash): ¡Esta es la dirección de retorno! Notá que el proceso A empezaba en `0x0444`, por lo que `0x0454` es el punto exacto donde el proceso fue interrumpido.
+    *   **Qué observar:** Agregá el registro **W15** a los Watches. Mirá su valor. Luego, dale a **Step Over (F8)** para ejecutar `puntero-=DESPLAZAMIENTO;` y fijate cómo el puntero ahora apunta 18 posiciones (36 bytes) más abajo en la **Memoria de Datos (RAM)**.
 
-1. **Persistencia (Flash):** El código de las funciones A, B y C nunca se mueve de la Memoria de Programa.
-2. **Resguardo (Arreglo en RAM):** Cuando un proceso no está corriendo, su "punto de retorno" (PC) está guardado de forma segura en su Arreglo de contexto.
-3. **Activación (Stack en RAM):** El planificador mueve ese PC desde el Arreglo hacia el Stack (Stack Swapping).
-4. **Ejecución (Registro PC):** Al ejecutar `RETFIE`, el hardware mueve ese PC desde el Stack hacia el **Registro Físico Program Counter (PC)** de la CPU.
+---
 
-El `DESPLAZAMIENTO` es crítico porque es el GPS matemático que le permite al puntero aterrizar exactamente en la dirección de RAM donde el hardware espera encontrar el PC para cargarlo en la CPU. Si fallamos por un solo byte, el micro saltará a una dirección errónea y el sistema colapsará (Address Error Trap).
+### Paso 3: El "Trasplante" de Memoria
+Con el programa detenido en el `planificador()`, es momento de ver cómo el Kernel intercambia los cerebros de los procesos.
+
+1.  **Inspección de Pila (Memoria de Datos):** El `puntero` (`0x086E`) apunta a la base del contexto de A en la RAM.
+2.  **Ejecución Paso a Paso:** Usá **F8** para entrar al ciclo `for`. 
+3.  **La Pregunta Clave:** 
+    *   **Guardado:** ¿Ves cómo el valor en `arregloProcA[0]` cambia de `0x0444` a `0x0454`? (El Kernel guarda el punto exacto donde se quedó A en la **Memoria de Datos**).
+    *   **Carga:** ¿Ves cómo el valor en la Pila física (`0x086E` en RAM) cambia por el contenido de `arregloProcB[0]`? (El Kernel inyecta la dirección de inicio del Proceso B en la RAM).
+
+*   **Dirección de B:** El valor inyectado desde `arregloProcB[0]` es **`0x045C`** (Memoria de Programa / Flash).
+
+---
+
+### Paso 4: El Salto Final (RETFIE)
+Una vez que el ciclo `for` termina, la Pila física (RAM) ha sido totalmente "hackeada". Ya no contiene el rastro del Proceso A, sino el contexto del Proceso B.
+
+1.  **Salir de la Interrupción:** Dale a **F5 (Continue)**.
+2.  **El Efecto Mariposa:** El hardware ejecuta la instrucción `RETFIE` (Return from Interrupt). Esta instrucción saca de la pila el Program Counter. Como nosotros pusimos `0x045C` en el lugar del PC, la CPU salta inmediatamente a esa dirección.
+3.  **Resultado:** Verás que la flecha verde de ejecución ahora está dentro de la función `procesoB`. ¡El cambio de contexto ha sido un éxito!
+
+> **Resumen de Direcciones Reales:**
+> *   **Proceso A (Flash):** Empieza en `0x0444`. Se interrumpió en `0x0454`.
+> *   **Proceso B (Flash):** Empieza en `0x045C`.
+> *   **Stack (RAM):** Base inicial en `0x0862`. Punto de intercambio en `0x086E`.
+
