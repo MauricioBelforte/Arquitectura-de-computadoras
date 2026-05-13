@@ -102,11 +102,33 @@ Antes de empezar, asegurate de tener el proyecto abierto y configurado para simu
 
 ---
 
-### Paso 2: Análisis de la Pila Inicial
-Una vez que el programa arranca y ejecuta `init()`, los arreglos de resguardo dejan de estar vacíos.
+### Paso 2: Ubicación Estratégica de Breakpoints
+Para observar el trasplante de memoria, colocá los siguientes puntos de parada haciendo clic en el número de línea:
 
-**Preguntas para completar la guía:**
-1. Si ponés un **Breakpoint** justo después de `init()` (en `main.c`), ¿qué valores ves en `arregloProcA[0]`, `arregloProcB[0]` y `arregloProcC[0]`?
-2. ¿Coinciden esos valores con las direcciones que viste en el **Disassembly**?
-3. En la ventana de **Watches**, agregá el registro **W15**. ¿En qué dirección de RAM está apuntando el Stack Pointer al iniciar el `main`?
+1.  **En `main.c`, línea 60 (`procesoA();`):**
+    *   **Propósito:** Ver que las direcciones de inicio ya se cargaron en los arreglos.
+    *   **Qué observar:** Abrí la ventana de **Watches**, agregá `arregloProcA` y mirá el valor en la posición `[0]`. Debería ser la misma dirección que viste en **Disassembly** para `procesoA`.
+2.  **En `kernel.c`, línea 80 (dentro de `_T1Interrupt`):**
+    *   **Propósito:** Detectar el momento exacto en que el Timer1 decide que es hora de cambiar de proceso.
+    *   **Acción:** Dale a **Play (F5)** y espera a que se detenga ahí.
+3.  **En `kernel.c`, línea 47 (primera línea de `planificador()`):**
+    *   **Propósito:** Ver la aritmética de punteros. 
+    *   **Qué observar:** Agregá el registro **W15** a los Watches. Mirá su valor. Luego, dale a **Step Over (F8)** para ejecutar `puntero-=DESPLAZAMIENTO;` y fijate cómo el puntero ahora apunta 18 posiciones más abajo en la RAM.
+
+---
+
+### Paso 3: El "Trasplante" de Memoria
+Con el programa detenido en el `planificador()` (Paso 2.3), hacé lo siguiente:
+
+1.  **Inspección de Pila:** Buscá la dirección de RAM que tiene el `puntero` (W15 - 18).
+2.  **Ejecución Paso a Paso:** Usá **F8** para entrar al ciclo `for`. 
+3.  **La Pregunta Clave:** 
+    *   ¿Ves cómo el valor en `arregloProcA[i]` cambia por un número que parece una dirección de memoria? 
+    *   ¿Y cómo el valor en la Pila (RAM física) cambia por el contenido de `arregloProcB[i]`?
+
+> **Punto de Control para el usuario:**
+> Pasame los valores que ves en:
+> *   `W15` (antes de entrar al planificador).
+> *   `arregloProcA[0]` (después de que se ejecute la primera línea del `for`).
+> *   La dirección de memoria a la que apunta `puntero`.
 
