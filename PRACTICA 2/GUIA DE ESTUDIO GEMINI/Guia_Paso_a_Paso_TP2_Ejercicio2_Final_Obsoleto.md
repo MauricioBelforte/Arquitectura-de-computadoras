@@ -29,52 +29,53 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 
 ## 🎯 2. Estrategia Práctica: ¿Cómo calcular el "DESPLAZAMIENTO"?
 
-El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. No es un número al azar, depende del hardware y de qué registros guarde el compilador. Para encontrarlo (en nuestro caso, `18`), seguimos esta estrategia en MPLAB X:
+El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. **¿Cómo descubrimos que es 18?** Usamos una estrategia de "Búsqueda y Descarte Lógico":
 
-1. **Punto Cero (Inicio de la Pila):** 
-   Ponemos un Breakpoint justo antes de entrar al bucle infinito del primer proceso. **En `main.c`, línea 60 (`procesoA();`)**. Anotamos el valor del Puntero de Pila (`W15`).
-   *Ejemplo: `W15` = `0x0862`*
+1. **Sabemos cuánto debe medir el Contexto:** 
+   En nuestra arquitectura, un cambio de contexto guarda:
+   *   Program Counter (PC): **2 words**
+   *   Status Register (SR): **1 word**
+   *   Registros de Trabajo (W0 a W14): **15 words**
+   *   **Total esperado = 18 words.**
 
-2. **Pausa en el Planificador:**
-   Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que el Timer dispare la interrupción y se detenga allí. Anotamos el nuevo valor de `W15`.
-   *Ejemplo: `W15` = `0x0892`*
+2. **Captura del W15 Actual:**
+   Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que se detenga allí. Supongamos que `W15` = **`0x0892`**.
 
-3. **La Caza del PC (Búsqueda manual en RAM):**
-   Sabemos que el hardware empujó primero el PC de la tarea (Proceso A) a la pila. Abrimos la ventana **File Registers** y revisamos la RAM a partir de `0x0862`. Buscamos un número que corresponda a una dirección de la **Memoria de Programa** (ej. `0x0454`).
-   *Ejemplo: Encontramos el PC en la dirección de RAM `0x086E`.*
+3. **Caza del PC (Escaneo por proximidad):**
+   Abrimos **File Registers** (RAM) y buscamos direcciones que estén **aproximadamente 18 posiciones (36 bytes)** más atrás de nuestro `W15` actual. Para saber desde dónde empezar a buscar, recordamos que la pila inició en **`main.c`, línea 60 (`procesoA();`)** con un `W15` de **`0x0862`**.
+   *   A 24 posiciones (`0x0862`) vemos un `0x04AA`.
+   *   A 18 posiciones (`0x086E`) vemos un **`0x0454`**.
 
-4. **El Cálculo Matemático:**
-   Ahora que sabemos dónde estamos parados (`W15 actual = 0x0892`) y dónde queremos aterrizar (`PC objetivo = 0x086E`), restamos ambas direcciones de RAM:
-   `0x0892 - 0x086E = 0x0024` (que es **36** en decimal).
-   Como el dsPIC avanza el `W15` en "Words" (saltos de 2 bytes), dividimos por 2:
-   `36 bytes / 2 bytes por Word = 18 posiciones`.
+4. **Validación y Descubrimiento:**
+   Como el Proceso A empieza en `0x0444`, el valor **`0x0454`** es el único que tiene sentido lógico como punto de interrupción y que además encaja con la suma de registros (18). 
+   **Conclusión:** Realizamos la resta final: `0x0892 - 0x086E = 36 bytes` -> **`DESPLAZAMIENTO = 18`**.
 
 > [!TIP]
-> **¿Por qué 0x0454 y no otro valor (ej. 0x04AA)?**
-> En la RAM verás muchos números. Para identificar el PC real, usamos dos filtros:
-> 1. **Filtro de Desplazamiento:** Si calculamos que el salto es de **18**, debemos tomar el valor que esté exactamente a esa distancia del `W15` actual. En la captura, al restar 18 de la posición actual, caemos en `0x086E`, donde reside el **`0x0454`**.
-> 2. **Filtro de Proximidad:** El PC debe ser una dirección de Flash cercana al inicio de tu proceso. Si el proceso A empieza en `0x0444`, un PC de `0x0454` (unas pocas instrucciones después) tiene mucho más sentido que otros valores aleatorios.
+> **¿Por qué elegimos el 0x0454 y no otros valores?**
+> En la RAM verás "basura" o restos de otros procesos. Para no equivocarte, usá la **Regla del Match Perfecto**: El PC real debe cumplir que la distancia hasta tu `W15` sea igual a la cantidad de registros que estás guardando. Si guardás 18 cosas, tu PC tiene que estar a 18 saltos de distancia.
 
 ```text
-DISTINGUIENDO EL PC (CRITERIO TÉCNICO)
+BÚSQUEDA LÓGICA DEL PC (EL MATCH PERFECTO)
 ─────────────────────────────────────────────────────────────
-[0x0862] 0x04AA  <-- ¡CUIDADO! Es un valor de Flash, pero está muy lejos (a 24 words).
+[0x0862] 0x04AA  <-- A 24 saltos. (Demasiado lejos, es basura o PC viejo).
 ...
-[0x086E] 0x0454  <-- ¡BINGO! Está a 18 words de distancia. Este es el que el código usará.
+[0x086E] 0x0454  <-- ¡BINGO! A 18 saltos exactos. Coincide con nuestro contexto.
 ...
-[0x0892] (W15)   <-- Punto de partida para la resta.
+[0x0892] (W15)   <-- Punto de partida.
 ─────────────────────────────────────────────────────────────
 ```
-[0x0862] (Fondo de la pila original)
-...
-[0x086E] 0x0454 (¡Bingo! Aquí está el PC de retorno de A)   <─┐
-[0x0870] 0x0000 (SR guardado)                                 │
-[0x0872] W0 guardado                                          │
-...                                                           │ DISTANCIA A SALTAR:
-[0x0888] W14 guardado                                         │ 36 bytes = 18 words
-[0x088A] PC de llamada a la función planificador              │
-...                                                           │
-[0x0892] (Espacio Libre)    <-- W15 actual (Estamos aquí)   <─┘
+
+```text
+DIAGRAMA DEL SALTO CALCULADO
+─────────────────────────────────────────────────────────────
+[0x086E] 0x0454 (PC de retorno de A)   <─┐
+[0x0870] 0x0000 (SR guardado)            │
+[0x0872] W0 guardado                     │
+...                                      │ DISTANCIA DESCUBIERTA:
+[0x0888] W14 guardado                    │ 18 words (36 bytes)
+[0x088A] PC de llamada a planificador    │
+...                                      │
+[0x0892] (Espacio Libre)    <─ W15 actual <─┘
 ─────────────────────────────────────────────────────────────
 ```
 ¡Así obtenemos matemáticamente `DESPLAZAMIENTO = 18`! Ya podemos inyectar esto en el código para que sea automático.
