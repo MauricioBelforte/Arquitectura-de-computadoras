@@ -61,6 +61,11 @@ Para garantizar la continuidad entre sesiones, el Agente debe seguir este orden 
     - Código final: `PRACTICA X/Entrega/`.
 4.  **Documentación Oficial:** `MANUALES/PDFs/` para datasheets y manuales de referencia.
 
+## 9. Gestión de Cambios y Preservación de Contenido
+- **Resguardo Ante Cambios Grandes:** Antes de realizar modificaciones estructurales, refactorizaciones masivas o procesos de "saneamiento" en documentos de estudio, el Agente **DEBE** guardar una copia exacta de la versión original en la carpeta `Obsoletos/` de la práctica correspondiente.
+- **Prioridad Incremental:** Queda estrictamente prohibido realizar resúmenes o recortes de contenido técnico (tablas, diagramas, explicaciones de bajo nivel) a menos que el usuario lo solicite explícitamente. Ante la duda, el Agente debe **agregar contenido** (detallar más) en lugar de borrar o simplificar para "limpiar" el archivo.
+- **Integridad de la "Memoria Técnica":** Los detalles de direcciones físicas, aritmética de punteros y mapas de memoria son activos críticos. No se deben resumir bajo ninguna circunstancia estética si eso implica perder precisión técnica.
+
 ---
 
 ## Índice de Herramientas de Python 🛠️
