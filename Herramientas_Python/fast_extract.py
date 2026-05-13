@@ -65,6 +65,7 @@ PROGRAMACION_C_PDFS = [
 # ---------------------------------------------------------------------------
 OTROS_PDFS = [
     os.path.join(DIR_RAIZ, "Documentacion", "APUNTE DE CATEDRA", "AC - Anexo1.pdf"),
+    os.path.join(DIR_RAIZ, "Documentacion", "APUNTE DE CATEDRA", "EDI-Anexo-1.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 1", "AC - TP1 - 2026.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 2", "AC - TP2 - 2026.pdf"),
     os.path.join(DIR_RAIZ, "PRACTICA 3", "ENUNCIADO", "AC - TP3 - 2026.pdf"),
