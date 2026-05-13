@@ -33,11 +33,12 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
 ### 3. Carpetas Globales de Soporte
 *   **`Documentacion/`**: Carpeta raíz de toda la documentación global de la materia.
     *   `Diccionario.md`: Glosario técnico unificado.
-    *   `AC - Anexo1.pdf`: Manual de referencia general.
+    *   `APUNTE DE CATEDRA/`:
+        *   `AC - Anexo1.pdf`: Manual de referencia general de la cátedra.
     *   `Manuales/`: Repositorio central de documentación técnica pesada.
         *   `Audios/`: Grabaciones y notas de voz técnicas (ignoradas por `.gitignore`).
         *   `PDFs/`: Datasheets originales de Microchip en inglés (ignorados por `.gitignore`).
-        *   `Traducidos_Referencia/`: Manuales de referencia de Microchip traducidos al español (`_es.md`).
+        *   `PDFs Traducidos/`: Manuales de referencia de Microchip traducidos al español (`_es.md`).
         *   `Programacion_C/`: Carpeta para recursos de sintaxis C (archivos del usuario).
             *   `Originales/`: PDFs originales de los manuales de C.
             *   `*.md`: Versiones transcritas y formateadas para lectura rápida.
