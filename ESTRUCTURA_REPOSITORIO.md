@@ -11,6 +11,7 @@ Este documento define la organización oficial del repositorio para mantener la 
 *   `ESTRUCTURA_REPOSITORIO.md`: (Este archivo) Mapa de ubicación de archivos.
 *   `Documentacion/`:
     *   `Diccionario.md`: Glosario técnico unificado de la materia.
+    *   `Manuales/`: Repositorio central de documentación técnica (ver sección 3).
 
 ### 2. Estructura por Práctica (`PRACTICA X/`)
 Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben seguir este esquema:
@@ -30,17 +31,19 @@ Todas las carpetas de práctica (`PRACTICA 1`, `PRACTICA 2`, `PRACTICA 3`) deben
 *   `Obsoletos/`: Versiones descartadas, capturas de pantalla de ayuda y borradores.
 
 ### 3. Carpetas Globales de Soporte
-*   **`MANUALES/`**: Repositorio central de documentación técnica pesada.
-    *   `Audios/`: Grabaciones y notas de voz técnicas.
-    *   `PDFs/`: Datasheets originales de Microchip en inglés.
-    *   `Programacion_C/`: Guías de sintaxis de C para XC16.
-    *   `Traducidos_Referencia/`: Manuales de referencia de Microchip traducidos al español.
+*   **`Documentacion/`**: Carpeta raíz de toda la documentación global de la materia.
+    *   `Diccionario.md`: Glosario técnico unificado.
+    *   `Manuales/`: Repositorio central de documentación técnica pesada.
+        *   `Audios/`: Grabaciones y notas de voz técnicas (ignoradas por `.gitignore`).
+        *   `PDFs/`: Datasheets originales de Microchip en inglés (ignorados por `.gitignore`).
+        *   `Traducidos_Referencia/`: Manuales de referencia de Microchip traducidos al español (`_es.md`).
+        *   `Programacion_C/`: Guías y recursos de sintaxis C para XC16 (archivos del usuario).
 *   **`CLASES TEORICAS/`**: Material y apuntes de las clases presenciales/virtuales.
     *   `Originales_PDF/`: Diapositivas y material virgen de la cátedra.
 *   **`Cuestionarios/`**: Material de estudio para los exámenes teóricos cortos.
     *   `Cuestionario X/`: Preguntas y respuestas específicas de cada test.
 *   **`Herramientas_Python/`**: Scripts de automatización (`translate_pdf.py`, `fix_code_md.py`, etc.).
-*   **`scratch/`**: Carpeta de trabajo temporal para la IA (scripts rápidos de prueba).
+*   **`scratch/`**: Carpeta de trabajo temporal para la IA (scripts rápidos de prueba, ignorada por `.gitignore`).
 
 ---
 
