@@ -27,7 +27,48 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 
 ---
 
-## 🛠️ 2. Construcción del Contexto Inicial (`init`)
+## 🎯 2. Estrategia Práctica: ¿Cómo calcular el "DESPLAZAMIENTO"?
+
+El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. No es un número al azar, depende del hardware y de qué registros guarde el compilador. Para encontrarlo (en nuestro caso, `18`), seguimos esta estrategia en MPLAB X:
+
+1. **Punto Cero (Inicio de la Pila):** 
+   Ponemos un Breakpoint justo antes de habilitar el Timer. Anotamos el valor del Puntero de Pila (`W15`).
+   *Ejemplo: `W15` = `0x0862`*
+
+2. **Pausa en el Planificador:**
+   Ponemos un Breakpoint en la primera línea de la función `planificador()`. Dejamos correr el programa hasta que el Timer dispare la interrupción y se detenga allí. Anotamos el nuevo valor de `W15`.
+   *Ejemplo: `W15` = `0x0892`*
+
+3. **La Caza del PC (Búsqueda manual en RAM):**
+   Sabemos que el hardware empujó primero el PC de la tarea (Proceso A) a la pila. Abrimos la ventana **File Registers** y revisamos la RAM a partir de `0x0862`. Buscamos un número que corresponda a una dirección de la **Memoria de Programa** (ej. `0x0454`).
+   *Ejemplo: Encontramos el PC en la dirección de RAM `0x086E`.*
+
+4. **El Cálculo Matemático:**
+   Ahora que sabemos dónde estamos parados (`W15 actual = 0x0892`) y dónde queremos aterrizar (`PC objetivo = 0x086E`), restamos ambas direcciones de RAM:
+   `0x0892 - 0x086E = 0x0024` (que es **36** en decimal).
+   Como el dsPIC avanza el `W15` en "Words" (saltos de 2 bytes), dividimos por 2:
+   `36 bytes / 2 bytes por Word = 18 posiciones`.
+
+```text
+CÁLCULO DEL DESPLAZAMIENTO (BÚSQUEDA DEL PC EN RAM)
+─────────────────────────────────────────────────────────────
+[0x0862] (Fondo de la pila original)
+...
+[0x086E] 0x0454 (¡Bingo! Aquí está el PC de retorno de A)   <─┐
+[0x0870] 0x0000 (SR guardado)                                 │
+[0x0872] W0 guardado                                          │
+...                                                           │ DISTANCIA A SALTAR:
+[0x0888] W14 guardado                                         │ 36 bytes = 18 words
+[0x088A] PC de llamada a la función planificador              │
+...                                                           │
+[0x0892] (Espacio Libre)    <-- W15 actual (Estamos aquí)   <─┘
+─────────────────────────────────────────────────────────────
+```
+¡Así obtenemos matemáticamente `DESPLAZAMIENTO = 18`! Ya podemos inyectar esto en el código para que sea automático.
+
+---
+
+## 🛠️ 3. Construcción del Contexto Inicial (`init`)
 
 En este sistema, **A, B y C** representan tres **Procesos o Tareas independientes** (hilos de ejecución) que compiten por el tiempo de la CPU. Cada uno es una función de C con un bucle infinito.
 
@@ -58,7 +99,7 @@ Es vital no confundir los dos espacios de memoria del dsPIC:
 
 ---
 
-## ⚙️ 3. El Planificador y la Aritmética de Punteros
+## ⚙️ 4. El Planificador y la Aritmética de Punteros
 
 El corazón del ejercicio es la función `planificador()`, la cual trasplanta los bloques de memoria.
 
@@ -89,7 +130,7 @@ switch(estadoProceso){
 
 ---
 
-## ⏱️ 4. El Ciclo de Interrupción (`_T1Interrupt`)
+## ⏱️ 5. El Ciclo de Interrupción (`_T1Interrupt`)
 
 ```c
 void __attribute__((interrupt, auto_psv)) _T1Interrupt( void ){
@@ -105,7 +146,7 @@ void __attribute__((interrupt, auto_psv)) _T1Interrupt( void ){
 
 ---
 
-## 🔬 5. Guía de Testeo y Simulación en MPLAB X (Direcciones Reales)
+## 🔬 6. Guía de Testeo y Simulación en MPLAB X (Direcciones Reales)
 
 Para validar el "Método de la Pizarra", observamos las entrañas del dsPIC33F.
 
@@ -196,7 +237,7 @@ Con el programa detenido en el `planificador()`, ejecutamos el `for` paso a paso
 
 ---
 
-## 📝 6. Resumen para la Defensa: El Flujo de la Conciencia
+## 📝 7. Resumen para la Defensa: El Flujo de la Conciencia
 
 Si el profesor te pregunta cómo funciona tu código, recuerda estas palabras clave y el flujo de la "Conciencia" del Micro:
 
