@@ -95,7 +95,18 @@ Para validar que el Kernel está "trasplantando" los contextos correctamente, de
 Antes de empezar, asegurate de tener el proyecto abierto y configurado para simulación (*Simulator*).
 
 > **Punto de Control Técnico:** 
-> 1. ¿Qué valor tiene configurado el `QUANTUM` en tu código?
-> 2. En el menú de MPLAB X: `Window -> Debugging`, ¿tenés abiertas las ventanas de **Watches**, **Variables** y **Disassembly**?
-> 3. ¿Podés ver en la ventana de **Disassembly** en qué dirección de Memoria de Programa (`0x...`) comienzan las funciones `procesoA`, `procesoB` y `procesoC`? (Esto es lo que el código guarda en `dirA`, `dirB`, `dirC`).
+> 1. El `QUANTUM` está configurado en **2** (se requieren 2 disparos del Timer1 para cambiar de proceso).
+> 2. El `DESPLAZAMIENTO` es **18** (esto es lo que retrocedemos `W15` para encontrar el contexto guardado).
+> 3. En el menú de MPLAB X: `Window -> Debugging`, ¿tenés abiertas las ventanas de **Watches**, **Variables** y **Disassembly**?
+> 4. **Misión:** Buscá en **Disassembly** las funciones `procesoA`, `procesoB` y `procesoC`. Pasame las direcciones hexadecimales (`0x...`) donde comienzan.
+
+---
+
+### Paso 2: Análisis de la Pila Inicial
+Una vez que el programa arranca y ejecuta `init()`, los arreglos de resguardo dejan de estar vacíos.
+
+**Preguntas para completar la guía:**
+1. Si ponés un **Breakpoint** justo después de `init()` (en `main.c`), ¿qué valores ves en `arregloProcA[0]`, `arregloProcB[0]` y `arregloProcC[0]`?
+2. ¿Coinciden esos valores con las direcciones que viste en el **Disassembly**?
+3. En la ventana de **Watches**, agregá el registro **W15**. ¿En qué dirección de RAM está apuntando el Stack Pointer al iniciar el `main`?
 
