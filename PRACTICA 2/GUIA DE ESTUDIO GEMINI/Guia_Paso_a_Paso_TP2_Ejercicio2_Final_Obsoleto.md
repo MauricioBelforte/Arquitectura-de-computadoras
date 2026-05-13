@@ -32,11 +32,11 @@ En la arquitectura dsPIC, la pila (Stack) y la memoria de datos (RAM) comparten 
 El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás en la Pila para encontrar dónde está guardado el Program Counter (PC) del proceso interrumpido. No es un número al azar, depende del hardware y de qué registros guarde el compilador. Para encontrarlo (en nuestro caso, `18`), seguimos esta estrategia en MPLAB X:
 
 1. **Punto Cero (Inicio de la Pila):** 
-   Ponemos un Breakpoint justo antes de habilitar el Timer. Anotamos el valor del Puntero de Pila (`W15`).
+   Ponemos un Breakpoint justo antes de entrar al bucle infinito del primer proceso. **En `main.c`, línea 60 (`procesoA();`)**. Anotamos el valor del Puntero de Pila (`W15`).
    *Ejemplo: `W15` = `0x0862`*
 
 2. **Pausa en el Planificador:**
-   Ponemos un Breakpoint en la primera línea de la función `planificador()`. Dejamos correr el programa hasta que el Timer dispare la interrupción y se detenga allí. Anotamos el nuevo valor de `W15`.
+   Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que el Timer dispare la interrupción y se detenga allí. Anotamos el nuevo valor de `W15`.
    *Ejemplo: `W15` = `0x0892`*
 
 3. **La Caza del PC (Búsqueda manual en RAM):**
