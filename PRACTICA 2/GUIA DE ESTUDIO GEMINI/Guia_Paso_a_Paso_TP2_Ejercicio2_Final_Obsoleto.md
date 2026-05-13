@@ -47,7 +47,7 @@ El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás 
 2. **Punto Cero (Inicio de la Pila):** 
    Ponemos un Breakpoint justo antes de entrar al primer proceso. **En `main.c`, línea 60 (`procesoA();`)**. Anotamos el valor del Puntero de Pila (`W15`).
    *Ejemplo: `W15` = **`0x0862`***.
-   > **¿Por qué el PC no estará aquí?** Porque el Proceso A usará la pila para sus variables y funciones. Cuando llegue la interrupción, el PC se guardará donde esté la pila en ese instante, no en el "suelo" (`0x0862`).
+   > **¿Por qué el PC no estará aquí?** Porque el Proceso A usará la pila para sus variables y funciones. Cuando llegue la interrupción, el PC se guardará donde esté la pila en ese instante, no en la dirección más baja (`0x0862`).
 
 3. **Captura del W15 Actual (Paso del Planificador):**
    Ponemos un Breakpoint en la primera línea de la función planificador. **En `kernel.c`, línea 47 (`unsigned int* puntero=WREG15;`)**. Dejamos correr el programa (F5) hasta que se detenga allí. Supongamos que el nuevo `W15` = **`0x0892`**.
