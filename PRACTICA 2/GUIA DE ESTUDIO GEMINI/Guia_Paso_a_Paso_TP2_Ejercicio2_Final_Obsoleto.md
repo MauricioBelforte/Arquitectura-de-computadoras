@@ -49,9 +49,22 @@ El valor de `DESPLAZAMIENTO` es el "salto mágico" que debemos dar hacia atrás 
    Como el dsPIC avanza el `W15` en "Words" (saltos de 2 bytes), dividimos por 2:
    `36 bytes / 2 bytes por Word = 18 posiciones`.
 
+> [!TIP]
+> **¿Por qué 0x0454 y no otro valor (ej. 0x04AA)?**
+> En la RAM verás muchos números. Para identificar el PC real, usamos dos filtros:
+> 1. **Filtro de Desplazamiento:** Si calculamos que el salto es de **18**, debemos tomar el valor que esté exactamente a esa distancia del `W15` actual. En la captura, al restar 18 de la posición actual, caemos en `0x086E`, donde reside el **`0x0454`**.
+> 2. **Filtro de Proximidad:** El PC debe ser una dirección de Flash cercana al inicio de tu proceso. Si el proceso A empieza en `0x0444`, un PC de `0x0454` (unas pocas instrucciones después) tiene mucho más sentido que otros valores aleatorios.
+
 ```text
-CÁLCULO DEL DESPLAZAMIENTO (BÚSQUEDA DEL PC EN RAM)
+DISTINGUIENDO EL PC (CRITERIO TÉCNICO)
 ─────────────────────────────────────────────────────────────
+[0x0862] 0x04AA  <-- ¡CUIDADO! Es un valor de Flash, pero está muy lejos (a 24 words).
+...
+[0x086E] 0x0454  <-- ¡BINGO! Está a 18 words de distancia. Este es el que el código usará.
+...
+[0x0892] (W15)   <-- Punto de partida para la resta.
+─────────────────────────────────────────────────────────────
+```
 [0x0862] (Fondo de la pila original)
 ...
 [0x086E] 0x0454 (¡Bingo! Aquí está el PC de retorno de A)   <─┐
