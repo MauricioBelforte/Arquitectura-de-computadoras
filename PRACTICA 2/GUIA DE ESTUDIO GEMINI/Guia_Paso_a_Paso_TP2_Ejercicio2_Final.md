@@ -80,19 +80,44 @@ BÚSQUEDA LÓGICA DEL PC (EL MATCH PERFECTO)
 ```text
 DIAGRAMA DEL SALTO CALCULADO
 ─────────────────────────────────────────────────────────────
-[0x086E] 0x0454 (PC de retorno de A)   <─┐
-[0x0870] 0x0000 (SR guardado)            │
-[0x0872] W0 guardado                     │
-...                                      │ DISTANCIA DESCUBIERTA:
-[0x0888] W14 guardado                    │ 18 words (36 bytes)
-[0x088A] PC de llamada a planificador    │
-...                                      │
-[0x0892] (Espacio Libre)    <─ W15 actual <─┘
+[0x086E] 0x0454 (PC de retorno de A)      <────┐
+[0x0870] 0x0000 (SR guardado)                  │
+[0x0872] W0 guardado                           │ 
+...                                            │ DISTANCIA DESCUBIERTA:
+[0x0888] W14 guardado                          │ 18 words (36 bytes)
+[0x088A] PC de llamada a planificador          │ 
+...                                            │
+[0x0892] (Espacio Libre)    <─ W15 actual <────┘
 ─────────────────────────────────────────────────────────────
 ```
 ¡Así obtenemos matemáticamente `DESPLAZAMIENTO = 18`! Ya podemos inyectar esto en el código para que sea automático.
 
+### 🔍 Origen de `dirA`, `dirB` y `dirC`
+
+Antes de entrar en la función `init()`, es fundamental entender de dónde provienen estas variables. En el archivo `main.c`, se definen como variables globales y se les asigna la **dirección física de inicio** de cada función de proceso.
+
+En lenguaje C, el nombre de una función (sin los paréntesis) se comporta como un puntero que apunta a su ubicación en la **Memoria de Programa (Flash)**.
+
+```c
+// En main.c
+unsigned dirA, dirB, dirC; // Variables para almacenar las direcciones
+
+int main(int argc, char** argv) {
+    // Captura de punteros a inicio de funciones/procesos
+    dirA = procesoA; 
+    dirB = procesoB; 
+    dirC = procesoC; 
+    
+    boot();      // Configura el kernel e inicializa los contextos
+    procesoA();  // Inicia la ejecución del primer proceso
+    return (EXIT_SUCCESS);
+}
+```
+
+Al capturar estas direcciones en el `main`, permitimos que la función `init()` las cargue en la primera posición de los arreglos de resguardo (`[0]`). De esta forma, "falsificamos" el punto de retorno para que el hardware sepa a dónde saltar la primera vez que se active cada proceso.
+
 ---
+
 
 ## 🛠️ 3. Construcción del Contexto Inicial (`init`)
 
@@ -150,6 +175,17 @@ switch(estadoProceso){
 **Operación a bajo nivel:**
 1.  **Lectura:** `*puntero` accede a la Pila física en RAM. Lee el valor y lo resguarda a salvo en la variable global `arregloProcA[i]`.
 2.  **Escritura:** Inmediatamente después, inserta en esa misma dirección de memoria física el contenido guardado en `arregloProcB[i]`.
+
+![Figura 1: Vista de File Registers en MPLAB X](file:///D:/Escritorio/INFORMATICA/ARQUITECTURA%20DE%20COMPUTADORAS/PRACTICA%202/GUIA%20DE%20ESTUDIO%20GEMINI/File_register.png)
+*Figura 1: Vista de File Registers en MPLAB X. Notar el valor 0454 en el cruce de la fila 0860 y la columna 0E (Dirección 0x086E).*
+
+> [!TIP]
+> **¿Cómo leer esta imagen?**
+> 1. **Ubicá la Fila:** Buscá el número `0860` en la columna de la izquierda.
+> 2. **Ubicá la Columna:** Buscá el encabezado `0E` arriba a la derecha.
+> 3. **El Cruce:** En la intersección (`0x0860 + 0x0E`) verás el valor `0454`. Ese es el Program Counter donde se detuvo el Proceso A.
+> 4. **Los Arreglos:** Mirá la primera fila (`0800`). Ahí verás los valores iniciales: `0444`, `045C` y `0474`.
+
 
 > [!IMPORTANT]
 > **Diferencia Crítica:** Nota que aquí **no guardamos la dirección del Puntero de Pila (WREG15)**. Mantenemos el `W15` intacto y realizamos una sobreescritura directa (`swap`) del bloque de datos contenido en la memoria de datos (El Método de la Pizarra).
