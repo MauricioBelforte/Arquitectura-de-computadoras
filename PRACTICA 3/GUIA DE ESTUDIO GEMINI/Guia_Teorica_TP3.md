@@ -8,7 +8,10 @@ Este resumen integra los conceptos fundamentales sobre el **Conversor Analógico
 ### 1.1 Conceptos Generales de Conversión A/D
 Un **Conversor Analógico-Digital (ADC)** transforma un valor de voltaje analógico continuo (leído desde un pin de entrada) en un número entero discreto que la CPU puede procesar.
 
-*   **Rango de Referencia:** El conversor trabaja dentro de un rango de voltaje definido (ej: 0V a 5V). En nuestras prácticas, usaremos el voltaje de alimentación del microcontrolador (`AVDD` y `AVSS`) como referencia.
+*   **Rango de Referencia:** El conversor trabaja dentro de un rango de voltaje definido (ej: 0V a 5V). En nuestras prácticas, usaremos el voltaje de alimentación del microcontrolador como referencia:
+    *   **AVDD (Analog Supply Voltage):** Es el voltaje de alimentación analógica positiva (típicamente 3.3V o 5V). Define el límite superior del rango de medición.
+    *   **AVSS (Analog Ground Reference):** Es la tierra o referencia de 0V para los circuitos analógicos. Define el límite inferior del rango.
+    *   *Nota:* Se usan pines separados (A/V) en lugar de los digitales (V/V) para evitar que el ruido de los circuitos lógicos afecte la precisión de la conversión analógica.
 *   **Resolución:** La cantidad de bits del resultado determina la precisión:
     *   **10 bits:** El rango se divide en **1024 escalones** discretos (0 a 1023). Resolución: `5V / 1024 = 4,88 mV` por escalón.
     *   **12 bits:** El rango se divide en **4096 escalones** discretos (0 a 4095). Resolución: `5V / 4096 = 1,22 mV` por escalón.
@@ -16,27 +19,52 @@ Un **Conversor Analógico-Digital (ADC)** transforma un valor de voltaje analóg
     ```
     Voltaje = (Valor_Digital × VREF) / (2^N - 1)
     ```
-    Ejemplo (10 bits, VREF = 5V): `(481 × 5V) / 1023 = 2,35V`
+    *   **VREF (Voltage Reference):** Voltaje de Referencia. Es el rango total de tensión que el ADC puede medir (normalmente la diferencia entre `AVDD` y `AVSS`).
+    
+    *Ejemplo de cálculo (10 bits, VREF = 5V):* Si el conversor arroja un `Valor_Digital` de **481**, el cálculo de la tensión física real que está leyendo el pin sería:
+    `(481 × 5V) / 1023 = 2,35V`
+
+    > **💡 Detalle Técnico de la Fórmula:**
+    > *   **¿De dónde sale el 481?** Es simplemente un valor numérico de ejemplo (leído del registro `ADC1BUF0`) que representa lo que midió el sensor.
+    > *   **¿Por qué se divide por 1023 y no por 1024?** Con 10 bits tienes **1024 estados** o "escalones" diferentes. Sin embargo, como el primer estado es el **0**, el valor más alto posible al que puede llegar el contador es **1023** (todos los bits en '1'). Si al pin le entran los 5V completos de referencia, el ADC arrojará un 1023. Por eso, para sacar la proporción, dividimos por el valor máximo (`2^N - 1`), que en este caso es 1023.
 *   **Transductores:** En la práctica, el voltaje proviene de un **transductor** (sensor de temperatura, humedad, presión, etc.) que convierte una magnitud física en un voltaje eléctrico dentro del rango del ADC.
 
 ### 1.2 Secuencia de Sampling/Holding
 Cada conversión se divide en dos fases temporales:
 
-1.  **Tiempo de Muestreo (Sampling):** El amplificador **Sample/Hold (S/H)** se conecta al pin de entrada analógica y captura el voltaje. Se controla con el bit `SAMP` (`AD1CON1<1>`).
+1.  **Tiempo de Muestreo (Sampling):** El amplificador **Sample/Hold (S/H)** se conecta al pin de entrada analógica y captura el voltaje. Se controla por software mediante el bit `SAMP` (la notación `AD1CON1<1>` de los manuales significa exactamente eso: es el **bit número 1** del registro `AD1CON1`).
 2.  **Tiempo de Conversión (Holding):** El amplificador se **desconecta** de la entrada y mantiene el voltaje estable mientras el circuito SAR (Aproximación Sucesiva) realiza la conversión bit a bit.
     *   **10 bits:** Requiere **12 ciclos TAD** para la conversión completa.
     *   **12 bits:** Requiere **14 ciclos TAD** para la conversión completa.
+    
+    > **⏱️ ¿Qué es un ciclo TAD?**
+    > **TAD (A/D Conversion Clock Time)** es el "tic de reloj" base dedicado exclusivamente al módulo ADC. Físicamente, representa el tiempo mínimo que tarda el hardware (circuito SAR) en calcular y resolver **un solo bit** del resultado final. Por eso, para resolver 10 bits, necesita al menos 10 TADs más 2 ciclos adicionales de overhead por el funcionamiento del circuito (total 12 TAD).
 
 El **tiempo total de conversión** = Tiempo de Muestreo + Tiempo de Conversión.
 
 ### 1.3 Arquitectura del ADC en el dsPIC33F
-*   El dsPIC33F posee **dos módulos ADC** independientes: **ADC1** y **ADC2**, cada uno con su propio conjunto de registros SFR.
-*   Hasta **32 pines de entrada analógica** (AN0 a AN31). ADC1 puede usar todos; ADC2 solo AN0-AN15.
+*   El dsPIC33F posee **dos módulos ADC** independientes: **ADC1** y **ADC2**.
+    > **💡 Módulo vs. Registro:** 
+    > *   Un **Módulo** es el bloque físico de hardware (la "máquina" que hace la conversión).
+    > *   Los **Registros** (como `AD1CON1`) son el panel de control de ese módulo. 
+    > *   Si usas el módulo **ADC1**, sus registros se llaman `AD1CON1`, `AD1CON2`, etc. Si usaras el **ADC2**, sus registros serían `AD2CON1`, `AD2CON2`, etc. Cada módulo tiene su propio juego completo de registros independientes.
+    > **📍 Nota de Arquitectura:** Todos los registros **SFR** (Special Function Registers) residen físicamente en la **Memoria de Datos (RAM)**, ocupando el rango inicial desde la dirección `0x0000` hasta la `0x07FF` (los primeros 2 KB del mapa de datos).
+*   **Pines de Entrada Analógica (AN0 a AN31):** Son los pines físicos externos del chip. 
+    > **⚠️ ¡Cuidado!:** Los pines **no** están dentro de `AD1CON1`. 
+    > *   Para decirle al chip que un pin sea analógico, usas **`AD1PCFGL`**.
+    > *   Para elegir cuál de todos esos pines quieres medir en este momento, usas **`AD1CHS0`** (el selector/multiplexor).
+    *   ADC1 puede usar hasta 32 pines; ADC2 suele estar limitado a los primeros 16 (AN0-AN15).
 *   El módulo posee **4 amplificadores Sample/Hold** (CH0, CH1, CH2, CH3) en modo de 10 bits, pero **solo CH0** en modo de 12 bits.
 *   Las entradas analógicas se conectan a los canales S/H a través de un **multiplexor de entrada**. El multiplexor tiene dos configuraciones programables: **MUX A** y **MUX B**, que pueden alternarse entre conversiones.
 *   El resultado se almacena en un **buffer de una sola palabra** (`ADC1BUF0`). Para almacenar múltiples resultados, se debe usar **DMA**.
 
 ### 1.4 Registros de Control del ADC (Los más importantes)
+
+> **💡 Resumen de Roles para no confundirse:**
+> *   **`AD1CON1` (Interruptor y Modo):** Es el panel general. Controla si el módulo está prendido, si mide en 10 o 12 bits y quién da la orden de empezar. **No elige el pin.**
+> *   **`AD1PCFGL` (Configuración de Puertos):** Le dice al chip: *"Che, el pin AN5 no es un botón digital, trátalo como una entrada analógica"*.
+> *   **`AD1CHS0` (Selección de Canal):** Es el **selector (multiplexor)**. Aquí escribes el número del pin (ej: `5`) para decirle a la máquina: *"Ahora conéctate al pin AN5 y mide lo que hay ahí"*.
+> *   **`ADC1BUF0` (Buffer de Resultado):** Es el **buzón de salida**. Una vez que la máquina termina de convertir, deja el número final aquí para que tú lo leas desde el código (`valor = ADC1BUF0;`).
 
 | Registro | Función Principal |
 | :--- | :--- |
@@ -49,22 +77,31 @@ El **tiempo total de conversión** = Tiempo de Muestreo + Tiempo de Conversión.
 | **`AD1PCFGL`** | Configuración de pines AN0-AN15: `0` = Analógico (por defecto), `1` = Digital. **Es obligatorio poner en 0 los bits de los pines que se van a usar como entrada analógica.** |
 | **`AD1CSSL`** | Selección de entradas para escaneo secuencial automático. |
 
-### 1.5 Bits Clave de `AD1CON1` (Detalle)
+### 1.5 Bits Clave de `AD1CON1` (Detalle y Sintaxis C)
 
-*   **`ADON`** (bit 15): Enciende (`1`) o apaga (`0`) el módulo ADC.
-*   **`AD12B`** (bit 10): Selecciona modo de **12 bits** (`1`) o **10 bits y 4 canales** (`0`).
-*   **`FORM<1:0>`** (bits 9-8): Formato de salida de datos:
-    *   `00` = Entero sin signo (el más común para nosotros).
-    *   `01` = Entero con signo.
-    *   `10` = Fraccionario sin signo.
-    *   `11` = Fraccionario con signo.
-*   **`SSRC<2:0>`** (bits 7-5): Fuente que finaliza el muestreo e inicia la conversión:
-    *   `000` = Manual (borrar el bit `SAMP` por software).
-    *   `010` = Timer3 (para ADC1) / Timer5 (para ADC2) dispara la conversión.
-    *   `111` = Conversión automática (el contador interno finaliza el muestreo).
-*   **`ASAM`** (bit 2): Si está en `1`, el muestreo **comienza automáticamente** después de la última conversión.
-*   **`SAMP`** (bit 1): Bit de control de muestreo. Si `ASAM=0`, se debe poner en `1` manualmente para iniciar el muestreo. Si `SSRC=000`, se borra manualmente para iniciar la conversión.
-*   **`DONE`** (bit 0): El hardware lo pone en `1` cuando la conversión se completa. Se puede leer por **Polling** para saber cuándo el resultado está listo.
+*   **`ADON`** (bit 15): Control de energía del módulo.
+    *   `AD1CON1bits.ADON = 1;` → Enciende el conversor.
+    *   `AD1CON1bits.ADON = 0;` → Apaga el conversor (se usa para detener conversiones continuas automáticas o ahorrar energía, como en la rutina de tu Cuestionario 3).
+*   **`AD12B`** (bit 10): Selecciona la resolución.
+    *   `AD1CON1bits.AD12B = 1;` → Modo de 12 bits (rango 0-4095).
+    *   `AD1CON1bits.AD12B = 0;` → Modo de 10 bits (rango 0-1023).
+*   **`FORM<1:0>`** (bits 9-8): Formato de salida de datos.
+    *   `AD1CON1bits.FORM = 0;` // `00` = Entero sin signo (el estándar que usamos siempre).
+    *   `AD1CON1bits.FORM = 1;` // `01` = Entero con signo.
+    *   `AD1CON1bits.FORM = 2;` // `10` = Fraccionario sin signo.
+    *   `AD1CON1bits.FORM = 3;` // `11` = Fraccionario con signo.
+*   **`SSRC<2:0>`** (bits 7-5): Fuente que dispara la conversión (es decir, qué evento corta el tiempo de muestreo):
+    *   `AD1CON1bits.SSRC = 0;` // `000` = Modo manual (tienes que borrar `SAMP` por código).
+    *   `AD1CON1bits.SSRC = 2;` // `010` = Disparado por hardware (Timer3 o Timer5).
+    *   `AD1CON1bits.SSRC = 7;` // `111` = Modo automático (el reloj interno cuenta los TADs y dispara solo).
+*   **`ASAM`** (bit 2): Control de auto-muestreo.
+    *   `AD1CON1bits.ASAM = 1;` → Apenas termina una conversión, el hardware cierra la llave y empieza a muestrear la siguiente automáticamente.
+    *   `AD1CON1bits.ASAM = 0;` → Se requiere que el programador encienda `SAMP` manualmente para volver a muestrear.
+*   **`SAMP`** (bit 1): Bit de control manual de la llave (Sample/Hold).
+    *   `AD1CON1bits.SAMP = 1;` → **Inicia el muestreo** (conecta la patita externa al capacitor interno).
+    *   `AD1CON1bits.SAMP = 0;` → **Inicia la conversión** (desconecta la patita externa, el voltaje queda atrapado y empieza la digitalización). *Ojo: esto solo funciona si SSRC está configurado en 0 (manual).*
+*   **`DONE`** (bit 0): Bandera de estado manejada por el hardware.
+    *   `while(!AD1CON1bits.DONE);` → Bucle de "Polling". El programa se traba en esta línea esperando hasta que el hardware reemplace el `0` por un `1` (indicando que la conversión terminó y puedes leer el `ADC1BUF0`).
 
 ### 1.6 Pasos para Configurar una Conversión ADC
 Según el manual de referencia (Sección 16.4), la secuencia de configuración es:
@@ -121,6 +158,13 @@ El controlador DMA puede trabajar con los siguientes periféricos:
 ### 2.4 Registros de Control DMA (Por Canal)
 Cada uno de los 8 canales tiene **6 registros**:
 
+> **💡 Resumen de Roles del DMA para no confundirse:**
+> *   **`DMA0CON` (El Jefe de Logística):** Define *cómo* se mueve la carga (tamaño, dirección, si es continuo o si se detiene al terminar).
+> *   **`DMA0REQ` (El Activador):** Es el que escucha al periférico. Le dices: *"Cuando el ADC grite que terminó de convertir, vos movés el dato"*.
+> *   **`DMA0PAD` (Origen/Destino Periférico):** Le dice al DMA *en qué caja del periférico* tiene que buscar o dejar los datos (ej: apuntarlo al buzón `ADC1BUF0`).
+> *   **`DMA0STA` / `DMA0STB` (Direcciones en RAM):** Le dicen al DMA *en qué parte de la RAM* tiene que guardar o leer la información que está moviendo.
+> *   **`DMA0CNT` (El Contador):** Le dice *cuántos* paquetes tiene que mover en total antes de dar por terminado el trabajo y avisarle a la CPU.
+
 | Registro | Función |
 | :--- | :--- |
 | **`DMA0CON`** | Habilitación del canal (`CHEN`), tamaño de transferencia byte/palabra (`SIZE`), dirección (`DIR`), modo de operación (`MODE`) y modo de direccionamiento (`AMODE`). |
@@ -130,23 +174,29 @@ Cada uno de los 8 canales tiene **6 registros**:
 | **`DMA0PAD`** | Dirección del registro de datos del **periférico** origen/destino (ej: `&ADC1BUF0`). |
 | **`DMA0CNT`** | Número de transferencias antes de considerar el bloque completo. `DMA0CNT + 1` = cantidad de elementos a transferir. |
 
-### 2.5 Bits Clave de `DMA0CON` (Detalle)
+### 2.5 Bits Clave de `DMA0CON` (Detalle y Sintaxis C)
 
-*   **`CHEN`** (bit 15): Habilita (`1`) o deshabilita (`0`) el canal.
-*   **`SIZE`** (bit 14): Tamaño de transferencia: `0` = Palabra (16 bits), `1` = Byte (8 bits).
-*   **`DIR`** (bit 13): Dirección de la transferencia:
-    *   `0` = Leer desde el periférico, escribir en DPSRAM (ej: ADC → RAM).
-    *   `1` = Leer desde DPSRAM, escribir en el periférico (ej: RAM → UART TX).
-*   **`HALF`** (bit 12): Si está en `1`, genera interrupción cuando se ha transferido **la mitad** del bloque.
-*   **`AMODE<1:0>`** (bits 5-4): Modo de direccionamiento:
-    *   `00` = Registro Indirecto con Post-Incremento (la dirección avanza automáticamente).
-    *   `01` = Registro Indirecto sin Post-Incremento (dirección fija).
-    *   `10` = Direccionamiento Indirecto de Periférico (el periférico genera la dirección).
-*   **`MODE<1:0>`** (bits 1-0): Modo de operación:
-    *   `00` = Continuo, sin Ping-Pong (llena el buffer A indefinidamente).
-    *   `01` = One-Shot, sin Ping-Pong (una sola transferencia de bloque y se detiene).
-    *   `10` = Continuo, con Ping-Pong (alterna entre Buffer A y Buffer B automáticamente).
-    *   `11` = One-Shot, con Ping-Pong.
+*   **`CHEN`** (bit 15): Control de encendido del canal DMA.
+    *   `DMA0CONbits.CHEN = 1;` → Habilita el canal (empieza a escuchar al periférico).
+    *   `DMA0CONbits.CHEN = 0;` → Apaga el canal.
+*   **`SIZE`** (bit 14): Tamaño de los datos a transferir.
+    *   `DMA0CONbits.SIZE = 0;` → Transfiere Palabras o Words (16 bits). Es lo normal para el ADC.
+    *   `DMA0CONbits.SIZE = 1;` → Transfiere Bytes (8 bits). Útil para enviar letras por UART.
+*   **`DIR`** (bit 13): Dirección del flujo de datos (¿Hacia dónde van?).
+    *   `DMA0CONbits.DIR = 0;` → Del Periférico a la RAM (Ej: ADC → RAM).
+    *   `DMA0CONbits.DIR = 1;` → De la RAM al Periférico (Ej: RAM → UART TX).
+*   **`HALF`** (bit 12): Interrupción de mitad de bloque.
+    *   `DMA0CONbits.HALF = 1;` → Avisa (interrumpe a la CPU) cuando el buffer se llenó hasta la mitad.
+    *   `DMA0CONbits.HALF = 0;` → Avisa solo cuando el buffer se llenó completo.
+*   **`AMODE<1:0>`** (bits 5-4): Modo de direccionamiento (¿Cómo avanza por la RAM?).
+    *   `DMA0CONbits.AMODE = 0;` // `00` = Post-Incremento. *El más usado.* (Guarda un dato y avanza un casillero en la RAM automáticamente).
+    *   `DMA0CONbits.AMODE = 1;` // `01` = Sin incremento (Sobreescribe siempre en la misma dirección de RAM).
+    *   `DMA0CONbits.AMODE = 2;` // `10` = Direccionamiento Periférico Indirecto.
+*   **`MODE<1:0>`** (bits 1-0): Modo de operación del buffer.
+    *   `DMA0CONbits.MODE = 0;` // `00` = Continuo, sin Ping-Pong. (Vuelve al principio del Buffer A cuando lo llena).
+    *   `DMA0CONbits.MODE = 1;` // `01` = One-Shot, sin Ping-Pong. (Llena el Buffer A una sola vez y se desactiva `CHEN`).
+    *   `DMA0CONbits.MODE = 2;` // `10` = Continuo, con Ping-Pong. (Llena el A, luego el B, luego el A...).
+    *   `DMA0CONbits.MODE = 3;` // `11` = One-Shot, con Ping-Pong. (Llena el A, luego el B, y se apaga `CHEN`).
 
 ### 2.6 Asociación Canal DMA ↔ Periférico
 Para conectar un canal DMA a un periférico, se necesitan dos datos:

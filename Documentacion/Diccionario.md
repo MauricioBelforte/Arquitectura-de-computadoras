@@ -88,6 +88,7 @@ Ejemplos de cómo escribir el código en MPLAB X para interactuar con el hardwar
 **Acceso a Bits Individuales:**
 *   `INTCON2bits.INT1EP = 0;` → Configura el flanco de la interrupción externa 1 como positivo (subida).
 *   `AD1CON1bits.ADON = 1;` → Enciende el módulo de conversión Analógico-Digital (ADC).
+*   `AD1CON2bits.VCFG = 0;` → Configura el ADC para usar **AVDD** y **AVSS** como voltajes de referencia (referencia interna).
 *   `IEC0bits.T1IE = 1;` → Habilita (Enciende) la interrupción del Timer 1.
 *   `IFS0bits.T1IF = 0;` → Limpia la bandera de interrupción del Timer 1 (indica que ya se atendió).
 
@@ -249,7 +250,9 @@ Conceptos clave para la digitalización de señales y la transferencia eficiente
 
 *   **ADC (Analog-to-Digital Converter):** Conversor Analógico-Digital. Periférico que transforma una tensión analógica (0V a VREF) en un valor numérico digital.
 *   **SAR (Successive Approximation Register):** Registro de Aproximación Sucesiva. Método de hardware que utiliza el ADC para determinar el valor digital bit a bit (comparando contra una referencia interna).
-*   **VREF (Voltage Reference):** Voltaje de Referencia. Tensión máxima y mínima (típicamente AVDD y AVSS) contra la que el ADC compara la entrada analógica.
+*   **VREF (Voltage Reference):** Voltaje de Referencia. Tensión máxima y mínima contra la que el ADC compara la entrada analógica. Típicamente se usan **AVDD** como referencia positiva y **AVSS** como negativa.
+*   **AVDD (Analog Supply Voltage):** Voltaje de alimentación analógica positiva. Es el pin que alimenta los módulos analógicos (ADC, comparadores). Debe estar filtrado para evitar ruidos digitales en las mediciones.
+*   **AVSS (Analog Ground):** Tierra analógica. Es el retorno de 0V para los circuitos analógicos, separado de la tierra digital (VSS) para minimizar interferencias.
 *   **Resolución:** Cantidad de bits del resultado. En dsPIC33F: 10 bits (1024 saltos) o 12 bits (4096 saltos). A más bits, mayor precisión (escalones más pequeños).
 *   **TAD (A/D Conversion Clock):** Tiempo de reloj de conversión. Periodo mínimo necesario para convertir un solo bit. El tiempo total de conversión depende de la cantidad de TADs (12 para 10 bits).
 *   **Sampling (Muestreo):** Fase en la que el amplificador Sample/Hold se conecta al pin para cargar el condensador interno con el voltaje de entrada.

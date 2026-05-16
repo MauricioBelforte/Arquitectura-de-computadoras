@@ -9,9 +9,26 @@ Una interrupción es un evento que obliga a la CPU a pausar su programa principa
 *   **Fuentes y Vectores:** El sistema admite hasta **8 trampas (traps)** no enmascarables (errores críticos) y hasta **118 fuentes** de interrupción periférica. Cada fuente tiene asignada una dirección fija en la **Tabla de Vectores de Interrupción (IVT)**.
 *   **Prioridad y Jerarquía:** La CPU tiene su propio nivel de prioridad (**IPL**) en el registro **STATUS**. Cada fuente tiene un nivel configurable del **1 (mínima) al 7 (máxima)**. El nivel **0** deshabilita la interrupción. Solo interrupciones con prioridad mayor a la del procesador pueden interrumpirlo.
 *   **Registros de Control Clave:**
-    *   **`IFSx` (Interrupt Flag Status):** Contiene los "flags" o banderas. El hardware pone el bit en **1** cuando ocurre el evento. **Debe borrarse por software obligatoriamente** dentro de la ISR para evitar llamadas recursivas infinitas.
-    *   **`IECx` (Interrupt Enable Control):** Bit que habilita o deshabilita cada interrupción específica.
-    *   **`IPCx` (Interrupt Priority Control):** Define el nivel de prioridad de cada periférico.
+    
+    > **💡 Resumen de Roles para Interrupciones:**
+    > *   **`IECx` (El Portero):** Decide si una interrupción tiene permiso o no para ejecutarse.
+    > *   **`IPCx` (El Supervisor de VIPs):** Le asigna un nivel de importancia a la interrupción (1 a 7) para saber quién pasa primero en caso de concurrencia.
+    > *   **`IFSx` (El Timbre):** Es la bandera que el **Hardware** levanta (suena) cuando ocurrió el evento. Tú (el **Software**) tienes que "apagar el timbre" bajando la bandera.
+    > *   **`INTx` (Pines Físicos):** Ojo, estos son los pines externos (como `INT1`). No son registros, sino el hardware físico donde conectas botones o señales.
+    
+### 1.1 Bits Clave de `IECx` (Detalle y Sintaxis C)
+*   **`T1IE`** (bit 3 de `IEC0`): Control de Habilitación.
+    *   `IEC0bits.T1IE = 1;` → Habilita la interrupción (ej: del Timer 1).
+    *   `IEC0bits.T1IE = 0;` → Deshabilita la interrupción.
+
+### 1.2 Bits Clave de `IPCx` (Detalle y Sintaxis C)
+*   **`T1IP<2:0>`** (bits 14-12 de `IPC0`): Nivel de Prioridad.
+    *   `IPC0bits.T1IP = 4;` → Asigna prioridad nivel 4 a la interrupción (ej: del Timer 1).
+
+### 1.3 Bits Clave de `IFSx` (Detalle y Sintaxis C)
+*   **`T1IF`** (bit 3 de `IFS0`): Bandera de Estado.
+    *   `if(IFS0bits.T1IF == 1)` → Permite consultar si el evento ya ocurrió (técnica de Polling). El hardware lo pone en 1.
+    *   `IFS0bits.T1IF = 0;` → **Apaga la bandera.** Es *obligatorio* hacerlo por software al final de tu rutina ISR para evitar un bucle infinito.
 *   **Proceso de Atención:**
     1.  Se detecta el evento (Flag en '1').
     2.  Se guarda el contexto actual (Contador de programa **PC** y registros de estado) en la **Pila (Stack)**.
@@ -29,12 +46,33 @@ Son módulos de hardware (16 bits por defecto) que cuentan pulsos de reloj (inte
     *   **Tipo B (Timers 2, 4, 6, 8):** Pueden concatenarse con un timer de Tipo C para formar un **Timer de 32 bits**.
     *   **Tipo C (Timers 3, 5, 7, 9):** Pueden actuar como disparadores (trigger) para el inicio de conversión del **ADC**.
 *   **Registros Clave:**
-    *   **`TMRn`:** Es el registro contador que incrementa en cada pulso.
-    *   **`PRn` (Period Register):** Contiene el valor de comparación. Cuando `TMRn` iguala a `PRn`, ocurre un "match", se genera una interrupción y el contador vuelve a cero.
-    *   **`TnCON`:** Registro de configuración que incluye:
-        *   **`TON`**: Encender/apagar el módulo.
-        *   **`TCS`**: Fuente de reloj (interno FCY o externo).
-        *   **`TCKPS`**: **Prescaler** para dividir la frecuencia de entrada y contar más lento.
+    
+    > **💡 Resumen de Roles para Timers:**
+    > *   **`TMRn` (El Cronómetro):** Es el registro físico que va contando hacia arriba (0, 1, 2, 3...).
+    > *   **`PRn` (La Alarma):** Es el límite fijo que tú le pones. Cuando el cronómetro iguala a la alarma, "suena" (reinicia el contador y dispara una interrupción).
+    > *   **`TnCON` (El Panel de Control):** Enciende el cronómetro, elige qué reloj usar y configura el engranaje reductor (prescaler).
+    > *   **`TxCK` (Pin Físico):** Es el pin externo (hardware) por si quieres que el timer cuente pulsos externos en vez del reloj interno.
+    
+### 2.1 Bits Clave de `TMRn` (Detalle y Sintaxis C)
+*   **`TMR1`** (Registro completo de 16 bits): El Contador.
+    *   `TMR1 = 0;` → Borra el contador (lo reinicia a cero manualmente).
+
+### 2.2 Bits Clave de `PRn` (Detalle y Sintaxis C)
+*   **`PR1`** (Registro completo de 16 bits): Periodo Máximo.
+    *   `PR1 = 39062;` → Fija el tope de cuenta. Cuando `TMR1` llegue a 39062, dispara el evento (si la interrupción está habilitada).
+
+### 2.3 Bits Clave de `TnCON` (Detalle y Sintaxis C)
+*   **`TON`** (bit 15): Encendido del módulo.
+    *   `T1CONbits.TON = 1;` → Arranca a contar el Timer.
+    *   `T1CONbits.TON = 0;` → Detiene el Timer.
+*   **`TCS`** (bit 1): Selección de reloj.
+    *   `T1CONbits.TCS = 0;` → Usa el reloj interno de la CPU (`FCY`).
+    *   `T1CONbits.TCS = 1;` → Usa pulsos externos provenientes del pin físico `T1CK`.
+*   **`TCKPS<1:0>`** (bits 5-4): Prescaler (divisor de frecuencia).
+    *   `T1CONbits.TCKPS = 0;` // `00` = Divisor 1:1.
+    *   `T1CONbits.TCKPS = 1;` // `01` = Divisor 1:8.
+    *   `T1CONbits.TCKPS = 2;` // `10` = Divisor 1:64.
+    *   `T1CONbits.TCKPS = 3;` // `11` = Divisor 1:256.
 
 ---
 
