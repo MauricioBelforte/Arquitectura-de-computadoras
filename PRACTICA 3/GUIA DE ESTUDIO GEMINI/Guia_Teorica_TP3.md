@@ -66,16 +66,36 @@ El **tiempo total de conversión** = Tiempo de Muestreo + Tiempo de Conversión.
 > *   **`AD1CHS0` (Selección de Canal):** Es el **selector (multiplexor)**. Aquí escribes el número del pin (ej: `5`) para decirle a la máquina: *"Ahora conéctate al pin AN5 y mide lo que hay ahí"*.
 > *   **`ADC1BUF0` (Buffer de Resultado):** Es el **buzón de salida**. Una vez que la máquina termina de convertir, deja el número final aquí para que tú lo leas desde el código (`valor = ADC1BUF0;`).
 
-| Registro | Función Principal |
-| :--- | :--- |
-| **`AD1CON1`** | Control principal: encendido (`ADON`), resolución (`AD12B`), formato de salida (`FORM`), fuente de trigger (`SSRC`), auto-muestreo (`ASAM`), bit de muestreo (`SAMP`), fin de conversión (`DONE`). |
-| **`AD1CON2`** | Referencia de voltaje (`VCFG`), escaneo de entradas (`CSCNA`), selección de canales (`CHPS`), tasa de interrupción/DMA (`SMPI`). |
-| **`AD1CON3`** | Fuente de reloj del ADC (`ADRC`), tiempo de auto-muestreo (`SAMC`), divisor de reloj (`ADCS`). |
-| **`AD1CON4`** | Tamaño del buffer DMA por entrada analógica (`DMABL`). |
-| **`AD1CHS0`** | Selección de la entrada analógica conectada a **CH0** (entrada positiva `CH0SA` y negativa `CH0NA`). |
-| **`AD1CHS123`** | Selección de entradas para CH1, CH2 y CH3 (solo modo 10 bits). |
-| **`AD1PCFGL`** | Configuración de pines AN0-AN15: `0` = Analógico (por defecto), `1` = Digital. **Es obligatorio poner en 0 los bits de los pines que se van a usar como entrada analógica.** |
-| **`AD1CSSL`** | Selección de entradas para escaneo secuencial automático. |
+*   **`AD1CON1`:** Control principal: 
+    *   Encendido (`ADON`)
+    *   Resolución (`AD12B`)
+    *   Formato de salida (`FORM`)
+    *   Fuente de trigger (`SSRC`)
+    *   Auto-muestreo (`ASAM`)
+    *   Bit de muestreo (`SAMP`)
+    *   Fin de conversión (`DONE`)
+*   **`AD1CON2`:** 
+    *   Referencia de voltaje (`VCFG`)
+    *   Escaneo de entradas (`CSCNA`)
+    *   Selección de canales (`CHPS`)
+    *   Tasa de interrupción/DMA (`SMPI`)
+*   **`AD1CON3`:** 
+    *   Fuente de reloj del ADC (`ADRC`)
+    *   Tiempo de auto-muestreo (`SAMC`)
+    *   Divisor de reloj (`ADCS`)
+*   **`AD1CON4`:** 
+    *   Tamaño del buffer DMA por entrada analógica (`DMABL`)
+*   **`AD1CHS0`:** Selección de la entrada analógica conectada a **CH0**:
+    *   Entrada positiva (`CH0SA`)
+    *   Entrada negativa (`CH0NA`)
+*   **`AD1CHS123`:** 
+    *   Selección de entradas para CH1, CH2 y CH3 (solo modo 10 bits)
+*   **`AD1PCFGL`:** Configuración de pines AN0-AN15: 
+    *   `0` = Analógico (por defecto)
+    *   `1` = Digital
+    *   **Nota:** Es obligatorio poner en 0 los bits de los pines que se van a usar como entrada analógica.
+*   **`AD1CSSL`:** 
+    *   Selección de entradas para escaneo secuencial automático
 
 ### 1.5 Bits Clave de `AD1CON1` (Detalle y Sintaxis C)
 
@@ -165,14 +185,24 @@ Cada uno de los 8 canales tiene **6 registros**:
 > *   **`DMA0STA` / `DMA0STB` (Direcciones en RAM):** Le dicen al DMA *en qué parte de la RAM* tiene que guardar o leer la información que está moviendo.
 > *   **`DMA0CNT` (El Contador):** Le dice *cuántos* paquetes tiene que mover en total antes de dar por terminado el trabajo y avisarle a la CPU.
 
-| Registro | Función |
-| :--- | :--- |
-| **`DMA0CON`** | Habilitación del canal (`CHEN`), tamaño de transferencia byte/palabra (`SIZE`), dirección (`DIR`), modo de operación (`MODE`) y modo de direccionamiento (`AMODE`). |
-| **`DMA0REQ`** | Asocia el canal con un periférico específico mediante `IRQSEL<6:0>`. También permite forzar una transferencia manual (`FORCE`). |
-| **`DMA0STA`** | Dirección de inicio **primaria (Buffer A)** en la DPSRAM. |
-| **`DMA0STB`** | Dirección de inicio **secundaria (Buffer B)** en la DPSRAM (para modo Ping-Pong). |
-| **`DMA0PAD`** | Dirección del registro de datos del **periférico** origen/destino (ej: `&ADC1BUF0`). |
-| **`DMA0CNT`** | Número de transferencias antes de considerar el bloque completo. `DMA0CNT + 1` = cantidad de elementos a transferir. |
+*   **`DMA0CON`:** 
+    *   Habilitación del canal (`CHEN`)
+    *   Tamaño de transferencia byte/palabra (`SIZE`)
+    *   Dirección (`DIR`)
+    *   Modo de operación (`MODE`)
+    *   Modo de direccionamiento (`AMODE`)
+*   **`DMA0REQ`:** 
+    *   Asocia el canal con un periférico específico mediante `IRQSEL<6:0>`
+    *   Permite forzar una transferencia manual (`FORCE`)
+*   **`DMA0STA`:** 
+    *   Dirección de inicio **primaria (Buffer A)** en la DPSRAM
+*   **`DMA0STB`:** 
+    *   Dirección de inicio **secundaria (Buffer B)** en la DPSRAM (para modo Ping-Pong)
+*   **`DMA0PAD`:** 
+    *   Dirección del registro de datos del **periférico** origen/destino (ej: `&ADC1BUF0`)
+*   **`DMA0CNT`:** 
+    *   Número de transferencias antes de considerar el bloque completo
+    *   Fórmula: `DMA0CNT + 1` = cantidad de elementos a transferir
 
 ### 2.5 Bits Clave de `DMA0CON` (Detalle y Sintaxis C)
 
