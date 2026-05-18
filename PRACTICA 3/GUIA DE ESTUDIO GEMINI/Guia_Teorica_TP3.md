@@ -333,6 +333,38 @@ Para que el ejercicio del brazo robot (ADC-DMA) funcione, debés asociar tres re
 
 ---
 
+## 6. Anexo Técnico: Funcionamiento Detallado del Modo Ping-Pong
+
+El modo **Ping-Pong** es una de las funciones más potentes del controlador DMA del dsPIC33F, ya que implementa lo que técnicamente se conoce como **doble buffering** por hardware.
+
+A continuación, se detalla cómo funciona y por qué es tan importante para el rendimiento del microcontrolador:
+
+### 6.1 ¿Qué es el modo Ping-Pong?
+Físicamente, este modo permite que un solo canal de DMA alterne automáticamente entre **dos direcciones de inicio diferentes** en la memoria RAM cada vez que completa la transferencia de un bloque de datos. Estas dos direcciones apuntan a dos buffers distintos:
+*   **Buffer A (Primario):** Definido por el registro **`DMAxSTA`**.
+*   **Buffer B (Secundario):** Definido por el registro **`DMAxSTB`**.
+
+### 6.2 El beneficio clave: Procesamiento en paralelo
+La gran ventaja de este modo es que elimina el tiempo de espera de la CPU. Funciona de la siguiente manera:
+1.  Mientras el **DMA llena el Buffer A** con datos (por ejemplo, del ADC), la **CPU procesa los datos que ya están en el Buffer B**.
+2.  Cuando el DMA termina de llenar el Buffer A, genera una interrupción y **salta automáticamente al Buffer B** para empezar a llenarlo.
+3.  En ese momento, la CPU deja de usar el Buffer B y empieza a procesar el Buffer A, que acaba de completarse.
+
+Este "baile" permite que el flujo de datos no se detenga nunca, lo cual es vital en aplicaciones de audio o procesamiento de señales en tiempo real.
+
+### 6.3 Configuración y Monitoreo
+Para que este modo funcione, debes configurar los siguientes registros:
+*   **`DMAxCON` (bits `MODE<1:0>`):** Debes poner estos bits en **`10`** (Continuo con Ping-Pong habilitado) o **`11`** (One-Shot con Ping-Pong habilitado).
+*   **`DMACS1` (bits `PPSTx`):** Como programador, podés consultar este registro de estado para saber cuál de los dos buffers (`STA` o `STB`) está utilizando el DMA en ese preciso instante.
+
+### 6.4 Consideración de memoria
+Es importante notar que el uso del modo Ping-Pong **duplica la cantidad de memoria RAM** necesaria para ese canal de DMA, ya que ahora requerís espacio para dos bloques de datos en lugar de uno solo.
+
+> [!NOTE]
+> **En resumen:** El modo Ping-Pong permite que el hardware se encargue de la logística de mover datos a dos "cajones" diferentes de forma alternada, asegurando que la CPU siempre tenga datos listos para procesar en un cajón mientras el DMA llena el otro.
+
+---
+
 ## 📚 ¿Dónde ampliar el tema en tus fuentes oficiales?
 
 1.  **Configuración y Registros del ADC:**
@@ -342,4 +374,5 @@ Para que el ejercicio del brazo robot (ADC-DMA) funcione, debés asociar tres re
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Sección 22.5 (Configuración) y Sección 22.6 (Modos de operación).
 3.  **Tabla de Asociación DMA-Periférico:**
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Tabla 22-1, que lista los valores de `IRQSEL` y `PAD` para cada periférico.
+
 
