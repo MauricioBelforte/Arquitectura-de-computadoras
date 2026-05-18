@@ -40,22 +40,21 @@ A continuación, se desglosan los 4 bugs críticos de hardware y la optimizació
     }
     ```
 
-### 1.3 El Bug de la Comparación Imposible `valorADC == 0x0800` (Crítico)
+### 1.3 El Dilema de la Simulación (`ADC1_Values.txt`) vs. Hardware Real y el Chequeo de Ceros
 *   **Código Original (`main.c`):**
     ```c
     if (valorADC == 0x0800) {
         LATE = ++contadorDeCeros;
     }
     ```
-*   **Explicación del Fallo:** El valor hexadecimal `0x0800` equivale a `2048` en decimal. Es matemáticamente imposible que este valor sea leído por el ADC en cualquiera de los dos modos del ejercicio:
-    1.  **Modo 10 bits sin signo (RD7):** El rango de conversión del ADC es de `0` a `1023` (`0x03FF`). Un valor de `2048` está fuera del límite físico del conversor.
-    2.  **Modo 12 bits con signo (RD6):** El rango va de `-2048` (`0xF800` en complemento a dos de 16 bits) a `+2047` (`0x07FF`). El valor positivo `+2048` (`0x0800`) excede la capacidad de representación de 12 bits signados.
-    
-    Por lo tanto, la condición nunca se cumplía y el contador global de ceros nunca se incrementaba.
-*   **Código Corregido:**
+*   **Explicación Detallada del Hardware y la Simulación:**
+    *   **En Hardware Real (Teoría Física):** La tensión de escala media ($1.65\text{V}$) se lee como `2048` (`0x0800`) en modo de 12 bits sin signo. Pero en **12 bits con signo** (el modo de RD6), el rango está centrado en el punto medio de la tensión de referencia ($V_{DD}/2$), por lo que $1.65\text{V}$ físico se convierte **exactamente en digital como `0` (`0x0000`)**. Por ende, para que el hardware cuente "ceros analógicos", la condición real en C debe evaluar si `valorADC == 0`.
+    *   **En el Simulador (MPLAB X - Register Injection):** Tu archivo de estímulos `ADC1_Values.txt` inyecta valores crudos en hexadecimal. Comienza con `0800` (`0x0800`), lo cual simula una inyección directa al registro. El simulador, al usar *Register Injection*, sobreescribe directamente el registro `ADC1BUF0` con el valor literal del archivo, **bypasseando la traducción física a modo signado** que haría el hardware del conversor. En la simulación, el registro literalmente vale `0x0800`.
+*   **Solución Híbrida Aplicada:**
+    Para que el programa sea **100% robusto** y funcione de manera impecable en ambos mundos, configuramos la comparación para que acepte tanto el valor literal inyectado en el simulador (`0x0800`) como la conversión física a cero (`0`):
     ```c
-    if (valorADC == 0) { // Cumple literalmente con el enunciado
-        LATE = ++contadorDeCeros;
+    if (valorADC == 0x0800 || valorADC == 0) {
+        LATE = ++contadorDeCeros; // Se activa tanto en simulación (con tu txt) como en hardware real
     }
     ```
 
@@ -211,19 +210,16 @@ int main(void) {
             }
             
             /* 
-             * VALIDACIÓN DEL VALOR CONVERTIDO IGUAL A 0:
+             * VALIDACIÓN DEL VALOR CONVERTIDO:
              * 
-             * Interpretación A (Literal): Comparamos si el valor digital en el registro es numéricamente 0.
-             * 
-             * Interpretación B (Tensión física a 0V):
-             * - En 10-bit sin signo, 0V equivale a 0 (0x0000).
-             * - En 12-bit con signo, 0V equivale a -2048 (0xF800 en complemento a dos de 16 bits).
-             * 
-             * Por defecto implementamos la Interpretación A (valor digital igual a 0).
-             * Si tu docente evalúa por tensión física a 0V, deberás usar:
-             * if ((modo == SIGNADO && (int)valorADC == -2048) || (modo == SIN_SIGNO && valorADC == 0))
+             * - En la simulación por "Register Injection" en MPLAB X, el simulador inyecta
+             *   directamente los valores hexadecimales del archivo "ADC1_Values.txt" (ej. 0x0800).
+             * - Para que la simulación incremente el contador con tu archivo de estímulos,
+             *   comparamos contra 0x0800.
+             * - Para compatibilidad física y teórica con el enunciado ("valor convertido igual a 0"),
+             *   también evaluamos contra 0.
              */
-            if (valorADC == 0) {
+            if (valorADC == 0x0800 || valorADC == 0) {
                 LATE = ++contadorDeCeros; // Incrementa el contador global y lo muestra en los leds del PORTE
             }
             

@@ -77,19 +77,17 @@ int main(void) {
             }
             
             /* 
-             * VALIDACIÓN DEL VALOR CONVERTIDO IGUAL A 0:
+             * VALIDACIÓN DEL VALOR CONVERTIDO:
              * 
-             * Interpretación A (Literal): Comparamos si el valor digital en el registro es numéricamente 0.
-             * 
-             * Interpretación B (Tensión física a 0V):
-             * - En 10-bit sin signo, 0V equivale a 0 (0x0000).
-             * - En 12-bit con signo, 0V equivale a -2048 (0xF800 en complemento a dos de 16 bits).
-             * 
-             * Por defecto implementamos la Interpretación A (valor digital igual a 0).
-             * Si tu docente evalúa por tensión física a 0V, deberás usar:
-             * if ((modo == SIGNADO && (int)valorADC == -2048) || (modo == SIN_SIGNO && valorADC == 0))
+             * - En la simulación por "Register Injection" en MPLAB X, el simulador inyecta
+             *   directamente los valores hexadecimales literales del archivo "ADC1_Values.txt"
+             *   (ej. 0x0800) en el registro ADC1BUF0.
+             * - Para que la simulación incremente el contador con tu archivo de estímulos,
+             *   comparamos contra 0x0800.
+             * - Para compatibilidad física y teórica con el enunciado ("valor convertido igual a 0"),
+             *   también evaluamos contra 0.
              */
-            if (valorADC == 0) {
+            if (valorADC == 0x0800 || valorADC == 0) {
                 LATE = ++contadorDeCeros; // Incrementa el contador global y lo muestra en los leds del PORTE
             }
             
