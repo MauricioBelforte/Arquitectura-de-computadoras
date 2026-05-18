@@ -299,6 +299,40 @@ Es un mecanismo clave para procesamiento continuo de datos:
 
 ---
 
+## 5. Anexo Técnico: Funcionamiento Detallado del Registro `DMAxPAD`
+
+El registro **`DMAxPAD`** (DMA Channel x Peripheral Address Register) es fundamental para el funcionamiento del módulo de Acceso Directo a Memoria, ya que actúa como el "puente" que conecta un canal de DMA con un periférico específico.
+
+A continuación, se detalla qué información maneja este registro y por qué es vital para el **ADC1**:
+
+### 5.1 ¿Qué es físicamente el `DMAxPAD`?
+Este registro contiene la **dirección estática del registro de datos del periférico** con el que el DMA va a intercambiar información. 
+*   **En una lectura (ADC -> RAM):** El DMA usa la dirección en `DMAxPAD` para saber de dónde "sacar" el dato convertido.
+*   **En una escritura (RAM -> UART/DAC):** El DMA usa esa dirección para saber dónde "depositar" el dato que trae de la memoria.
+
+### 5.2 La relación específica con el ADC1
+Para que el DMA pueda automatizar la captura de datos del conversor analógico-digital, debe apuntar al registro donde el conversor deja sus resultados:
+*   **El Registro Buffer:** Para el ADC1, este registro es el **`ADC1BUF0`**.
+*   **La Dirección Física:** Según el mapa de registros del dsPIC33F, la dirección hexadecimal de `ADC1BUF0` es **`0x0300`**.
+*   **Sintaxis en C:** En la programación real, es más seguro y legible usar el operador de dirección: 
+    ```c
+    DMAxPAD = (int)&ADC1BUF0;
+    ```
+
+### 5.3 ¿Por qué es una dirección "estática"?
+A diferencia de las direcciones en la RAM (donde el DMA va saltando de posición en posición usando los registros `DMAxSTA` y `DMAxSTB`), la dirección del periférico en el `DMAxPAD` **no cambia** durante la transferencia de un bloque. El DMA siempre vuelve al mismo "buzón" (`ADC1BUF0`) para recoger cada nueva muestra que el ADC termina de procesar.
+
+### 5.4 Resumen de configuración para el TP3 (ADC + DMA)
+Para que el ejercicio del brazo robot (ADC-DMA) funcione, debés asociar tres registros clave:
+1.  **`DMAxREQ`:** Se carga con el valor **13** para que el DMA sepa que debe actuar cada vez que el **ADC1** termine una conversión.
+2.  **`DMAxPAD`:** Se carga con **`&ADC1BUF0`** (o `0x0300`) para que el DMA sepa de dónde leer el dato.
+3.  **`DMAxSTA / STB`:** Se cargan con la dirección del **arreglo en RAM** donde querés guardar los valores (ej. el buffer de 6 posiciones del brazo robot).
+
+> [!TIP]
+> **Dato técnico adicional:** Si por error configurás el `DMAxPAD` con una dirección que no corresponde a un periférico válido para DMA, el controlador simplemente ignorará las escrituras o leerá ceros, lo que causaría que tu programa no reciba ningún dato del ADC.
+
+---
+
 ## 📚 ¿Dónde ampliar el tema en tus fuentes oficiales?
 
 1.  **Configuración y Registros del ADC:**
@@ -308,3 +342,4 @@ Es un mecanismo clave para procesamiento continuo de datos:
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Sección 22.5 (Configuración) y Sección 22.6 (Modos de operación).
 3.  **Tabla de Asociación DMA-Periférico:**
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Tabla 22-1, que lista los valores de `IRQSEL` y `PAD` para cada periférico.
+
