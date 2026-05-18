@@ -123,7 +123,32 @@ El **tiempo total de conversión** = Tiempo de Muestreo + Tiempo de Conversión.
 *   **`DONE`** (bit 0): Bandera de estado manejada por el hardware.
     *   `while(!AD1CON1bits.DONE);` → Bucle de "Polling". El programa se traba en esta línea esperando hasta que el hardware reemplace el `0` por un `1` (indicando que la conversión terminó y puedes leer el `ADC1BUF0`).
 
-### 1.6 Pasos para Configurar una Conversión ADC
+### 1.6 Bits Clave de `AD1CHS0` (Detalle y Sintaxis C)
+
+*   **`CH0SA<4:0>`** (bits 12-8): Selección de Entrada Positiva del Canal 0 (multiplexor).
+    *   `AD1CHS0bits.CH0SA = 0;` // `00000` = Conecta el pin físico AN0 como entrada positiva del CH0.
+    *   `AD1CHS0bits.CH0SA = 1;` // `00001` = Conecta el pin físico AN1 como entrada positiva del CH0.
+    *   `AD1CHS0bits.CH0SA = 2;` // `00010` = Conecta el pin físico AN2 como entrada positiva del CH0.
+    *   `AD1CHS0bits.CH0SA = 3;` // `00011` = Conecta el pin físico AN3 como entrada positiva del CH0.
+        ... (los bits del 4 al 30)
+    *   `AD1CHS0bits.CH0SA = 31;` // `11111` = Conecta el pin físico AN31 como entrada positiva del CH0.
+*   **`CH0NA`** (bit 0): Selección de Entrada Negativa del Canal 0.
+    *   `AD1CHS0bits.CH0NA = 0;` → Conecta la entrada negativa del CH0 al pin de referencia negativo (`VREF-` o `AVSS`). *Es lo normal.*
+    *   `AD1CHS0bits.CH0NA = 1;` → Conecta la entrada negativa del CH0 a la entrada analógica `AN1`. *Útil para mediciones diferenciales.*
+
+### 1.7 Bits Clave de `AD1PCFGL` (Detalle y Sintaxis C)
+
+*   **`PCFG0`** (bit 0 de `AD1PCFGL`): Configuración de Pin Analógico o Digital para AN0.
+    *   `AD1PCFGLbits.PCFG0 = 1;` → Configura el pin AN0 como **Digital**.
+    *   `AD1PCFGLbits.PCFG0 = 0;` → Configura el pin AN0 como **Analógico** (ADC).
+*   **`PCFG1`** (bit 1 de `AD1PCFGL`): Configuración de Pin Analógico o Digital para AN1.
+*   **`PCFG2`** (bit 2 de `AD1PCFGL`): Configuración de Pin Analógico o Digital para AN2.
+*   **`PCFG3`** (bit 3 de `AD1PCFGL`): Configuración de Pin Analógico o Digital para AN3.
+    ... (los bits del 4 al 14)
+*   **`PCFG15`** (bit 15 de `AD1PCFGL`): Configuración de Pin Analógico o Digital para AN15.
+    *   *Nota masiva:* `AD1PCFGL = 0xFFFF;` vuelve a los 16 pines del registro 100% digitales. Si vas a medir en AN0, AN1 y AN2, puedes escribir `AD1PCFGL = 0xFFF8;` (bits 0, 1 y 2 en 0, resto en 1).
+
+### 1.8 Pasos para Configurar una Conversión ADC
 Según el manual de referencia (Sección 16.4), la secuencia de configuración es:
 
 1.  Seleccionar modo 10 o 12 bits (`AD12B`).
@@ -137,7 +162,7 @@ Según el manual de referencia (Sección 16.4), la secuencia de configuración e
 9.  Seleccionar el formato de datos de salida (`FORM`).
 10. Encender el módulo (`ADON = 1`).
 
-### 1.7 Detección del Fin de Conversión
+### 1.9 Detección del Fin de Conversión
 Existen tres métodos para saber que la conversión terminó:
 
 1.  **Polling:** Consultar en un bucle el bit `DONE` de `AD1CON1`. Es el método más simple.
