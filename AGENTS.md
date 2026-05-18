@@ -71,6 +71,15 @@ Para garantizar la continuidad entre sesiones, el Agente debe seguir este orden 
 - **Prioridad Incremental:** Queda estrictamente prohibido realizar resúmenes o recortes de contenido técnico (tablas, diagramas, explicaciones de bajo nivel) a menos que el usuario lo solicite explícitamente. Ante la duda, el Agente debe **agregar contenido** (detallar más) en lugar de borrar o simplificar para "limpiar" el archivo.
 - **Integridad de la "Memoria Técnica":** Los detalles de direcciones físicas, aritmética de punteros y mapas de memoria son activos críticos. No se deben resumir bajo ninguna circunstancia estética si eso implica perder precisión técnica.
 
+## 10. Protocolo de Generación de Cuestionarios Simulacros
+- **Lectura Obligatoria de la Plantilla:** Cuando el usuario solicite la creación de un nuevo simulacro de cuestionario (por ejemplo, el Cuestionario N° 4), el Agente **DEBE leer previamente** el archivo maestro de reglas y diseño en `Cuestionarios/Plantilla_Cuestionarios.md`.
+- **Estructura por Dificultad y Nomenclatura:** Deberá generar de forma obligatoria 4 archivos Markdown independientes, guardados dentro de la carpeta `Simulacro Gemini/` del cuestionario en cuestión. Para garantizar el orden alfabético correcto en el explorador de archivos, se deben nombrar anteponiendo números según su nivel de dificultad física:
+    - `1 - Cuestionario X - Facil.md`
+    - `2 - Cuestionario X - Medio.md`
+    - `3 - Cuestionario X - Avanzado.md`
+    - `4 - Cuestionario X - Super.md`
+- **Diseño de Evaluación Práctica:** Cada archivo debe contar con 10 preguntas de opción múltiple (con opciones de la A a la D). En la primera parte, las preguntas se deben mostrar con casillas vacías `* [ ]` para permitir la práctica interactiva. La clave de respuestas y sus explicaciones de bajo nivel y hardware deben colocarse estrictamente al final, separadas del cuestionario por un doble divisor horizontal (`---` seguido de otro `---`).
+
 ---
 
 ## Índice de Herramientas de Python 🛠️
