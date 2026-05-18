@@ -365,6 +365,32 @@ Es importante notar que el uso del modo Ping-Pong **duplica la cantidad de memor
 
 ---
 
+## 7. Anexo Técnico: Canales de Entrada Analógica (ANx) vs. Canales de Muestreo S/H
+
+La diferencia entre los **pines de entrada analógica externos** y el **hardware interno** del conversor es una de las mayores fuentes de confusión al estudiar la arquitectura de microcontroladores. 
+
+A continuación se detalla por qué el límite de muestreo simultáneo en el dsPIC33F es de **4 canales** y no de 32:
+
+### 7.1 Pines de entrada (ANx) vs. Canales de Muestreo (S/H)
+*   **Los 32 canales (AN0 a AN31):** Este número se refiere a la cantidad total de **pines físicos externos** en el chip que están multiplexados con el ADC y pueden recibir una señal analógica de tensión. Son las "puertas de entrada" al microcontrolador.
+*   **Los 4 canales Sample & Hold (S/H):** Estos son **circuitos analógicos internos** (amplificadores con capacitores de retención) encargados de capturar el voltaje analógico del pin seleccionado y mantenerlo estable de forma física mientras el circuito SAR realiza la conversión digital bit a bit.
+
+### 7.2 ¿Por qué el límite es 4?
+Físicamente, el módulo ADC1 del dsPIC33F solo cuenta con **4 amplificadores S/H internos**, denominados **CH0, CH1, CH2 y CH3**.
+
+Aunque tengas hasta 32 pines externos disponibles para conectar sensores, el hardware interno solo puede "agarrar" y mantener el voltaje de **un máximo de 4 señales al mismo tiempo** (muestreo simultáneo). 
+*   *Analogía:* Es como tener un edificio con 32 puertas externas (pines analógicos), pero solo 4 recepcionistas adentro (amplificadores S/H) con capacidad de recibir paquetes simultáneamente.
+
+### 7.3 Diferencia según la resolución del ADC
+La cantidad de canales S/H disponibles cambia radicalmente dependiendo de cómo configures la resolución del ADC mediante el bit `AD12B`:
+*   **Modo 10 bits (`AD12B = 0`):** Permite usar hasta **4 canales S/H** (`CH0`, `CH1`, `CH2`, `CH3`) de forma simultánea o alternada. Esta es la configuración que permite el muestreo multicanal de alta velocidad.
+*   **Modo 12 bits (`AD12B = 1`):** En este modo, el hardware desconecta la red multiplexora interna y se limita a usar solamente **1 canal S/H** (el canal principal `CH0`). Por ende, en 12 bits no se permite el muestreo simultáneo de múltiples señales.
+
+> [!WARNING]
+> **En resumen:** La cantidad de entradas analógicas posibles está limitada únicamente por la distribución física de pines del chip (hasta 32 en encapsulados grandes), pero la capacidad de **muestreo simultáneo** está estrictamente acotada por los **4 amplificadores S/H internos** que posee el módulo conversor.
+
+---
+
 ## 📚 ¿Dónde ampliar el tema en tus fuentes oficiales?
 
 1.  **Configuración y Registros del ADC:**
@@ -374,5 +400,6 @@ Es importante notar que el uso del modo Ping-Pong **duplica la cantidad de memor
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Sección 22.5 (Configuración) y Sección 22.6 (Modos de operación).
 3.  **Tabla de Asociación DMA-Periférico:**
     *   **`DsPIC33 - DMA -DS70182b_es.md`**: Tabla 22-1, que lista los valores de `IRQSEL` y `PAD` para cada periférico.
+
 
 
